@@ -12,7 +12,7 @@ const ProfileSchema = new mongoose.Schema({
     type: String
   },
   inspirations: {
-    type: String
+    type: [String]
   },
   location: {
     type: String
