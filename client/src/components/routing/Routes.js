@@ -6,7 +6,8 @@ import Login from '../auth/Login';
 import Alert from '../layout/Alert';
 import Dashboard from '../dashboard/Dashboard';
 import ProfileForm from '../profile-forms/ProfileForm';
-import AddDietProfile from '../profile-forms/AddDietProfile';
+import DietProfileForm from '../profile-forms/DietProfileForm';
+
 import Profile from '../profile/Profile';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
@@ -23,7 +24,8 @@ const Routes = props => {
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute exact path="/create-profile" component={ProfileForm} />
         <PrivateRoute exact path="/edit-profile" component={ProfileForm} />
-        <PrivateRoute exact path="/add-diet-profile" component={AddDietProfile} />
+        <PrivateRoute exact path="/add-diet-profile" component={DietProfileForm} />
+        <PrivateRoute exact path="/edit-diet-profile" component={DietProfileForm} />
         <Route component={NotFound} />
       </Switch>
     </section>

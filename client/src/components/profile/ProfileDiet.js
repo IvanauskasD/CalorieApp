@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import formatDate from '../../utils/formatDate';
 
 const ProfileDiet = ({
-  dietProfile: { currentWeight, height, goalWeight, gender, dateOfBirth, workoutWeek, workoutDay, goal }
+  dietprofile: { currentWeight, height, goalWeight, gender, dateOfBirth, workoutWeek, workoutDay, goal }
 }) => (
   <div>
     <h3 className="text-dark">{currentWeight}</h3>
@@ -32,7 +31,7 @@ const ProfileDiet = ({
 );
 
 ProfileDiet.propTypes = {
-    dietProfile: PropTypes.object.isRequired
+    dietprofile: PropTypes.object.isRequired
 };
 
 export default ProfileDiet;

@@ -61,7 +61,6 @@ const ProfileForm = ({
     e.preventDefault();
     createProfile(formData, history, profile ? true : false);
   };
-
   return (
     <Fragment>
       <h1 className="large text-primary">Edit Your Profile</h1>

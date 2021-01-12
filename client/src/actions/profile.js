@@ -5,7 +5,6 @@ import {
   GET_PROFILE,
   GET_PROFILES,
   PROFILE_ERROR,
-  UPDATE_PROFILE,
   CLEAR_PROFILE,
   ACCOUNT_DELETED
 } from './types';
@@ -26,6 +25,24 @@ export const getCurrentProfile = () => async (dispatch) => {
       });
     }
   };
+
+// Get current users diet profile
+export const getCurrentDietProfile = () => async (dispatch) => {
+  try {
+    const res = await api.get('/profile/mediet');
+
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
 
 // Get all profiles
 export const getProfiles = () => async (dispatch) => {
@@ -87,52 +104,6 @@ export const createProfile = (formData, history, edit = false) => async (
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
 
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-// Add Diet Profile
-export const addDietProfile = (formData, history) => async (dispatch) => {
-  try {
-    const res = await api.put('/profile/dietProfile', formData);
-
-    dispatch({
-      type: UPDATE_PROFILE,
-      payload: res.data
-    });
-
-    dispatch(setAlert('Diet Profile Added', 'success'));
-
-    history.push('/dashboard');
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status }
-    });
-  }
-};
-
-// Delete Diet Profile
-export const deleteDietProfile = (id) => async (dispatch) => {
-  try {
-    const res = await api.delete(`/profile/dietProfile/${id}`);
-
-    dispatch({
-      type: UPDATE_PROFILE,
-      payload: res.data
-    });
-
-    dispatch(setAlert('Diet Profile Removed', 'success'));
-  } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status }

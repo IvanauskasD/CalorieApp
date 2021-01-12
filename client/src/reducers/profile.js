@@ -8,6 +8,7 @@ import {
   
   const initialState = {
     profile: null,
+    dietprofile: null,
     loading: true,
     error: {}
   };
