@@ -7,9 +7,6 @@ const DashboardExistingProfile = () => {
         <Link to='/edit-profile' className='btn btn-light'>
           <i className='fas fa-user-circle text-primary' /> Edit Profile
         </Link>
-        <Link to='/edit-diet-profile' className='btn btn-light'>
-        <i className='fab fa-black-tie text-primary' /> Edit Diet Profile
-      </Link>
       </div>
     );
   };

@@ -12,12 +12,11 @@ const DietProfile = require('../../models/DietProfile');
 // @route    GET api/dietprofile/me
 // @desc     Get current users diet profile
 // @access   Private
-router.get('/me', auth, async (req, res) => {
+router.get('/me', async (req, res) => {
     try {
         const dietprofile = await DietProfile.findOne({
             profile: req.profile
         }).populate('profile');
-
         if (!dietprofile) {
             return res.status(400).json({ msg: 'There is no diet profile for this user' });
         }
