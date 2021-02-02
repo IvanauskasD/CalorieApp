@@ -34,6 +34,7 @@ const Dashboard = ({
             <DashboardExistingProfile />
            )}
             
+          <Link to='/create-food' className='btn btn-light'>Create food</Link>
 
           <div className="my-2">
             <button className="btn btn-danger" onClick={() => deleteAccount()}>
