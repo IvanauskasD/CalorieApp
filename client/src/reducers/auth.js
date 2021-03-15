@@ -4,7 +4,6 @@ import {
     USER_LOADED,
     AUTH_ERROR,
     LOGIN_SUCCESS,
-    //LOGIN_FAIL,
     LOGOUT,
     ACCOUNT_DELETED
   } from '../actions/types';

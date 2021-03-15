@@ -1,54 +1,39 @@
 const mongoose = require('mongoose');
 
 const FoodSchema = new mongoose.Schema({
-  name: {
-    type: String
-  },
-  servingSize: {
-    type: Number
-  },
-  calories: {
-    type: Number
-  },
-//   totalFat: {
-//     type: Number
-//   },
-//   saturatedFat: {
-//     type: Number
-//   },
-//   cholesterol: {
-//     type: Number
-//   },
-//   sodium: {
-//     type: Number
-//   },
-//   totalCarbs: {
-//     type: Number
-//   },
-//   sugars: {
-//     type: Number
-//   },
-//   dietaryFiber: {
-//     type: Number
-//   },
-//   protein: {
-//     type: Number
-//   },
-//   salt: {
-//     type: Number
-//   },
-//   vitaminA: {
-//     type: Number
-//   },
-//   vitaminC: {
-//     type: Number
-//   },
-//   calcium: {
-//     type: Number
-//   },
-//   iron: {
-//     type: Number
-//   },
+    name: {
+        type: String,
+        required: true
+    },
+    calories: {
+        type: Number,
+        required: true
+    },
+    protein: {
+        type: Number,
+        required: true
+    },
+    carbs: {
+        type: Number,
+        required: true
+    },
+    fat: {
+        type: Number,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: new Date()
+    }
 });
 
-module.exports = mongoose.model('food', FoodSchema);
+const Food = module.exports = mongoose.model('Food', FoodSchema);
+
+module.exports.getFoodByName = (foodName, callback) => {
+    const query = { name: foodName };
+    Food.findOne(query, callback);
+};
+
+module.exports.createFood = (food, callback) => {
+    food.save(callback);
+};

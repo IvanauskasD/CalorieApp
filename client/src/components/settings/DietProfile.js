@@ -20,9 +20,9 @@ const DietProfile = ({
           {currentWeight} {height && <span> at {height}</span>}
         </p>
         <p className='my-1'>{goalWeight && <span>{goalWeight}</span>}</p>
-        <Link to={`/dietprofile/${_id}`} className='btn btn-primary'>
+        {/* <Link to={`/dietprofile/${_id}`} className='btn btn-primary'>
           View Profile
-        </Link>
+        </Link> */}
       </div>
       <ul>
       </ul>

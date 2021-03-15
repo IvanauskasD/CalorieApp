@@ -7,9 +7,9 @@ import {
 } from './types';
 
 // Get diet profile by ID
-export const getDietProfileById = (profileId) => async (dispatch) => {
+export const getDietProfileById = (userId) => async (dispatch) => {
     try {
-        const res = await api.get(`/dietprofile/profile/${profileId}`);
+        const res = await api.get(`/dietprofile/profile/${userId}`);
 
         dispatch({
             type: GET_DIETPROFILE,

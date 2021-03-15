@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import ProfileMain from './ProfileMain';
+import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
-import ProfileDiet from './ProfileDiet';
 import { getProfileById } from '../../actions/profile';
 
 const Profile = ({ getProfileById, profile: { profile }, auth, match }) => {
@@ -19,9 +18,6 @@ const Profile = ({ getProfileById, profile: { profile }, auth, match }) => {
         <Spinner />
       ) : (
         <Fragment>
-          <Link to="/profiles" className="btn btn-light">
-            Back To Profiles
-          </Link>
           {auth.isAuthenticated &&
             auth.loading === false &&
             auth.user._id === profile.user._id && (
@@ -30,23 +26,8 @@ const Profile = ({ getProfileById, profile: { profile }, auth, match }) => {
               </Link>
             )}
           <div className="profile-grid my-1">
-            <ProfileMain profile={profile} />
+            <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
-            <div className="profile-exp bg-white p-2">
-              <h2 className="text-primary">Diet Profile</h2>
-              {profile.dietProfile.length > 0 ? (
-                <Fragment>
-                  {profile.dietProfile.map((dietProfile) => (
-                    <ProfileDiet
-                      key={dietProfile._id}
-                      dietProfile={dietProfile}
-                    />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No diet profile</h4>
-              )}
-            </div>
           </div>
         </Fragment>
       )}

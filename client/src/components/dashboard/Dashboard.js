@@ -7,25 +7,32 @@ import DashboardExistingProfile from './DashboardExistingProfile';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import { getCurrentDietProfile } from '../../actions/dietprofile';
 
+
 const Dashboard = ({
   getCurrentProfile,
   getCurrentDietProfile,
   deleteAccount,
   auth: { user },
   profile: { profile },
-  dietprofile: { dietprofile }
+  dietprofile: { dietprofile },
+  
 }) => {
   useEffect(() => {
     getCurrentProfile()
     getCurrentDietProfile()
-  }, [getCurrentProfile, getCurrentDietProfile]);
+  }, [getCurrentProfile, getCurrentDietProfile ]);
 
   return (
     <Fragment>
       <h1 className="large text-primary">Dashboard</h1>
-      <p className="lead">
+
+      {/* <Link to={`/profile/${user._id}`} className='btn btn-primary'>
+          View Profile
+        </Link> */}
+
+      {/* <p className="lead">
         <i className="fas fa-user" /> Welcome {user && user.name}
-      </p>
+      </p> */}
       {profile !== null ? (
         <Fragment>
            { dietprofile === null ? (
@@ -33,8 +40,10 @@ const Dashboard = ({
            ) : (
             <DashboardExistingProfile />
            )}
+
             
           <Link to='/create-food' className='btn btn-light'>Create food</Link>
+          <Link to='/add-food' className='btn btn-light'>Add food</Link>
 
           <div className="my-2">
             <button className="btn btn-danger" onClick={() => deleteAccount()}>
@@ -50,6 +59,8 @@ const Dashboard = ({
           </Link>
           </Fragment>
         )}
+
+
     </Fragment>
   );
 };
@@ -60,15 +71,17 @@ Dashboard.propTypes = {
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  dietprofile: PropTypes.object.isRequired
+  dietprofile: PropTypes.object.isRequired,
+  food: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
-  dietprofile: state.dietprofile
+  dietprofile: state.dietprofile,
+  food: state.food
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, getCurrentDietProfile, deleteAccount })(
+export default connect(mapStateToProps, {getCurrentProfile, getCurrentDietProfile, deleteAccount })(
   Dashboard
 );

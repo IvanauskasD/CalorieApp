@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
 const DietProfileSchema = new mongoose.Schema({
-    profile: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'profile'
+        ref: 'user'
     },
     currentWeight: {
+        type: Number,
+        required: true
+    },
+    age: {
         type: Number,
         required: true
     },
@@ -31,9 +35,16 @@ const DietProfileSchema = new mongoose.Schema({
     workoutDay: {
         type: Number
     },
-    goal: {
-        type: String
-    }
+    bmr :{
+        type: Number,
+    },
+    workoutIntensity: {
+        type: Number,
+        required: true
+    },
+    calculatedGoal: {
+        type: Number
+    },
 })
 
 module.exports = mongoose.model('dietprofile', DietProfileSchema);

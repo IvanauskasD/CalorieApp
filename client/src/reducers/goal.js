@@ -1,41 +1,35 @@
 import {
-    GET_FOOD,
-    UPDATE_FOOD,
-    FOOD_ERROR
+    GET_GOAL,
+    ERROR_GOAL
 } from '../actions/types';
 
+
 const initialState = {
-    food: null,
+    goal: null,
     loading: true,
     error: {}
 };
 
-function foodReducer(state = initialState, action) {
+function goalReducer(state = initialState, action) {
     const { type, payload } = action;
-
     switch (type) {
-        case GET_FOOD:
-            //   case UPDATE_FOOD:
+        case GET_GOAL:
             return {
                 ...state,
-                food: payload,
+                goal: payload,
                 loading: false
             };
-        case FOOD_ERROR:
+        case ERROR_GOAL:
             return {
                 ...state,
                 error: payload,
                 loading: false,
-                profile: null
+                goal: null
             };
-        // case CLEAR_PROFILE:
-        //     return {
-        //         ...state,
-        //         profile: null
-        //     };
         default:
             return state;
     }
+
 }
 
-export default foodReducer;
+export default goalReducer;

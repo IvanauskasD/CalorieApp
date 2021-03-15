@@ -13,6 +13,7 @@ import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 import DietProfile from '../settings/DietProfile'
 import Food from '../food-forms/FoodForm'
+import Goal from '../goals/GoalForm'
 
 const Routes = props => {
   return (
@@ -30,7 +31,7 @@ const Routes = props => {
         <PrivateRoute exact path="/settings" component={SettingsMain} />
         <PrivateRoute exact path="/view-diet-profile" component={DietProfileForm} />
         <PrivateRoute exact path="/create-food" component={Food} />
-
+        <PrivateRoute exact path="/set-goal" component={Goal} />
         <Route component={NotFound} />
       </Switch>
     </section>

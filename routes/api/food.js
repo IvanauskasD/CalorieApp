@@ -75,39 +75,61 @@ const Food = require('../../models/Food');
 // );
 
 router.post(
-    '/',
-    async (req, res) => {
-      const errors = validationResult(req)
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() })
-      }
-  
-      // destructure the request
-      const {
-          name,
-        ...rest
-      } = req.body;
-  
-      // build a profile
-      const foodFields = {
-        name,
-        ...rest
-      };
-  
-      try {
-        // Using upsert option (it creates new doc if no match is found)
-        let food = await Food.findOneAndUpdate(
-          { name },
-          { $set: foodFields },
-          { new: true, upsert: true, setDefaultsOnInsert: true }
-        )
-        return res.json(food)
-  
-      } catch (err) {
-        console.error(err.message)
-        return res.status(500).send('Server Error')
-      }
+  '/',
+  async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
     }
-  );
+
+    // destructure the request
+    const {
+      name,
+      ...rest
+    } = req.body;
+
+    // build a profile
+    const foodFields = {
+      name,
+      ...rest
+    };
+
+    try {
+      // Using upsert option (it creates new doc if no match is found)
+      let food = await Food.findOneAndUpdate(
+        { name },
+        { $set: foodFields },
+        { new: true, upsert: true, setDefaultsOnInsert: true }
+      )
+      return res.json(food)
+
+    } catch (err) {
+      console.error(err.message)
+      return res.status(500).send('Server Error')
+    }
+  }
+);
+
+router.get(
+  '/search-food',
+  async (req, res) => {
+
+    const searchedField = req.query.name
+    Food.find({name: {$regex: searchedField, $options: '$i'}})
+    .then(data=>{
+      res.send(data)
+    })
+  }
+)
+
+router.get('/', async (req, res) => {
+  try {
+    const foods = await Food.find();
+    res.json(foods);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;

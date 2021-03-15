@@ -19,5 +19,13 @@ export const DIETPROFILE_ERROR = 'DIETPROFILE_ERROR'
 export const CLEAR_DIETPROFILE = 'CLEAR_DIETPROFILE'
 
 export const GET_FOOD = "GET_FOOD"
+export const GET_FOODS = "GET_FOODS"
 export const UPDATE_FOOD = "UPDATE_FOOD"
 export const FOOD_ERROR = "FOOD_ERROR" 
+export const CLEAR_FOOD = "CLEAR_FOOD" 
+export const ADD_FOOD = "ADD_FOOD"
+
+export const GET_GOAL = "GET_GOAL"
+export const ADD_GOAL = "ADD_GOAL"
+export const UPDATE_GOAL = "UPDATE_GOAL"
+export const ERROR_GOAL = "ERROR_GOAL"

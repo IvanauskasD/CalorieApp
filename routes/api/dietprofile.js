@@ -7,16 +7,16 @@ const normalize = require('normalize-url');
 
 const Profile = require('../../models/Profile');
 const DietProfile = require('../../models/DietProfile');
-
+const User = require('../../models/User');
 
 // @route    GET api/dietprofile/me
 // @desc     Get current users diet profile
 // @access   Private
-router.get('/me', async (req, res) => {
+router.get('/me', auth, async (req, res) => {
     try {
         const dietprofile = await DietProfile.findOne({
-            profile: req.profile
-        }).populate('profile');
+            user: req.user.id
+        }).populate('user');
         if (!dietprofile) {
             return res.status(400).json({ msg: 'There is no diet profile for this user' });
         }
@@ -33,6 +33,7 @@ router.get('/me', async (req, res) => {
 // @access   Private
 router.post(
     '/',
+    auth,
     async (req, res) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
@@ -41,20 +42,33 @@ router.post(
 
         // destructure the request
         const {
+            // currentWeight,
+            // height,
+            // age,
+            // gender,
+            // bmr,
+            // workoutIntensity,
             // spread the rest of the fields we don't need to check
             ...rest
-        } = req.body;
+        } = req.body
 
         // build a profile
         const dietProfileFields = {
-            profile: req.profile,
+            user: req.user.id,
             ...rest
         };
+
+        if(dietProfileFields.gender === 'Male') {
+            dietProfileFields.bmr = (10 * dietProfileFields.currentWeight) + (6.25 * 
+            dietProfileFields.height) - (5 * 23) + 5 
+    
+            dietProfileFields.calculatedGoal = dietProfileFields.bmr * dietProfileFields.workoutIntensity
+            }
 
         try {
             // Using upsert option (it creates new doc if no match is found)
             let dietprofile = await DietProfile.findOneAndUpdate(
-                { profile: req.profile },
+                { user: req.user.id },
                 { $set: dietProfileFields },
                 { new: true, upsert: true, setDefaultsOnInsert: true }
             )
@@ -68,16 +82,16 @@ router.post(
 );
 
 
-// @route    GET api/dietprofile/profile/:profile_id
-// @desc     Get  diet profile by user profile ID
+// @route    GET api/dietprofile/profile/:user_id
+// @desc     Get  diet profile by user ID
 // @access   Public
 router.get(
-    '/profile/:profile_id',
-    checkObjectId('profile_id'),
-    async ({ params: { profile_id } }, res) => {
+    '/profile/:user_id',
+    checkObjectId('user_id'),
+    async ({ params: { user_id } }, res) => {
         try {
             const dietprofile = await DietProfile.findOne({
-                profile: profile_id
+                user: user_id
             }).populate('profile');
             console.log(dietprofile)
             if (!dietprofile) return res.status(400).json({ msg: 'Diet Profile not found' });
