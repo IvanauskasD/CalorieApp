@@ -55,3 +55,20 @@ export const getGoalById = (dietprofile_id) => async (dispatch) => {
         });
     }
 };
+
+// Get current users diet profile
+export const getCurrentGoals = () => async (dispatch) => {
+    try {
+        const res = await api.get('/goal/me');
+
+        dispatch({
+            type: GET_GOAL,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: ERROR_GOAL,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+};

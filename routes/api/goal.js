@@ -27,11 +27,11 @@ router.post(
         //     dietprofile: req.dietprofile.id,
         //     ...rest
         // };
-
         try {
+            console.log(req.body)
             // Using upsert option (it creates new doc if no match is found)
             let setGoal = await Goal.findOneAndUpdate(
-                { dietprofile: req.dietprofile },
+                { dietprofile: req.body.dietprofile },
                 { $set: req.body },
                 { new: true, upsert: true, setDefaultsOnInsert: true }
             )
@@ -65,5 +65,24 @@ router.get(
         }
     }
 );
+
+// @route    GET api/goal/me
+// @desc     Get current goals
+// @access   Private
+router.get('/me', auth, async (req, res) => {
+    try {
+        const goal = await Goal.findOne({
+            dietprofile: req.dietprofile
+        }).populate('dietprofile');
+        if (!goal) {
+            return res.status(400).json({ msg: 'There is no diet profile for this user' });
+        }
+
+        res.json(goal);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
 
 module.exports = router;

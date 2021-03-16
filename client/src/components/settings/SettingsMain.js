@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import { getCurrentDietProfile } from '../../actions/dietprofile';
+import { getCurrentGoals } from '../../actions/goal';
 import DietProfileForm from '../profile-forms/DietProfileForm'
 import GoalForm from '../goals/GoalForm'
 
@@ -13,6 +14,7 @@ const SettingsMain = ({
   auth: { user },
   profile: { profile },
   dietprofile: { dietprofile },
+  goal: {goal}
 }) => {
 
   const [values, setValues] = useState({
@@ -76,15 +78,18 @@ const SettingsMain = ({
 SettingsMain.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   getCurrentDietProfile: PropTypes.func.isRequired,
+  getCurrentGoals: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  dietprofile: PropTypes.object.isRequired
+  dietprofile: PropTypes.object.isRequired,
+  goal: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
   auth: state.auth,
   profile: state.profile,
-  dietprofile: state.dietprofile
+  dietprofile: state.dietprofile,
+  goal: state.goal
 })
 
 export default connect(mapStateToProps, { getCurrentProfile, getCurrentDietProfile })(
