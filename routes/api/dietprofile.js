@@ -8,6 +8,7 @@ const normalize = require('normalize-url');
 const Profile = require('../../models/Profile');
 const DietProfile = require('../../models/DietProfile');
 const User = require('../../models/User');
+const Goal = require('../../models/Goal');
 
 // @route    GET api/dietprofile/me
 // @desc     Get current users diet profile
@@ -52,18 +53,25 @@ router.post(
             ...rest
         } = req.body
 
+
+
+        let goalCalculated = {}
+        
+
         // build a profile
         const dietProfileFields = {
             user: req.user.id,
             ...rest
         };
 
-        if(dietProfileFields.gender === 'Male') {
-            dietProfileFields.bmr = (10 * dietProfileFields.currentWeight) + (6.25 * 
-            dietProfileFields.height) - (5 * 23) + 5 
-    
+        if (dietProfileFields.gender === 'Male') {
+            dietProfileFields.bmr = (10 * dietProfileFields.currentWeight) + (6.25 *
+                dietProfileFields.height) - (5 * 23) + 5
+
             dietProfileFields.calculatedGoal = dietProfileFields.bmr * dietProfileFields.workoutIntensity
-            }
+            goalCalculated = { calories: dietProfileFields.calculatedGoal}
+        }
+
 
         try {
             // Using upsert option (it creates new doc if no match is found)
@@ -72,12 +80,21 @@ router.post(
                 { $set: dietProfileFields },
                 { new: true, upsert: true, setDefaultsOnInsert: true }
             )
+
+            let goal = await Goal.findOneAndUpdate(
+                { dietprofile: dietprofile.id },
+                { $set: goalCalculated },
+                { new: true, upsert: true, setDefaultsOnInsert: true }
+            )
             return res.json(dietprofile)
 
         } catch (err) {
             console.error(err.message)
             return res.status(500).send('Server Error')
         }
+
+
+
     }
 );
 

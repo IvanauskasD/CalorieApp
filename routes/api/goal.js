@@ -10,8 +10,50 @@ const DietProfile = require('../../models/DietProfile');
 const User = require('../../models/User');
 const Goal = require('../../models/Goal');
 
+// // @route    POST api/goal
+// // @desc     Create or update diet profile
+// // @access   Private
+// router.post(
+//     '/',
+//     auth,
+//     async (req, res) => {
+//         const errors = validationResult(req)
+//         if (!errors.isEmpty()) {
+//             return res.status(400).json({ errors: errors.array() })
+//         }
+
+//         // destructure the request
+//         const {
+//             calories,
+//             protein,
+//             carbs,
+//             fat,
+//             ...rest
+//         } = req.body
+
+//         // build a profile
+//         const goalFields = {
+//             dietprofile: req.body.dietprofile,
+//             ...rest
+//         };
+//         try {
+//             // Using upsert option (it creates new doc if no match is found)
+//             let setGoal = await Goal.findOneAndUpdate(
+//                 { dietprofile: req.body.dietprofile },
+//                 { $set: goalFields },
+//                 { new: true, upsert: true, setDefaultsOnInsert: true }
+//             )
+//             return res.json(setGoal)
+
+//         } catch (err) {
+//             console.error(err.message)
+//             return res.status(500).send('Server Error')
+//         }
+//     }
+// );
+
 // @route    POST api/goal
-// @desc     Create or update diet profile
+// @desc     Calculate goal
 // @access   Private
 router.post(
     '/',
@@ -22,13 +64,7 @@ router.post(
             return res.status(400).json({ errors: errors.array() })
         }
 
-        // // build a profile
-        // const newGoal = {
-        //     dietprofile: req.dietprofile.id,
-        //     ...rest
-        // };
         try {
-            console.log(req.body)
             // Using upsert option (it creates new doc if no match is found)
             let setGoal = await Goal.findOneAndUpdate(
                 { dietprofile: req.body.dietprofile },
@@ -43,6 +79,8 @@ router.post(
         }
     }
 );
+
+
 
 // @route    GET api/goal/profile/:dietprofile_id
 // @desc     Get  diet profile by user ID
@@ -70,15 +108,22 @@ router.get(
 // @desc     Get current goals
 // @access   Private
 router.get('/me', auth, async (req, res) => {
+    console.log(req.user)
     try {
-        const goal = await Goal.findOne({
-            dietprofile: req.dietprofile
-        }).populate('dietprofile');
-        if (!goal) {
-            return res.status(400).json({ msg: 'There is no diet profile for this user' });
-        }
+        Goal.find().populate('dietprofile')
+        .exec((err, goal) => {
+            if(err) {
+                return res.status(400).json({
+                    error: 'test not found'
+                })
+            }
+            res.json(goal)
+        })
+        // if (!goal) {
+        //     return res.status(400).json({ msg: 'There is no diet profile for this user' });
+        // }
 
-        res.json(goal);
+        // res.json(goal);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');

@@ -9,7 +9,8 @@ const initialState = {
     calories: '',
     protein: '',
     carbs: '',
-    fat: ''
+    fat: '',
+    dietprofile: ''
   };
 
 const GoalForm = ({
@@ -18,7 +19,7 @@ const GoalForm = ({
   history,
   getGoalById,
   getCurrentDietProfile,
-  // dietprofile: { dietprofile: _dietprofile}
+  dietprofile: { dietprofile: _dietprofile}
 }) => {
   const [formData, setFormData] = useState(initialState);
 
@@ -33,8 +34,8 @@ const GoalForm = ({
     }
   }, [loading, getGoalById, goal, getCurrentDietProfile]);
 
-  const { calories, protein, carbs, fat } = formData;
-  // formData.dietprofile = _dietprofile._id
+  const { calories, protein, carbs, fat, dietprofile } = formData;
+  formData.dietprofile = _dietprofile._id
   // console.log(formData.dietprofile)
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -43,6 +44,7 @@ const GoalForm = ({
     e.preventDefault();
     createGoal(formData, history, goal ? true : false);
   };
+
 
   return (
     <Fragment>
@@ -95,6 +97,7 @@ const GoalForm = ({
         </div>
 
         <input type="submit" className="btn btn-primary my-1" />
+
         <Link className="btn btn-light my-1" to="/dashboard">
           Go Back
             </Link>
@@ -107,13 +110,13 @@ GoalForm.propTypes = {
   createGoal: PropTypes.func.isRequired,
   getGoalById: PropTypes.func.isRequired,
   goal: PropTypes.object.isRequired,
-  // dietprofile: PropTypes.object.isRequired,
+  dietprofile: PropTypes.object.isRequired,
   getCurrentDietProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   goal: state.goal,
-  // dietprofile: state.dietprofile
+  dietprofile: state.dietprofile
 });
 
 export default connect(mapStateToProps, { createGoal, getGoalById, getCurrentDietProfile })(
