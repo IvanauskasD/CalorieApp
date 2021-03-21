@@ -9,7 +9,15 @@ const GoalSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    proteinPercent: {
+        type: Number,
+        required: true
+    },
     carbs: {
+        type: Number,
+        required: true
+    },
+    carbsPercent: {
         type: Number,
         required: true
     },
@@ -17,9 +25,9 @@ const GoalSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    date: {
-        type: Date,
-        default: new Date()
+    fatPercent: {
+        type: Number,
+        required: true
     },
     dietprofile: {
         type: mongoose.Schema.Types.ObjectId,

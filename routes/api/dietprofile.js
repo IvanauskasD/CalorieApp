@@ -64,13 +64,30 @@ router.post(
             ...rest
         };
 
+        let calcCalories;
+        let calcCarbs;
+        let calcProtein;
+        let calcFat;
+        let carbsP = 0.5;
+        let proteinP = 0.2;
+        let fatP = 0.3;
+
         if (dietProfileFields.gender === 'Male') {
             dietProfileFields.bmr = (10 * dietProfileFields.currentWeight) + (6.25 *
                 dietProfileFields.height) - (5 * 23) + 5
 
             dietProfileFields.calculatedGoal = dietProfileFields.bmr * dietProfileFields.workoutIntensity
-            goalCalculated = { calories: dietProfileFields.calculatedGoal}
+            calcCalories = dietProfileFields.calculatedGoal
+            calcCarbs = dietProfileFields.calculatedGoal / 2
+            calcCarbs = calcCarbs / 4
+
+            calcProtein = dietProfileFields.calculatedGoal * proteinP
+            calcProtein = calcProtein / 4
+
+            calcFat = dietProfileFields.calculatedGoal * fatP
+            calcFat = calcFat / 9
         }
+
 
 
         try {
@@ -81,9 +98,21 @@ router.post(
                 { new: true, upsert: true, setDefaultsOnInsert: true }
             )
 
+            const test = {
+                dietprofile: dietprofile.id,
+                calories: calcCalories,
+                carbs: calcCarbs,
+                protein: calcProtein,
+                fat: calcFat,
+                carbsPercent: carbsP,
+                proteinPercent: proteinP,
+                fatPercent: fatP,
+                ...rest
+            }
+    
             let goal = await Goal.findOneAndUpdate(
                 { dietprofile: dietprofile.id },
-                { $set: goalCalculated },
+                { $set: test },
                 { new: true, upsert: true, setDefaultsOnInsert: true }
             )
             return res.json(dietprofile)

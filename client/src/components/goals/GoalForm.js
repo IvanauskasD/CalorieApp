@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createGoal, getGoalById } from '../../actions/goal'
+import { createGoal, getCurrentGoals } from '../../actions/goal'
 import { getCurrentDietProfile } from '../../actions/dietprofile';
 
 const initialState = {
@@ -10,6 +10,9 @@ const initialState = {
     protein: '',
     carbs: '',
     fat: '',
+    proteinPercent: '',
+    carbsPercent: '',
+    fatPercent: '',
     dietprofile: ''
   };
 
@@ -17,14 +20,14 @@ const GoalForm = ({
   goal: { goal, loading },
   createGoal,
   history,
-  getGoalById,
+  getCurrentGoals,
   getCurrentDietProfile,
-  dietprofile: { dietprofile: _dietprofile}
+  dietprofile: { dietprofile: _dietprofile }
 }) => {
   const [formData, setFormData] = useState(initialState);
 
   useEffect(() => {
-    if (!goal) getGoalById();
+    if (!goal) getCurrentGoals();
     if (!loading && goal) {
       const goalData = { ...initialState };
       for (const key in goal) {
@@ -32,16 +35,17 @@ const GoalForm = ({
       }
       setFormData(goalData);
     }
-  }, [loading, getGoalById, goal, getCurrentDietProfile]);
+  }, [loading, getCurrentGoals, goal, getCurrentDietProfile]);
 
-  const { calories, protein, carbs, fat, dietprofile } = formData;
-  formData.dietprofile = _dietprofile._id
-  // console.log(formData.dietprofile)
+  let { calories, protein, carbs, fat, proteinPercent, carbsPercent, fatPercent, dietprofile } = formData;
+
+
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
+    formData.dietprofile = goal.dietprofile._id
     createGoal(formData, history, goal ? true : false);
   };
 
@@ -68,32 +72,65 @@ const GoalForm = ({
           />
         </div>
         <div className="form-group">
-          <input
+        <select
+            name="proteinPercent"
+            value={proteinPercent}
+            onChange={onChange}
+          >
+            <option value="0.15">15%</option>
+            <option value="0.2">20%</option>
+            <option value="0.25">25%</option>
+            <option value="0.3">30%</option>
+            <option value="0.35">35%</option>
+          </select>
+          {/* <input
             type="text"
             placeholder="* protein"
             name="protein"
             value={protein}
             onChange={onChange}
             required
-          />
+          /> */}
         </div>
         <div className="form-group">
-          <input
+          {/* <input
             type="text"
             placeholder="carbs"
             name="carbs"
             value={carbs}
             onChange={onChange}
-          />
+          /> */}
+                  <select
+            name="carbsPercent"
+            value={carbsPercent}
+            onChange={onChange}
+          >
+            <option value="0.4">40%</option>
+            <option value="0.45">45%</option>
+            <option value="0.5">50%</option>
+            <option value="0.55">55%</option>
+            <option value="0.6">60%</option>
+          </select>
         </div>
         <div className="form-group">
-          <input
+        <select
+            name="fatPercent"
+            value={fatPercent}
+            onChange={onChange}
+          >
+            <option value="0.15">15%</option>
+            <option value="0.2">20%</option>
+            <option value="0.25">25%</option>
+            <option value="0.3">30%</option>
+            <option value="0.35">35%</option>
+          </select>
+          {/* <input
             type="text"
             placeholder="fat"
             name="fat"
             value={fat}
             onChange={onChange}
-          />
+          /> */}
         </div>
 
         <input type="submit" className="btn btn-primary my-1" />
@@ -108,7 +145,7 @@ const GoalForm = ({
 
 GoalForm.propTypes = {
   createGoal: PropTypes.func.isRequired,
-  getGoalById: PropTypes.func.isRequired,
+  getCurrentGoals: PropTypes.func.isRequired,
   goal: PropTypes.object.isRequired,
   dietprofile: PropTypes.object.isRequired,
   getCurrentDietProfile: PropTypes.func.isRequired
@@ -119,6 +156,6 @@ const mapStateToProps = state => ({
   dietprofile: state.dietprofile
 });
 
-export default connect(mapStateToProps, { createGoal, getGoalById, getCurrentDietProfile })(
+export default connect(mapStateToProps, { createGoal, getCurrentGoals, getCurrentDietProfile })(
   GoalForm
 );

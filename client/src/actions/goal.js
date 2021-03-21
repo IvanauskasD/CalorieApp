@@ -31,12 +31,13 @@ export const createGoal = (formData, history, edit = false) => async (
         if (errors) {
             errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
         }
-    }
-
         dispatch({
             type: ERROR_GOAL,
             payload: { msg: err.response.statusText, status: err.response.status }
         });
+    }
+
+
     }
 };
 

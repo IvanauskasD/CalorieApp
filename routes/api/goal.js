@@ -64,6 +64,25 @@ router.post(
             return res.status(400).json({ errors: errors.array() })
         }
 
+        // const {
+        //     ...rest
+        // } = req.body
+
+        // const test = {
+        //     dieprofile: req.body.dietprofile,
+        //     ...rest
+        // }
+
+        // test.carbs = test.calories / 2
+        // test.carbs = test.carbs / 4
+
+        // test.protein = test.calories * test.proteinPercent
+        // test.protein = test.protein / 4
+
+        // test.fat = test.calories * test.fatPercent
+        // test.fat = test.fat / 9
+    
+
         try {
             // Using upsert option (it creates new doc if no match is found)
             let setGoal = await Goal.findOneAndUpdate(
@@ -108,17 +127,22 @@ router.get(
 // @desc     Get current goals
 // @access   Private
 router.get('/me', auth, async (req, res) => {
-    console.log(req.user)
     try {
-        Goal.find().populate('dietprofile')
-        .exec((err, goal) => {
-            if(err) {
-                return res.status(400).json({
-                    error: 'test not found'
-                })
-            }
-            res.json(goal)
-        })
+        const goal = await Goal.findOne().populate('dietprofile');
+        if (!goal) {
+            return res.status(400).json({ msg: 'There is no goals for this user' });
+        }
+
+        res.json(goal);
+        // Goal.find().populate('dietprofile')
+        // .exec((err, goal) => {
+        //     if(err) {
+        //         return res.status(400).json({
+        //             error: 'test not found'
+        //         })
+        //     }
+        //     res.json(goal)
+        // })
         // if (!goal) {
         //     return res.status(400).json({ msg: 'There is no diet profile for this user' });
         // }

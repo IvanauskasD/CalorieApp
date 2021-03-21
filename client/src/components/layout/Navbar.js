@@ -20,6 +20,9 @@ const Navbar = ({
         <Link to="/settings">Settings</Link>
       </li>
       <li>
+        <Link to="/set-goal">Goals</Link>
+      </li>
+      <li>
         <Link to="/dashboard">
           <i className="fas fa-user" />{' '}
           <span className="hide-sm">Dashboard</span>
@@ -59,11 +62,11 @@ const Navbar = ({
 
 Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);

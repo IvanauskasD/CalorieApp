@@ -6,21 +6,24 @@ import DashboardActions from './DashboardActions';
 import DashboardExistingProfile from './DashboardExistingProfile';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import { getCurrentDietProfile } from '../../actions/dietprofile';
+import { getCurrentGoals } from '../../actions/goal';
 
 
 const Dashboard = ({
   getCurrentProfile,
   getCurrentDietProfile,
   deleteAccount,
+  getCurrentGoals,
   auth: { user },
   profile: { profile },
   dietprofile: { dietprofile },
-  
+  goal: {goal}
 }) => {
   useEffect(() => {
     getCurrentProfile()
     getCurrentDietProfile()
-  }, [getCurrentProfile, getCurrentDietProfile ]);
+    getCurrentGoals()
+  }, [getCurrentProfile, getCurrentDietProfile, getCurrentGoals ]);
 
   return (
     <Fragment>
@@ -41,7 +44,8 @@ const Dashboard = ({
             <DashboardExistingProfile />
            )}
 
-            
+           
+
           <Link to='/create-food' className='btn btn-light'>Create food</Link>
           <Link to='/add-food' className='btn btn-light'>Add food</Link>
 
@@ -68,20 +72,21 @@ const Dashboard = ({
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   getCurrentDietProfile: PropTypes.func.isRequired,
+  getCurrentGoals: PropTypes.func.isRequired,
   deleteAccount: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   dietprofile: PropTypes.object.isRequired,
-  food: PropTypes.object.isRequired
+  goal: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
   dietprofile: state.dietprofile,
-  food: state.food
+  goal: state.goal
 });
 
-export default connect(mapStateToProps, {getCurrentProfile, getCurrentDietProfile, deleteAccount })(
+export default connect(mapStateToProps, {getCurrentProfile, getCurrentDietProfile, deleteAccount, getCurrentGoals })(
   Dashboard
 );

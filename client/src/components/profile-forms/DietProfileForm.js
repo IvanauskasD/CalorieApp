@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createDietProfile, getDietProfileById } from '../../actions/dietprofile';
+import { createDietProfile, getCurrentDietProfile } from '../../actions/dietprofile';
 import { getCurrentProfile } from '../../actions/profile'
 
 const initialState = {
@@ -21,7 +21,7 @@ const initialState = {
 const DietProfileForm = ({
   dietprofile: { dietprofile, loading },
   createDietProfile,
-  getDietProfileById,
+  getCurrentDietProfile,
   getCurrentProfile,
   history,
   profile: { profile }
@@ -29,7 +29,7 @@ const DietProfileForm = ({
   const [formData, setFormData] = useState(initialState);
 
   useEffect(() => {
-    if (!dietprofile) getDietProfileById();
+    if (!dietprofile) getCurrentDietProfile();
     if (!loading && dietprofile) {
       const profileData = { ...initialState };
       for (const key in dietprofile) {
@@ -37,7 +37,7 @@ const DietProfileForm = ({
       }
       setFormData(profileData);
     }
-  }, [loading, getDietProfileById, dietprofile, getCurrentProfile]);
+  }, [loading, getCurrentDietProfile, dietprofile, getCurrentProfile]);
 
   const { age, workoutIntensity, currentWeight, height, goalWeight, gender, dateOfBirth, workoutWeek, workoutDay } = formData;
   const onChange = e =>
@@ -168,7 +168,7 @@ const DietProfileForm = ({
 
 DietProfileForm.propTypes = {
   createDietProfile: PropTypes.func.isRequired,
-  getDietProfileById: PropTypes.func.isRequired,
+  getCurrentDietProfile: PropTypes.func.isRequired,
   dietprofile: PropTypes.object.isRequired,
   dietprofile: PropTypes.object.isRequired,
   getCurrentProfile: PropTypes.func.isRequired
@@ -179,6 +179,6 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { createDietProfile, getDietProfileById, getCurrentProfile })(
+export default connect(mapStateToProps, { createDietProfile, getCurrentDietProfile, getCurrentProfile })(
   DietProfileForm
 );

@@ -22,53 +22,54 @@ const SettingsMain = ({
     showGoalView: false,
   })
 
-  const { showDietProfileView, showGoalView } = values
+  // const { showDietProfileView, showGoalView } = values
 
-  const onShowView = e => {
-    e.preventDefault();
-    setValues({showDietProfileView: true})
-  }
+  // const onShowView = e => {
+  //   e.preventDefault();
+  //   setValues({showDietProfileView: true})
+  // }
 
-  const onShowGoalView = e => {
-    e.preventDefault();
-    setValues({showGoalView: true})
-  }
+  // const onShowGoalView = e => {
+  //   e.preventDefault();
+  //   setValues({showGoalView: true})
+  // }
 
-  const showDietView = showDietProfileView => {
-    if(showDietProfileView) {
-      return <DietProfileForm/>
-    }
-  }
+  // const showDietView = showDietProfileView => {
+  //   if(showDietProfileView) {
+  //     return <DietProfileForm/>
+  //   }
+  // }
 
-  const showGoal = showGoalView => {
-    if(showGoalView) {
-      return <GoalForm dietprofile={dietprofile}/>
-    }
-  }
+  // const showGoal = showGoalView => {
+  //   if(showGoalView) {
+  //     return <GoalForm dietprofile={dietprofile}/>
+  //   }
+  // }
 
   return (
     <Fragment>
       <div className="div1">
         <h1>Account Settings</h1>
-        <ul>
+        <Link to="view-goal">TTT</Link>
+        {/* <ul>
           <li>
             <button onClick={onShowView} className="nobck">View Diet Profile</button>
           </li>
           <li>
             <button onClick={onShowGoalView} className="nobck">View Goals</button>
           </li>
-        </ul>
+        </ul> */}
       </div>
 
       <div className="div2">
-        {showDietView(showDietProfileView)}
-        {showGoal(showGoalView)}
+        {/* {showDietView(showDietProfileView)}
+        {showGoal(showGoalView)} */}
 
         {/* padaryt funkcijas onclick1 2 ir tt. kiekvienas onclick funkcija
         tures forma kuria rodys desinej pusej. Kai kairej pusej
         ant buttono paspaus, triggerins onclickas ir 
         desinej pusej pasirodys forma */}
-
+        <DietProfileForm/>
         {/* <DietProfile dietprofile={dietprofile} /> */}
       </div>
     </Fragment>
