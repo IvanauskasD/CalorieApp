@@ -7,23 +7,28 @@ import DashboardExistingProfile from './DashboardExistingProfile';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import { getCurrentDietProfile } from '../../actions/dietprofile';
 import { getCurrentGoals } from '../../actions/goal';
+import { searchFood } from '../../actions/food';
+import { getFoods } from '../../actions/food';
 
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const Dashboard = ({
   getCurrentProfile,
   getCurrentDietProfile,
   deleteAccount,
   getCurrentGoals,
+
   auth: { user },
   profile: { profile },
   dietprofile: { dietprofile },
-  goal: {goal}
+  goal: { goal }
 }) => {
   useEffect(() => {
     getCurrentProfile()
     getCurrentDietProfile()
     getCurrentGoals()
-  }, [getCurrentProfile, getCurrentDietProfile, getCurrentGoals ]);
+  }, [getCurrentProfile, getCurrentDietProfile, getCurrentGoals]);
 
   return (
     <Fragment>
@@ -38,13 +43,13 @@ const Dashboard = ({
       </p> */}
       {profile !== null ? (
         <Fragment>
-           { dietprofile === null ? (
+          { dietprofile === null ? (
             <DashboardActions />
-           ) : (
+          ) : (
             <DashboardExistingProfile />
-           )}
+          )}
 
-           
+
 
           <Link to='/create-food' className='btn btn-light'>Create food</Link>
           <Link to='/add-food' className='btn btn-light'>Add food</Link>
@@ -53,16 +58,18 @@ const Dashboard = ({
             <button className="btn btn-danger" onClick={() => deleteAccount()}>
               <i className="fas fa-user-minus" /> Delete My Account
             </button>
+
+
           </div>
         </Fragment>
       ) : (
-          <Fragment>
-            <p>You have not yet setup a profile, please add some info</p>
-            <Link to="/create-profile" className="btn btn-primary my-1">
-              Create Profile
+        <Fragment>
+          <p>You have not yet setup a profile, please add some info</p>
+          <Link to="/create-profile" className="btn btn-primary my-1">
+            Create Profile
           </Link>
-          </Fragment>
-        )}
+        </Fragment>
+      )}
 
 
     </Fragment>
@@ -77,16 +84,16 @@ Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   dietprofile: PropTypes.object.isRequired,
-  goal: PropTypes.object.isRequired
+  goal: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
   dietprofile: state.dietprofile,
-  goal: state.goal
+  goal: state.goal,
 });
 
-export default connect(mapStateToProps, {getCurrentProfile, getCurrentDietProfile, deleteAccount, getCurrentGoals })(
+export default connect(mapStateToProps, { getCurrentProfile, getCurrentDietProfile, deleteAccount, getCurrentGoals })(
   Dashboard
 );

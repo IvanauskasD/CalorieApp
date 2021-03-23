@@ -1,31 +1,30 @@
 import {
-    GET_GOAL,
-    ERROR_GOAL,
-    ADD_GOAL
+    GET_FOOD,
+    FOOD_ERROR
 } from '../actions/types';
 
 
 const initialState = {
-    goal: null,
+    food: null,
     loading: true,
     error: {}
 };
 
-function goalReducer(state = initialState, action) {
+function foodReducer(state = initialState, action) {
     const { type, payload } = action;
     switch (type) {
-        case GET_GOAL:
+        case GET_FOOD:
             return {
                 ...state,
-                goal: payload,
+                food: payload,
                 loading: false
             };
-        case ERROR_GOAL:
+        case FOOD_ERROR:
             return {
                 ...state,
                 error: payload,
                 loading: false,
-                goal: null
+                food: null
             };
         default:
             return state;
@@ -33,4 +32,4 @@ function goalReducer(state = initialState, action) {
 
 }
 
-export default goalReducer;
+export default foodReducer;

@@ -66,7 +66,7 @@ export const searchFood = (formData) => async (
     dispatch
 ) => {
     try {
-        const res = await api.get('/search-food', formData);
+        const res = await api.post('/fDiary/me', formData);
 
         dispatch({
             type: GET_FOOD,
@@ -77,6 +77,7 @@ export const searchFood = (formData) => async (
 
 
     } catch (err) {
+      if(err.response){
         const errors = err.response.data.errors;
 
         if (errors) {
@@ -88,6 +89,7 @@ export const searchFood = (formData) => async (
             payload: { msg: err.response.statusText, status: err.response.status }
         });
     }
+  }
 }
 
 // Get all profiles
@@ -98,7 +100,7 @@ export const getFoods = () => async (dispatch) => {
       const res = await api.get('/food');
   
       dispatch({
-        type: GET_FOODS,
+        type: GET_FOOD,
         payload: res.data
       });
     } catch (err) {
@@ -108,3 +110,4 @@ export const getFoods = () => async (dispatch) => {
       });
     }
   };
+

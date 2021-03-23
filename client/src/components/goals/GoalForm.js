@@ -4,17 +4,31 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createGoal, getCurrentGoals } from '../../actions/goal'
 import { getCurrentDietProfile } from '../../actions/dietprofile';
+import { DebounceInput } from 'react-debounce-input';
+
 
 const initialState = {
-    calories: '',
-    protein: '',
-    carbs: '',
-    fat: '',
-    proteinPercent: '',
-    carbsPercent: '',
-    fatPercent: '',
-    dietprofile: ''
-  };
+  calories: '',
+  protein: '',
+  carbs: '',
+  fat: '',
+  proteinPercent: '',
+  carbsPercent: '',
+  fatPercent: '',
+  dietprofile: ''
+};
+
+const test = {
+  sum: ''
+}
+
+const test1 = {
+  sum: ''
+}
+
+const test2 = {
+  sum: ''
+}
 
 const GoalForm = ({
   goal: { goal, loading },
@@ -25,6 +39,10 @@ const GoalForm = ({
   dietprofile: { dietprofile: _dietprofile }
 }) => {
   const [formData, setFormData] = useState(initialState);
+
+  const [state, setState] = useState(test)
+  const [state1, setState1] = useState(test1)
+  const [state2, setState2] = useState(test2)
 
   useEffect(() => {
     if (!goal) getCurrentGoals();
@@ -39,16 +57,34 @@ const GoalForm = ({
 
   let { calories, protein, carbs, fat, proteinPercent, carbsPercent, fatPercent, dietprofile } = formData;
 
-
-  const onChange = e =>
+  const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  const onChangeProtein = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    test.sum = (e.target.value * goal.calories) / 4
+    setState(test)
+  }
+
+  const onChangeCarbs = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    test1.sum = (goal.calories / 2) / 4
+    setState1(test1)
+  }
+
+  const onChangeFat = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    test2.sum = (e.target.value * goal.calories) / 9
+    setState2(test2)
+  }
 
   const onSubmit = e => {
     e.preventDefault();
     formData.dietprofile = goal.dietprofile._id
     createGoal(formData, history, goal ? true : false);
   };
-
+  
 
   return (
     <Fragment>
@@ -72,10 +108,11 @@ const GoalForm = ({
           />
         </div>
         <div className="form-group">
-        <select
+          <span>{state.sum}</span>
+          <select
             name="proteinPercent"
             value={proteinPercent}
-            onChange={onChange}
+            onChange={onChangeProtein}
           >
             <option value="0.15">15%</option>
             <option value="0.2">20%</option>
@@ -83,27 +120,13 @@ const GoalForm = ({
             <option value="0.3">30%</option>
             <option value="0.35">35%</option>
           </select>
-          {/* <input
-            type="text"
-            placeholder="* protein"
-            name="protein"
-            value={protein}
-            onChange={onChange}
-            required
-          /> */}
         </div>
         <div className="form-group">
-          {/* <input
-            type="text"
-            placeholder="carbs"
-            name="carbs"
-            value={carbs}
-            onChange={onChange}
-          /> */}
-                  <select
+          <label>{goal ? state1.sum : ''}</label>
+          <select
             name="carbsPercent"
             value={carbsPercent}
-            onChange={onChange}
+            onChange={onChangeCarbs}
           >
             <option value="0.4">40%</option>
             <option value="0.45">45%</option>
@@ -113,10 +136,11 @@ const GoalForm = ({
           </select>
         </div>
         <div className="form-group">
-        <select
+          <label>{state2.sum}</label>
+          <select
             name="fatPercent"
             value={fatPercent}
-            onChange={onChange}
+            onChange={onChangeFat}
           >
             <option value="0.15">15%</option>
             <option value="0.2">20%</option>
@@ -124,13 +148,6 @@ const GoalForm = ({
             <option value="0.3">30%</option>
             <option value="0.35">35%</option>
           </select>
-          {/* <input
-            type="text"
-            placeholder="fat"
-            name="fat"
-            value={fat}
-            onChange={onChange}
-          /> */}
         </div>
 
         <input type="submit" className="btn btn-primary my-1" />

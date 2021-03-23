@@ -64,30 +64,30 @@ router.post(
             return res.status(400).json({ errors: errors.array() })
         }
 
-        // const {
-        //     ...rest
-        // } = req.body
+        const {
+            ...rest
+        } = req.body
 
-        // const test = {
-        //     dieprofile: req.body.dietprofile,
-        //     ...rest
-        // }
+        const test = {
+            dieprofile: req.body.dietprofile,
+            ...rest
+        }
 
-        // test.carbs = test.calories / 2
-        // test.carbs = test.carbs / 4
+        test.carbs = test.calories / 2
+        test.carbs = test.carbs / 4
 
-        // test.protein = test.calories * test.proteinPercent
-        // test.protein = test.protein / 4
+        test.protein = test.calories * test.proteinPercent
+        test.protein = test.protein / 4
 
-        // test.fat = test.calories * test.fatPercent
-        // test.fat = test.fat / 9
+        test.fat = test.calories * test.fatPercent
+        test.fat = test.fat / 9
     
 
         try {
             // Using upsert option (it creates new doc if no match is found)
             let setGoal = await Goal.findOneAndUpdate(
                 { dietprofile: req.body.dietprofile },
-                { $set: req.body },
+                { $set: test },
                 { new: true, upsert: true, setDefaultsOnInsert: true }
             )
             return res.json(setGoal)
