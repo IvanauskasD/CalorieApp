@@ -33,6 +33,10 @@ const GoalSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'dietprofile'
     },
+    date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 module.exports = mongoose.model('Goal', GoalSchema);

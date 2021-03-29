@@ -51,7 +51,7 @@ const Dashboard = ({
 
 
 
-          <Link to='/create-food' className='btn btn-light'>Create food</Link>
+          <Link to='/food-main' className='btn btn-light'>Create food</Link>
           <Link to='/add-food' className='btn btn-light'>Add food</Link>
 
           <div className="my-2">

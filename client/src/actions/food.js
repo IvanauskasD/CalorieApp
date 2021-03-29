@@ -92,6 +92,25 @@ export const searchFood = (formData) => async (
   }
 }
 
+
+// Get food by ID
+export const getFoodById = (foodId) => async (dispatch) => {
+  try {
+    const res = await api.get(`/fDiary/food/${foodId}`);
+
+    dispatch({
+      type: GET_FOOD,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: FOOD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+
 // Get all profiles
 export const getFoods = () => async (dispatch) => {
     dispatch({ type: CLEAR_FOOD });

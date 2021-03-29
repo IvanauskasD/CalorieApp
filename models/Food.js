@@ -26,9 +26,8 @@ const FoodSchema = new mongoose.Schema({
         default: new Date()
     }
 });
-FoodSchema.index({name: "text"})
 
-const Food = module.exports = mongoose.model('food', FoodSchema);
+const Food = module.exports = mongoose.model('Food', FoodSchema);
 
 module.exports.getFoodByName = (foodName, callback) => {
     const query = { name: foodName };

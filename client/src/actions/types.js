@@ -29,3 +29,8 @@ export const GET_GOAL = "GET_GOAL"
 export const ADD_GOAL = "ADD_GOAL"
 export const UPDATE_GOAL = "UPDATE_GOAL"
 export const ERROR_GOAL = "ERROR_GOAL"
+
+export const GET_MEAL = "GET_MEAL"
+export const ADD_MEAL = "ADD_MEAL"
+export const UPDATE_MEAL = "UPDATE_MEAL"
+export const ERROR_MEAL = "ERROR_MEAL"

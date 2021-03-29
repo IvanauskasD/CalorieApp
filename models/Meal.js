@@ -7,7 +7,7 @@ const MealSchema = new mongoose.Schema({
     },
     foods: [{
         _id: {
-            type: Schema.Types.ObjectId, ref: 'Food'
+            type: mongoose.Schema.Types.ObjectId, ref: 'Food'
         },
         quantity: {
             type: Number

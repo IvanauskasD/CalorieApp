@@ -5,6 +5,7 @@ import profile from './profile'
 import dietprofile from './dietprofile'
 import goal from './goal'
 import food from './food'
+import meal from './meal'
 
 export default combineReducers({
      alert,
@@ -12,5 +13,6 @@ export default combineReducers({
      profile,
      dietprofile,
      goal,
-     food
+     food,
+     meal
 })
