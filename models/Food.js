@@ -21,10 +21,10 @@ const FoodSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    date: {
-        type: Date,
-        default: new Date()
-    }
+    // date: {
+    //     type: Date,
+    //     default: new Date()
+    // }
 });
 
 const Food = module.exports = mongoose.model('Food', FoodSchema);

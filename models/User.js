@@ -27,12 +27,6 @@ const UserSchema = new mongoose.Schema({
     ref: 'Meal'
     }
   ],
-  meals: [
-    {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Goal'
-    }
-  ],
   mealTypes: {
       type: Array,
       default: [0, 1, 2, 3]
