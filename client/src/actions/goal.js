@@ -2,8 +2,6 @@ import api from '../utils/api';
 import { setAlert } from './alert';
 
 import {
-    ADD_GOAL,
-    UPDATE_GOAL,
     GET_GOAL,
     ERROR_GOAL
 } from './types';
@@ -62,7 +60,6 @@ export const getGoalById = (dietprofile_id) => async (dispatch) => {
 export const getCurrentGoals = () => async (dispatch) => {
     try {
         const res = await api.get('/goal/me');
-
         dispatch({
             type: GET_GOAL,
             payload: res.data

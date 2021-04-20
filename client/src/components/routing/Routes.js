@@ -13,8 +13,10 @@ import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
 import FoodForm from '../food-forms/FoodForm'
 import Goal from '../goals/GoalForm'
-import FoodItem from '../food-forms/FoodItem'
+import FoodInfo from '../food-forms/FoodInfo'
 import FoodMain from '../food-forms/FoodMain'
+import ExerciseMain from '../exercises/ExerciseMain'
+import SportForm from '../exercises/SportForm'
 
 const Routes = props => {
   return (
@@ -33,8 +35,10 @@ const Routes = props => {
         <PrivateRoute exact path="/view-diet-profile" component={DietProfileForm} />
         <PrivateRoute exact path="/add-food" component={FoodForm} />
         <PrivateRoute exact path="/set-goal" component={Goal} />
-        <PrivateRoute exact path="/fDiary/food/:id" component={FoodItem} />
-        <PrivateRoute exact path="/food-main" component={FoodMain} />
+        <PrivateRoute exact path="/food/food/:id" component={FoodInfo} />
+        <PrivateRoute exact path="/mealz:date?" component={FoodMain} />
+        <PrivateRoute exact path="/exercises:date?" component={ExerciseMain} />
+        <PrivateRoute exact path="/add-sport" component={SportForm} />
 
         <Route component={NotFound} />
   

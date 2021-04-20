@@ -21,16 +21,16 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  meals: [
-    {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Meal'
-    }
-  ],
-  mealTypes: {
-      type: Array,
-      default: [0, 1, 2, 3]
-  }
+  // meals: [
+  //   {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'Meal'
+  //   }
+  // ],
+  // mealTypes: {
+  //     type: Array,
+  //     default: [0, 1, 2, 3]
+  // }
 });
 
 module.exports.getUserById = (id, callback) => {

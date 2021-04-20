@@ -30,6 +30,8 @@ const test2 = {
   sum: ''
 }
 
+
+
 const GoalForm = ({
   goal: { goal, loading },
   createGoal,
@@ -52,7 +54,11 @@ const GoalForm = ({
         if (key in goalData) goalData[key] = goal[key];
       }
       setFormData(goalData);
+      
     }
+
+    console.log(formData)
+  
   }, [loading, getCurrentGoals, goal, getCurrentDietProfile]);
 
   let { calories, protein, carbs, fat, proteinPercent, carbsPercent, fatPercent, dietprofile } = formData;
@@ -60,20 +66,24 @@ const GoalForm = ({
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
-
+  
   const onChangeProtein = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    formData.proteinPercent = e.target.value
+    setFormData({...formData, [e.target.name]: e.target.value });
     test.sum = (e.target.value * goal.calories) / 4
     setState(test)
+
   }
 
   const onChangeCarbs = e => {
+    formData.carbsPercent = e.target.value
     setFormData({ ...formData, [e.target.name]: e.target.value });
     test1.sum = (goal.calories / 2) / 4
     setState1(test1)
   }
 
   const onChangeFat = e => {
+    formData.fatPercent = e.target.value
     setFormData({ ...formData, [e.target.name]: e.target.value });
     test2.sum = (e.target.value * goal.calories) / 9
     setState2(test2)

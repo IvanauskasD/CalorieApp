@@ -7,33 +7,39 @@ import DashboardExistingProfile from './DashboardExistingProfile';
 import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 import { getCurrentDietProfile } from '../../actions/dietprofile';
 import { getCurrentGoals } from '../../actions/goal';
-import { searchFood } from '../../actions/food';
-import { getFoods } from '../../actions/food';
 
-import TextField from '@material-ui/core/TextField';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+
+import ProgressTable from './ProgressTable';
+
+
+
+
 
 const Dashboard = ({
   getCurrentProfile,
   getCurrentDietProfile,
   deleteAccount,
   getCurrentGoals,
-
   auth: { user },
   profile: { profile },
   dietprofile: { dietprofile },
-  goal: { goal }
+  goal: { goal },
 }) => {
   useEffect(() => {
     getCurrentProfile()
     getCurrentDietProfile()
-    getCurrentGoals()
-  }, [getCurrentProfile, getCurrentDietProfile, getCurrentGoals]);
+    getCurrentGoals() 
+  }, [ getCurrentProfile, getCurrentDietProfile, getCurrentGoals]);
+
+
+  if(dietprofile !== null)
+  localStorage.setItem('dietprofile', dietprofile.user._id);
+
 
   return (
     <Fragment>
       <h1 className="large text-primary">Dashboard</h1>
-
+    <h1>{}</h1>
       {/* <Link to={`/profile/${user._id}`} className='btn btn-primary'>
           View Profile
         </Link> */}
@@ -42,6 +48,7 @@ const Dashboard = ({
         <i className="fas fa-user" /> Welcome {user && user.name}
       </p> */}
       {profile !== null ? (
+
         <Fragment>
           { dietprofile === null ? (
             <DashboardActions />
@@ -50,9 +57,16 @@ const Dashboard = ({
           )}
 
 
+          <Link to={`/mealz?date=`} className='btn btn-light'>Add food</Link>
+          <Link to={`/exercises?date=`} className='btn btn-light'>Add exercise</Link>
 
-          <Link to='/food-main' className='btn btn-light'>Create food</Link>
-          <Link to='/add-food' className='btn btn-light'>Add food</Link>
+{dietprofile !== null ? (
+  <div>
+  <ProgressTable goal={goal}/>
+</div>
+) : (
+ <div></div>
+)}
 
           <div className="my-2">
             <button className="btn btn-danger" onClick={() => deleteAccount()}>

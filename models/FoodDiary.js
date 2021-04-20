@@ -23,6 +23,22 @@ const FoodDiarySchema = new mongoose.Schema({
             required: true
         },
     },
+    consumedCalories: {
+        type: Number,
+        required: true
+    },
+    consumedProtein: {
+        type: Number,
+        required: true
+    },
+    consumedCarbs: {
+        type: Number,
+        required: true
+    },
+    consumedFat: {
+        type: Number,
+        required: true
+    },
     date: {
         type: Date,
         default: new Date()

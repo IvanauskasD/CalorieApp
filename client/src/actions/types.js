@@ -34,3 +34,29 @@ export const GET_MEAL = "GET_MEAL"
 export const ADD_MEAL = "ADD_MEAL"
 export const UPDATE_MEAL = "UPDATE_MEAL"
 export const ERROR_MEAL = "ERROR_MEAL"
+export const CLEAR_MEAL = "CLEAR_MEAL"
+
+export const GET_EXERCISE = "GET_EXERCISE"
+export const ADD_EXERCISE = "ADD_EXERCISE"
+export const UPDATE_EXERCISE = "UPDATE_EXERCISE"
+export const ERROR_EXERCISE = "ERROR_EXERCISE"
+export const CLEAR_EXERCISE = "CLEAR_MEAL"
+
+export const GET_FDIARY = "GET_FDIARY"
+export const ADD_FDIARY  = "ADD_FDIARY"
+export const UPDATE_FDIARY  = "UPDATE_FDIARY"
+export const ERROR_FDIARY  = "ERROR_FDIARY"
+
+export const GET_SDIARY = "GET_SDIARY"
+export const ADD_SDIARY  = "ADD_SDIARY"
+export const UPDATE_SDIARY  = "UPDATE_SDIARY"
+export const ERROR_SDIARY  = "ERROR_SDIARY"
+
+
+export const GET_SPORT = "GET_SPORT"
+export const ADD_SPORT = "ADD_SPORT"
+export const UPDATE_SPORT = "UPDATE_SPORT"
+export const ERROR_SPORT = "ERROR_SPORT"
+export const CLEAR_SPORT = "CLEAR_SPORT" 
+
+export const CLEAR_ALL = "CLEAR_ALL" 

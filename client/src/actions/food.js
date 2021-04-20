@@ -3,7 +3,6 @@ import { setAlert } from './alert';
 import {
     GET_FOOD,
     FOOD_ERROR,
-    GET_FOODS,
     CLEAR_FOOD,
     ADD_FOOD
 } from './types';
@@ -66,7 +65,7 @@ export const searchFood = (formData) => async (
     dispatch
 ) => {
     try {
-        const res = await api.post('/fDiary/me', formData);
+        const res = await api.post('/food/search-food', formData);
 
         dispatch({
             type: GET_FOOD,
@@ -96,8 +95,8 @@ export const searchFood = (formData) => async (
 // Get food by ID
 export const getFoodById = (foodId) => async (dispatch) => {
   try {
-    const res = await api.get(`/fDiary/food/${foodId}`);
-
+    const res = await api.get(`/food/food/${foodId}`);
+    
     dispatch({
       type: GET_FOOD,
       payload: res.data

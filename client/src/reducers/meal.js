@@ -1,6 +1,7 @@
 import {
     GET_MEAL,
     ERROR_MEAL,
+    CLEAR_MEAL
 } from '../actions/types';
 
 
@@ -24,6 +25,11 @@ function mealReducer(state = initialState, action) {
                 ...state,
                 error: payload,
                 loading: false,
+                meal: null
+            };
+        case CLEAR_MEAL:
+            return {
+                ...state,
                 meal: null
             };
         default:

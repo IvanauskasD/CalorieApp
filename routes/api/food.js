@@ -75,6 +75,30 @@ const { db } = require('../../models/Food');
 //     }
 // );
 
+// @route    GET api/profile/user/:user_id
+// @desc     Get profile by user ID
+// @access   Public
+router.get(
+  '/food/:food_id',
+  auth,
+  checkObjectId('food_id'),
+  async ({ params: { food_id } }, res) => {
+    try {
+      const profile = await Food.findOne({
+        _id: food_id
+      })
+
+      if (!profile) return res.status(400).json({ msg: 'food not found' });
+
+      return res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      return res.status(500).json({ msg: 'Server error' });
+    }
+  }
+);
+
+
 router.post(
   '/',
   async (req, res) => {
@@ -185,15 +209,17 @@ router.post(
 //     return res.status(200).json({result: result})
 // })});
 
-router.get(
+router.post(
   '/search-food',
   async (req, res) => {
 
-    const searchedField = req.body.name
-    Food.find({name: {$regex: searchedField, $options: '$i'}})
-    .then(data=>{
-      res.send(data)
-    })
+    const test = await Food.find({ name: { $regex: new RegExp('.*' + req.body.name.toLowerCase() + '.*', 'i') }, name: { $regex: new RegExp('.*' + req.body.name.toUpperCase() + '.*', 'i') } })
+    // const searchedField = req.body.name
+    // Food.find({name: {$regex: searchedField, $options: '$i'}})
+    // .then(data=>{
+    //   res.send(data)
+    // })
+    return res.json(test)
   }
 )
 

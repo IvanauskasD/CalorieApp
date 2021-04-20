@@ -8,6 +8,12 @@ const setAuthToken = token => {
     delete api.defaults.headers.common['x-auth-token'];
     localStorage.removeItem('token');
     localStorage.removeItem('dietprofile');
+    localStorage.removeItem('leftFood');
+    localStorage.removeItem('netFood1');
+    localStorage.removeItem('LeftFood1');
+    localStorage.removeItem('leftExercise');
+    localStorage.removeItem('netFood');
+    localStorage.removeItem('leftFood1');
   }
 };
 

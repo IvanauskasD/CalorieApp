@@ -74,7 +74,22 @@ router.post(
 
         if (dietProfileFields.gender === 'Male') {
             dietProfileFields.bmr = (10 * dietProfileFields.currentWeight) + (6.25 *
-                dietProfileFields.height) - (5 * 23) + 5
+                dietProfileFields.height) - (5 * dietProfileFields.age) + 5
+
+            dietProfileFields.calculatedGoal = dietProfileFields.bmr * dietProfileFields.workoutIntensity
+            calcCalories = dietProfileFields.calculatedGoal
+            calcCarbs = dietProfileFields.calculatedGoal / 2
+            calcCarbs = calcCarbs / 4
+
+            calcProtein = dietProfileFields.calculatedGoal * proteinP
+            calcProtein = calcProtein / 4
+
+            calcFat = dietProfileFields.calculatedGoal * fatP
+            calcFat = calcFat / 9
+        }
+        else {
+            dietProfileFields.bmr = (10 * dietProfileFields.currentWeight) + (6.25 *
+                dietProfileFields.height) - (5 * dietProfileFields.age) - 161
 
             dietProfileFields.calculatedGoal = dietProfileFields.bmr * dietProfileFields.workoutIntensity
             calcCalories = dietProfileFields.calculatedGoal

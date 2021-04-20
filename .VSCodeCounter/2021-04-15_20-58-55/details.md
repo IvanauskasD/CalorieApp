@@ -1,10 +1,10 @@
 # Details
 
-Date : 2021-03-29 23:05:35
+Date : 2021-04-15 20:58:55
 
 Directory c:\Users\Domantas\Desktop\Bakalauras\calories-tracker
 
-Total : 78 files,  40046 codes, 649 comments, 794 blanks, all 41489 lines
+Total : 94 files,  42479 codes, 737 comments, 1205 blanks, all 44421 lines
 
 [summary](results.md)
 
@@ -13,30 +13,34 @@ Total : 78 files,  40046 codes, 649 comments, 794 blanks, all 41489 lines
 | :--- | :--- | ---: | ---: | ---: | ---: |
 | [README.md](/README.md) | Markdown | 0 | 0 | 1 | 1 |
 | [client/README.md](/client/README.md) | Markdown | 38 | 0 | 33 | 71 |
-| [client/package-lock.json](/client/package-lock.json) | JSON | 16,640 | 0 | 1 | 16,641 |
-| [client/package.json](/client/package.json) | JSON | 50 | 0 | 1 | 51 |
-| [client/public/index.html](/client/public/index.html) | HTML | 20 | 23 | 1 | 44 |
+| [client/package-lock.json](/client/package-lock.json) | JSON | 17,041 | 0 | 1 | 17,042 |
+| [client/package.json](/client/package.json) | JSON | 58 | 0 | 1 | 59 |
+| [client/public/index.html](/client/public/index.html) | HTML | 21 | 23 | 1 | 45 |
 | [client/public/manifest.json](/client/public/manifest.json) | JSON | 25 | 0 | 1 | 26 |
 | [client/src/App.css](/client/src/App.css) | CSS | 501 | 17 | 89 | 607 |
 | [client/src/App.js](/client/src/App.js) | JavaScript | 36 | 2 | 11 | 49 |
 | [client/src/actions/alert.js](/client/src/actions/alert.js) | JavaScript | 10 | 0 | 2 | 12 |
 | [client/src/actions/auth.js](/client/src/actions/auth.js) | JavaScript | 62 | 4 | 15 | 81 |
 | [client/src/actions/dietprofile.js](/client/src/actions/dietprofile.js) | JavaScript | 60 | 3 | 12 | 75 |
+| [client/src/actions/exercise.js](/client/src/actions/exercise.js) | JavaScript | 38 | 2 | 9 | 49 |
+| [client/src/actions/fDiary.js](/client/src/actions/fDiary.js) | JavaScript | 44 | 2 | 11 | 57 |
 | [client/src/actions/food.js](/client/src/actions/food.js) | JavaScript | 79 | 25 | 29 | 133 |
 | [client/src/actions/goal.js](/client/src/actions/goal.js) | JavaScript | 62 | 3 | 11 | 76 |
-| [client/src/actions/meal.js](/client/src/actions/meal.js) | JavaScript | 29 | 1 | 8 | 38 |
+| [client/src/actions/meal.js](/client/src/actions/meal.js) | JavaScript | 60 | 3 | 15 | 78 |
 | [client/src/actions/profile.js](/client/src/actions/profile.js) | JavaScript | 105 | 6 | 20 | 131 |
-| [client/src/actions/types.js](/client/src/actions/types.js) | JavaScript | 32 | 0 | 5 | 37 |
+| [client/src/actions/types.js](/client/src/actions/types.js) | JavaScript | 41 | 0 | 6 | 47 |
 | [client/src/components/auth/Login.js](/client/src/components/auth/Login.js) | JavaScript | 63 | 0 | 9 | 72 |
 | [client/src/components/auth/Register.js](/client/src/components/auth/Register.js) | JavaScript | 91 | 0 | 9 | 100 |
-| [client/src/components/dashboard/Dashboard.js](/client/src/components/dashboard/Dashboard.js) | JavaScript | 80 | 2 | 17 | 99 |
+| [client/src/components/dashboard/Dashboard.js](/client/src/components/dashboard/Dashboard.js) | JavaScript | 95 | 2 | 24 | 121 |
 | [client/src/components/dashboard/DashboardActions.js](/client/src/components/dashboard/DashboardActions.js) | JavaScript | 15 | 0 | 2 | 17 |
 | [client/src/components/dashboard/DashboardExistingProfile.js](/client/src/components/dashboard/DashboardExistingProfile.js) | JavaScript | 12 | 0 | 2 | 14 |
-| [client/src/components/food-forms/FoodForm.js](/client/src/components/food-forms/FoodForm.js) | JavaScript | 113 | 7 | 31 | 151 |
+| [client/src/components/dashboard/ProgressTable.js](/client/src/components/dashboard/ProgressTable.js) | JavaScript | 105 | 0 | 32 | 137 |
+| [client/src/components/food-forms/FoodForm.js](/client/src/components/food-forms/FoodForm.js) | JavaScript | 144 | 1 | 30 | 175 |
+| [client/src/components/food-forms/FoodInfo.js](/client/src/components/food-forms/FoodInfo.js) | JavaScript | 91 | 4 | 17 | 112 |
 | [client/src/components/food-forms/FoodItem.js](/client/src/components/food-forms/FoodItem.js) | JavaScript | 93 | 0 | 21 | 114 |
-| [client/src/components/food-forms/FoodMain.js](/client/src/components/food-forms/FoodMain.js) | JavaScript | 36 | 0 | 5 | 41 |
-| [client/src/components/food-forms/Serving.js](/client/src/components/food-forms/Serving.js) | JavaScript | 32 | 0 | 5 | 37 |
-| [client/src/components/goals/GoalForm.js](/client/src/components/goals/GoalForm.js) | JavaScript | 157 | 0 | 21 | 178 |
+| [client/src/components/food-forms/FoodMain.js](/client/src/components/food-forms/FoodMain.js) | JavaScript | 331 | 45 | 85 | 461 |
+| [client/src/components/food-forms/Serving.js](/client/src/components/food-forms/Serving.js) | JavaScript | 205 | 21 | 33 | 259 |
+| [client/src/components/goals/GoalForm.js](/client/src/components/goals/GoalForm.js) | JavaScript | 158 | 0 | 21 | 179 |
 | [client/src/components/layout/Alert.js](/client/src/components/layout/Alert.js) | JavaScript | 16 | 0 | 4 | 20 |
 | [client/src/components/layout/Autocomplete.js](/client/src/components/layout/Autocomplete.js) | JavaScript | 87 | 106 | 24 | 217 |
 | [client/src/components/layout/Landing.js](/client/src/components/layout/Landing.js) | JavaScript | 36 | 0 | 5 | 41 |
@@ -59,10 +63,12 @@ Total : 78 files,  40046 codes, 649 comments, 794 blanks, all 41489 lines
 | [client/src/reducers/alert.js](/client/src/reducers/alert.js) | JavaScript | 14 | 0 | 4 | 18 |
 | [client/src/reducers/auth.js](/client/src/reducers/auth.js) | JavaScript | 60 | 1 | 4 | 65 |
 | [client/src/reducers/dietprofile.js](/client/src/reducers/dietprofile.js) | JavaScript | 30 | 0 | 5 | 35 |
+| [client/src/reducers/exercise.js](/client/src/reducers/exercise.js) | JavaScript | 0 | 0 | 1 | 1 |
+| [client/src/reducers/fDiary.js](/client/src/reducers/fDiary.js) | JavaScript | 31 | 0 | 5 | 36 |
 | [client/src/reducers/food.js](/client/src/reducers/food.js) | JavaScript | 30 | 0 | 5 | 35 |
 | [client/src/reducers/goal.js](/client/src/reducers/goal.js) | JavaScript | 31 | 0 | 5 | 36 |
-| [client/src/reducers/index.js](/client/src/reducers/index.js) | JavaScript | 17 | 0 | 1 | 18 |
-| [client/src/reducers/meal.js](/client/src/reducers/meal.js) | JavaScript | 30 | 0 | 5 | 35 |
+| [client/src/reducers/index.js](/client/src/reducers/index.js) | JavaScript | 19 | 0 | 1 | 20 |
+| [client/src/reducers/meal.js](/client/src/reducers/meal.js) | JavaScript | 36 | 0 | 5 | 41 |
 | [client/src/reducers/profile.js](/client/src/reducers/profile.js) | JavaScript | 44 | 0 | 4 | 48 |
 | [client/src/store.js](/client/src/store.js) | JavaScript | 22 | 6 | 8 | 36 |
 | [client/src/utils/api.js](/client/src/utils/api.js) | JavaScript | 19 | 7 | 3 | 29 |
@@ -71,23 +77,33 @@ Total : 78 files,  40046 codes, 649 comments, 794 blanks, all 41489 lines
 | [config/db.js](/config/db.js) | JavaScript | 18 | 1 | 4 | 23 |
 | [middleware/auth.js](/middleware/auth.js) | JavaScript | 21 | 3 | 3 | 27 |
 | [middleware/checkObjectId.js](/middleware/checkObjectId.js) | JavaScript | 7 | 1 | 2 | 10 |
-| [models/DietProfile.js](/models/DietProfile.js) | JavaScript | 48 | 0 | 2 | 50 |
-| [models/Food.js](/models/Food.js) | JavaScript | 35 | 0 | 4 | 39 |
-| [models/FoodDiary.js](/models/FoodDiary.js) | JavaScript | 30 | 0 | 2 | 32 |
+| [models/CompleteMeals.js](/models/CompleteMeals.js) | JavaScript | 19 | 0 | 2 | 21 |
+| [models/DietProfile.js](/models/DietProfile.js) | JavaScript | 65 | 1 | 2 | 68 |
+| [models/Exercise.js](/models/Exercise.js) | JavaScript | 20 | 0 | 2 | 22 |
+| [models/ExerciseDiary.js](/models/ExerciseDiary.js) | JavaScript | 18 | 0 | 2 | 20 |
+| [models/Food.js](/models/Food.js) | JavaScript | 31 | 4 | 4 | 39 |
+| [models/FoodDiary.js](/models/FoodDiary.js) | JavaScript | 46 | 0 | 2 | 48 |
 | [models/Goal.js](/models/Goal.js) | JavaScript | 40 | 0 | 2 | 42 |
-| [models/Meal.js](/models/Meal.js) | JavaScript | 20 | 0 | 2 | 22 |
+| [models/Meal.js](/models/Meal.js) | JavaScript | 23 | 0 | 2 | 25 |
+| [models/MealSuggestion.js](/models/MealSuggestion.js) | JavaScript | 20 | 0 | 2 | 22 |
 | [models/Profile.js](/models/Profile.js) | JavaScript | 41 | 30 | 3 | 74 |
-| [models/User.js](/models/User.js) | JavaScript | 68 | 0 | 8 | 76 |
-| [package-lock.json](/package-lock.json) | JSON | 19,184 | 0 | 1 | 19,185 |
-| [package.json](/package.json) | JSON | 34 | 0 | 1 | 35 |
+| [models/Sport.js](/models/Sport.js) | JavaScript | 12 | 0 | 2 | 14 |
+| [models/User.js](/models/User.js) | JavaScript | 52 | 10 | 8 | 70 |
+| [package-lock.json](/package-lock.json) | JSON | 19,722 | 0 | 1 | 19,723 |
+| [package.json](/package.json) | JSON | 35 | 0 | 1 | 36 |
 | [routes/api/auth.js](/routes/api/auth.js) | JavaScript | 61 | 6 | 11 | 78 |
+| [routes/api/completedMeals.js](/routes/api/completedMeals.js) | JavaScript | 44 | 1 | 8 | 53 |
 | [routes/api/dietprofile.js](/routes/api/dietprofile.js) | JavaScript | 106 | 19 | 30 | 155 |
-| [routes/api/fDiary.js](/routes/api/fDiary.js) | JavaScript | 39 | 6 | 11 | 56 |
-| [routes/api/food.js](/routes/api/food.js) | JavaScript | 107 | 69 | 34 | 210 |
+| [routes/api/exercise.js](/routes/api/exercise.js) | JavaScript | 125 | 12 | 44 | 181 |
+| [routes/api/fDiary.js](/routes/api/fDiary.js) | JavaScript | 112 | 53 | 54 | 219 |
+| [routes/api/food.js](/routes/api/food.js) | JavaScript | 121 | 77 | 38 | 236 |
 | [routes/api/goal.js](/routes/api/goal.js) | JavaScript | 74 | 61 | 22 | 157 |
-| [routes/api/meal.js](/routes/api/meal.js) | JavaScript | 148 | 144 | 72 | 364 |
+| [routes/api/meal.js](/routes/api/meal.js) | JavaScript | 238 | 64 | 126 | 428 |
+| [routes/api/mealSuggestion.js](/routes/api/mealSuggestion.js) | JavaScript | 50 | 4 | 17 | 71 |
 | [routes/api/profile.js](/routes/api/profile.js) | JavaScript | 106 | 24 | 18 | 148 |
+| [routes/api/sDiary.js](/routes/api/sDiary.js) | JavaScript | 0 | 0 | 1 | 1 |
+| [routes/api/sport.js](/routes/api/sport.js) | JavaScript | 107 | 11 | 28 | 146 |
 | [routes/api/users.js](/routes/api/users.js) | JavaScript | 139 | 6 | 25 | 170 |
-| [server.js](/server.js) | JavaScript | 22 | 5 | 9 | 36 |
+| [server.js](/server.js) | JavaScript | 26 | 5 | 14 | 45 |
 
 [summary](results.md)

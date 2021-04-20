@@ -5,13 +5,31 @@ const DietProfileSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
+    meals: [
+        {
+            type: mongoose.Schema.Types.Object,
+            ref: 'Meal'
+        }
+    ],
+    exercises: [
+        {
+            type: mongoose.Schema.Types.Object,
+            ref: 'Exercise'
+        }
+    ],
+    mealSuggestions: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'MealSuggesion'
+        }
+    ],
     currentWeight: {
         type: Number,
         required: true
     },
     age: {
         type: Number,
-        required: true
+        //      required: true
     },
     height: {
         type: Number,
@@ -35,7 +53,7 @@ const DietProfileSchema = new mongoose.Schema({
     workoutDay: {
         type: Number
     },
-    bmr :{
+    bmr: {
         type: Number,
     },
     workoutIntensity: {

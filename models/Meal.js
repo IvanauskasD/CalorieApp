@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const MealSchema = new mongoose.Schema({
     type: {
-        type: String,
+        type: Number,
         required: true
     },
     foods: [{
@@ -11,12 +11,20 @@ const MealSchema = new mongoose.Schema({
         },
         quantity: {
             type: Number
+        },
+        servings: {
+            type: Number
         }
     }],
     date: {
         type: Date,
         default: Date.now
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'user'
     }
+
 });
 
 module.exports = mongoose.model('Meal', MealSchema);

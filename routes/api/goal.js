@@ -73,6 +73,8 @@ router.post(
             ...rest
         }
 
+        
+
         test.carbs = test.calories / 2
         test.carbs = test.carbs / 4
 
@@ -128,7 +130,11 @@ router.get(
 // @access   Private
 router.get('/me', auth, async (req, res) => {
     try {
-        const goal = await Goal.findOne().populate('dietprofile');
+        const dp = await DietProfile.findOne({user: req.user.id})
+        let goal = {};
+        if(dp){
+        goal = await Goal.findOne({dietprofile: dp._id}).populate('dietprofile');
+        }
         if (!goal) {
             return res.status(400).json({ msg: 'There is no goals for this user' });
         }
