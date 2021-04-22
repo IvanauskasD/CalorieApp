@@ -77,7 +77,7 @@ const SportForm = ({
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Add sport</h1>
+      <h1 className="large text-primary">Add Exercise To Diary</h1>
 
       <form
         className="form"
@@ -86,7 +86,7 @@ const SportForm = ({
         <div className="form-group">
           <input
             type="text"
-            placeholder="* name"
+            placeholder="Type sport name here"
             name="name"
             value={name}
             onChange={onChange}
@@ -94,11 +94,7 @@ const SportForm = ({
           />
         </div>
 
-        <input type="submit" className="btn btn-primary my-1" />
-      
-        <Link className="btn btn-light my-1" to="/dashboard">
-          Go Back
-            </Link>
+        <input value="Search Exercises" type="submit" className="btn btn-primary my-1" />
       </form>
 
       {sport !== null ? (
@@ -107,9 +103,9 @@ const SportForm = ({
 <Table className={classes.table} aria-label="simple table">
   <TableHead>
     <TableRow>
-      <TableCell>sport Name </TableCell>
+      <TableCell>Sport Name </TableCell>
       <TableCell align="right">Calories</TableCell>
-      <TableCell align="right">Add</TableCell>
+      <TableCell align="right">Add Exercise</TableCell>
 
     </TableRow>
   </TableHead>
@@ -136,9 +132,8 @@ const SportForm = ({
 
       ) : (
 
-        <Link className="btn btn-light my-1" to="/dashboard">
-          Go Back
-            </Link>
+        <Link to={`/exercises?date=`} className='btn btn-danger'>Go Back</Link>
+
       )}
     </Fragment>
   );

@@ -7,10 +7,6 @@ import { getFoodById } from '../../actions/food';
 import { createDiary } from '../../actions/fDiary'
 import { getCurrentDietProfile } from '../../actions/dietprofile'
 import { getCurrentGoals } from '../../actions/goal';
-
-
-import Spinner from '../layout/Spinner';
-
 import { Redirect } from 'react-router'
 
 import moment from 'moment'
@@ -29,6 +25,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 import { getDiary } from '../../actions/fDiary';
+
+import Chart from "react-google-charts";
 
 const useStyles = makeStyles({
   table: {
@@ -230,7 +228,6 @@ const FoodMain = ({
     deleteMeal(id, n, data)
   }
 
-  
 
   const classes = useStyles();
 
@@ -244,11 +241,13 @@ const FoodMain = ({
         selected={startDate} onChange={date => setStartDate(date)} />
       
       <div>
-        <br></br>
+        <br/>
+      <Link to='/add-food' className='btn btn-danger'>Add Food To Diary</Link>
+      <br/>
       </div>
-      
+ 
       <div>
-      {console.log()}
+      <br/>
         <Fragment>
         <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
@@ -275,12 +274,12 @@ const FoodMain = ({
               {innerElement._id.name}
             </TableCell>
           
-            <TableCell align="right">{innerElement._id.calories}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs}</TableCell>
-            <TableCell align="right">{innerElement._id.protein}</TableCell>
-            <TableCell align="right">{innerElement._id.fat}</TableCell>
+            <TableCell align="right">{(innerElement._id.calories)* innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.carbs * innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.protein * innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.fat * innerElement.quantity}</TableCell>
             <TableCell align="right">
-           <Button onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>{formData2.date}</Button></TableCell>
+           <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
           </TableRow>
             ): (
               <p></p>
@@ -333,12 +332,12 @@ const FoodMain = ({
               {innerElement._id.name}
             </TableCell>
            
-            <TableCell align="right">{innerElement._id.calories}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs}</TableCell>
-            <TableCell align="right">{innerElement._id.protein}</TableCell>
-            <TableCell align="right">{innerElement._id.fat}</TableCell>
+            <TableCell align="right">{innerElement._id.calories * innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.carbs * innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.protein * innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.fat * innerElement.quantity}</TableCell>
             <TableCell align="right">
-           <Button onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>{formData2.date}</Button></TableCell>
+           <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
 
           </TableRow>
             ): (
@@ -392,12 +391,12 @@ const FoodMain = ({
               {innerElement._id.name}
             </TableCell>
            
-            <TableCell align="right">{innerElement._id.calories}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs}</TableCell>
-            <TableCell align="right">{innerElement._id.protein}</TableCell>
-            <TableCell align="right">{innerElement._id.fat}</TableCell>
+            <TableCell align="right">{innerElement._id.calories * innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.carbs * innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.protein * innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.fat * innerElement.quantity}</TableCell>
             <TableCell align="right">
-           <Button onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>{formData2.date}</Button></TableCell>
+           <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
 
           </TableRow>
             ): (
@@ -451,12 +450,12 @@ const FoodMain = ({
               {innerElement._id.name}
             </TableCell>
            
-            <TableCell align="right">{innerElement._id.calories}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs}</TableCell>
-            <TableCell align="right">{innerElement._id.protein}</TableCell>
-            <TableCell align="right">{innerElement._id.fat}</TableCell>
+            <TableCell align="right">{innerElement._id.calories * innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.carbs* innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.protein* innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.fat* innerElement.quantity}</TableCell>
             <TableCell align="right">
-           <Button onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>{formData2.date}</Button></TableCell>
+           <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
 
           </TableRow>
             ): (
@@ -479,9 +478,10 @@ const FoodMain = ({
       </div>
       <br/>
       <br/>
+
       <br/>
       <br/>
-      <Link to='/add-food' className='btn btn-light'>Add food</Link>
+      <br/>
       <div>
         {fDiary !== null ? (
         <Fragment>
@@ -489,11 +489,11 @@ const FoodMain = ({
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>qwqwqwq (100g serving)</TableCell>
-              <TableCell align="right">qwqw</TableCell>
-              <TableCell align="right">qwqw&nbsp;(g)</TableCell>
-              <TableCell align="right">qwq&nbsp;(g)</TableCell>
-              <TableCell align="right">qwqwq&nbsp;(g)</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right">Calories</TableCell>
+              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              <TableCell align="right">Fat&nbsp;(g)</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -501,23 +501,23 @@ const FoodMain = ({
           
               <TableRow key={row._id}>
                 <TableCell component="th" scope="row">
-                 ate
+                 Total Consumed
                 </TableCell>
                 <TableCell align="right">{row.name.calories}</TableCell>
-                <TableCell align="right">{row.name.fat}</TableCell>
                 <TableCell align="right">{row.name.carbs}</TableCell>
                 <TableCell align="right">{row.name.protein}</TableCell>
+                <TableCell align="right">{row.name.fat}</TableCell>
               </TableRow>
               
             ))}
             {fDiary.length > 0 && fDiary.map((row) => (
               <TableRow key={row._id}>
                 <TableCell component="th" scope="row">
-                 left
+                 Remaining
                 </TableCell>
                 <TableCell align="right">{row.consumedCalories}</TableCell>
-                <TableCell align="right">{row.consumedProtein}</TableCell>
                 <TableCell align="right">{row.consumedCarbs}</TableCell>
+                <TableCell align="right">{row.consumedProtein}</TableCell>
                 <TableCell align="right">{row.consumedFat}</TableCell>
               </TableRow>
               
@@ -525,17 +525,37 @@ const FoodMain = ({
              
               <TableRow>
                 <TableCell component="th" scope="row">
-                 goal
+                 Daily Goal
                 </TableCell>
                 <TableCell align="right">{goal?.calories}</TableCell>
-                <TableCell align="right">{goal?.protein}</TableCell>
                 <TableCell align="right">{goal?.carbs}</TableCell>
+                <TableCell align="right">{goal?.protein}</TableCell>
                 <TableCell align="right">{goal?.fat}</TableCell>
               </TableRow>
 
           </TableBody>
         </Table>
       </TableContainer>
+      <div>
+      {fDiary.length > 0 && fDiary.map((row) => (
+        <Chart
+  width={'500px'}
+  height={'300px'}
+  chartType="PieChart"
+  loader={<div>Loading Chart</div>}
+  data={[
+    ['Type', 'g Consumed'],
+    ['Carbs', row.name.carbs],
+    ['Protein', row.name.protein],
+    ['Fat', row.name.fat],
+  ]}
+  options={{
+    title: '',
+  }}
+  rootProps={{ 'data-testid': '1' }}
+/>
+  ))}
+      </div>
       </Fragment>
         ) : (
           <div>

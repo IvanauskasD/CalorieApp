@@ -119,6 +119,8 @@ router.post(
       ...rest
     };
 
+    foodFields.approved = 1
+
     try {
       // Using upsert option (it creates new doc if no match is found)
       let food = await Food.findOneAndUpdate(
@@ -145,13 +147,13 @@ router.post(
     }
 
     Food.getFoodByName(req.body.food.name, (err, food) => {
-      if(err) {
+      if (err) {
         return res.status(500).json({
           message: 'An error addin food'
         })
       }
 
-      if(!food){
+      if (!food) {
         food = new Food({
           name: req.body.food.name,
           calories: req.body.food.calories,
@@ -166,7 +168,7 @@ router.post(
         })
       }
 
-      
+
 
 
     })
@@ -203,7 +205,7 @@ router.post(
 // router.post('/search-food', (req, res) => {
 
 //   const { founded } = req.body
-  
+
 //   Food.find(req.body, function(err, result){
 
 //     return res.status(200).json({result: result})
@@ -213,13 +215,64 @@ router.post(
   '/search-food',
   async (req, res) => {
 
-    const test = await Food.find({ name: { $regex: new RegExp('.*' + req.body.name.toLowerCase() + '.*', 'i') }, name: { $regex: new RegExp('.*' + req.body.name.toUpperCase() + '.*', 'i') } })
+    const test = await Food.find({ approved: { $gt: 2 }, name: { $regex: new RegExp('.*' + req.body.name.toLowerCase() + '.*', 'i') }, name: { $regex: new RegExp('.*' + req.body.name.toUpperCase() + '.*', 'i') } })
     // const searchedField = req.body.name
     // Food.find({name: {$regex: searchedField, $options: '$i'}})
     // .then(data=>{
     //   res.send(data)
     // })
     return res.json(test)
+  }
+)
+
+router.get(
+  '/not-approved-foods',
+  async (req, res) => {
+
+    const test = await Food.find({ approved: { $lt: 2 } })
+    // const searchedField = req.body.name
+    // Food.find({name: {$regex: searchedField, $options: '$i'}})
+    // .then(data=>{
+    //   res.send(data)
+    // })
+    return res.json(test)
+  }
+)
+
+router.post(
+  '/approve/:food_id',
+  async (req, res) => {
+    let incr = 0
+    const test = await Food.find({ _id: req.params.food_id })
+    let less = 0
+    
+    //less = test[0].approved - 1
+    if(test[0].votedOnBy.length === 0) {
+      incr = test[0].approved + 1
+      await Food.findOneAndUpdate(
+        { _id: req.params.food_id },
+        { $push: { votedOnBy: req.body.user }, approved: incr }
+      )
+      console.log('no users')
+    } else {
+    for (let i = 0; i < test[0].votedOnBy.length; i++) {
+      if ((test[0].votedOnBy[i]).toString() === (req.body.user.toString())) {
+        test[0].approved = test[0].approved -1
+        test[0].votedOnBy.splice(i, 1)
+        test[0].save()
+        console.log('old')
+      } else {
+        await Food.findOneAndUpdate(
+          { _id: req.params.food_id },
+          { $push: { votedOnBy: req.body.user }, approved: incr }
+        )
+        console.log('new')
+      }
+    }
+  }
+    let updated = {}
+
+    return res.json(updated)
   }
 )
 

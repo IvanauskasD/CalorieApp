@@ -63,6 +63,13 @@ const DietProfileSchema = new mongoose.Schema({
     calculatedGoal: {
         type: Number
     },
+    expectations: {
+        type: Number
+    },
+    expectationTime: {
+        type: Date,
+        default: Date.now
+    }
 })
 
 module.exports = mongoose.model('dietprofile', DietProfileSchema);

@@ -15,6 +15,7 @@ import FoodForm from '../food-forms/FoodForm'
 import Goal from '../goals/GoalForm'
 import FoodInfo from '../food-forms/FoodInfo'
 import FoodMain from '../food-forms/FoodMain'
+import FoodItem from '../food-forms/FoodItem'
 import ExerciseMain from '../exercises/ExerciseMain'
 import SportForm from '../exercises/SportForm'
 
@@ -39,6 +40,7 @@ const Routes = props => {
         <PrivateRoute exact path="/mealz:date?" component={FoodMain} />
         <PrivateRoute exact path="/exercises:date?" component={ExerciseMain} />
         <PrivateRoute exact path="/add-sport" component={SportForm} />
+        <PrivateRoute exact path="/suggest-food" component={FoodItem} />
 
         <Route component={NotFound} />
   

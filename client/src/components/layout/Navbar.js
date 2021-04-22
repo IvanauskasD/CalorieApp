@@ -17,17 +17,27 @@ const Navbar = ({
         </Link>
       </li> */}
       <li>
-        <Link to="/settings">Settings</Link>
-      </li>
-      <li>
-        <Link to="/set-goal">Goals</Link>
-      </li>
-      <li>
         <Link to="/dashboard">
           <i className="fas fa-user" />{' '}
           <span className="hide-sm">Dashboard</span>
         </Link>
       </li>
+      <li>
+        <Link to='/edit-profile'>
+          Edit Profile
+      </Link>
+
+      </li>
+      <li>
+        <Link to="/view-diet-profile">Diet Profile</Link>
+      </li>
+      <li>
+        <Link to="/set-goal">Goals</Link>
+      </li>
+      <li>
+        <Link to="/suggest-food">Suggest Food</Link>
+      </li>
+
       <li>
         <a onClick={logout} href="#!">
           <i className="fas fa-sign-out-alt" />{' '}

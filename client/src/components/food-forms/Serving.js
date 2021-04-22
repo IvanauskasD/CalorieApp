@@ -87,7 +87,7 @@ const Serving = ({
   const [open, setOpen] = React.useState(false);
   const [foodz, setFoodz] = useState([])
   let zqa = new Date()
-  let test = new Date(zqa.getTime() + (3*60*60*1000)).toISOString()
+  let test = new Date(zqa.getTime() + (3*60*60*1000)).toISOString().replace(/T.+/, '')
 
   const [formData, setFormData] = useState(initialState);
   const [formData2, setFormData2] = useState(initialState2);
@@ -132,7 +132,7 @@ const Serving = ({
     setFoodz(food.food[props])
     console.log(dietprofile.dietprofile.user._id)
     formData.type = '0'
-     formData.quantity = '0.1'
+     formData.quantity = '1'
     console.log(formData)
 
   };
@@ -154,6 +154,7 @@ const Serving = ({
     createMeal(formData).then(() => {
       createDiary(formData2)
     });
+    handleClose()
   };
   return (
     <div>
@@ -161,7 +162,7 @@ const Serving = ({
       {food !== null ? (
         <div>
           <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-            Open dialog
+            Open Food Dialog
       </Button>
           <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
             <DialogTitle id="customized-dialog-title" onClose={handleClose}>
@@ -185,9 +186,10 @@ const Serving = ({
                       />
                     </div>
                     <div className="form-group">
+                      <label>Quantity:</label>
                       <input
                         type="text"
-                        placeholder="* servings"
+                        placeholder="How many servings?"
                         name="servings"
                         value={servings}
                         onChange={onChange}
@@ -195,16 +197,18 @@ const Serving = ({
                       />
                     </div>
                     <div className="form-group">
+                      <label>Servings:</label>
                       <select
                         name="quantity"
                         value={quantity}
                        onChange={onChange}
                       >
-                        <option value="0.1">100g</option>
-                        <option value="0.001">1g</option>
+                        <option value="1">100g</option>
+                        <option value="0.01">1g</option>
                       </select>
                     </div>
                     <div className="form-group">
+                      <label>Meal Type:</label>
                       <select
                         name="type"
                         value={type}
@@ -220,17 +224,11 @@ const Serving = ({
 
                     <input type="submit" className="btn btn-primary my-1" />
 
-                    <Link className="btn btn-light my-1" to="/dashboard">
-                      Go Back
-          </Link>
                   </form>
                 </Fragment>
               </Typography>
             </DialogContent>
             <DialogActions>
-              <Button autoFocus onClick={handleClose} color="primary">
-                Save changes
-        </Button>
             </DialogActions>
           </Dialog>
         </div>

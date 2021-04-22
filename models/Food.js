@@ -21,6 +21,13 @@ const FoodSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    approved: {
+        type: Number,
+    },
+    votedOnBy: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }]
     // date: {
     //     type: Date,
     //     default: new Date()

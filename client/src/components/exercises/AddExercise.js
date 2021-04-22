@@ -90,7 +90,7 @@ const AddExercise = ({
   const [open, setOpen] = React.useState(false);
   const [sportz, setsportz] = useState([])
   let zqa = new Date()
-  let test = new Date(zqa.getTime() + (3*60*60*1000)).toISOString()
+  let test = new Date(zqa.getTime() + (3*60*60*1000)).toISOString().replace(/T.+/, '')
 
   const [formData, setFormData] = useState(initialState);
   const [formData2, setFormData2] = useState(initialState2);
@@ -170,7 +170,7 @@ const AddExercise = ({
     });
 
     // setTimeout(createSportDiary(formData2), 10000)
-    
+    handleClose()
   };
   return (
     <div>
@@ -178,7 +178,7 @@ const AddExercise = ({
       {sport !== null ? (
         <div>
           <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-            Open dialog
+            Open Exercise Dialog
       </Button>
           <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
             <DialogTitle id="customized-dialog-title" onClose={handleClose}>
@@ -203,9 +203,10 @@ const AddExercise = ({
                     </div>
                    
                     <div className="form-group">
+                      <label>Number Of Sets:</label>
                       <input
                         type="text"
-                        placeholder="* quantity"
+                        placeholder="sets"
                         name="quantity"
                         value={quantity}
                         onChange={onChange}
@@ -213,6 +214,7 @@ const AddExercise = ({
                       />
                     </div>
                     <div className="form-group">
+                      <label>Burned Calories:</label>
                       <input
                         type="text"
                         placeholder="* calories"
@@ -225,10 +227,6 @@ const AddExercise = ({
 
 
                     <input type="submit" className="btn btn-primary my-1" />
-
-                    <Link className="btn btn-light my-1" to="/dashboard">
-                      Go Back
-          </Link>
                   </form>
                 </Fragment>
               </Typography>

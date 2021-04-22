@@ -139,7 +139,7 @@ const ProgressTable = ({
    
 
   }, [getDiary, sDiary, fDiary, leftFood, leftExercise, loaded, loaded1]);
-  console.log(loaded)
+
   return (
     <List className={classes.root}>
       <ListItem>

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createDietProfile, getCurrentDietProfile } from '../../actions/dietprofile';
 import { getCurrentProfile } from '../../actions/profile'
 
+import { createDiary } from '../../actions/fDiary'
 const initialState = {
   currentWeight: '',
   height: '',
@@ -15,8 +16,17 @@ const initialState = {
   workoutWeek: '',
   workoutDay: '',
   // goal: '',
-  workoutIntensity: ''
+  workoutIntensity: '',
+  expectations: '',
 };
+
+const initial = {
+  date: '',
+  user: ''
+}
+
+let zqa = new Date()
+let test = new Date(zqa.getTime() + (3*60*60*1000)).toISOString().replace(/T.+/, '')
 
 const DietProfileForm = ({
   dietprofile: { dietprofile, loading },
@@ -24,11 +34,19 @@ const DietProfileForm = ({
   getCurrentDietProfile,
   getCurrentProfile,
   history,
-  profile: { profile }
+  profile: { profile },
+  createDiary
 }) => {
   const [formData, setFormData] = useState(initialState);
+  const [formData1, setFormData1] = useState(initial);
+  const [loaded, setLoaded] = useState(false);
+  const [loaded1, setLoaded1] = useState(false);
 
   useEffect(() => {
+    if(!profile){ getCurrentProfile()
+    } else {
+      setLoaded1(true)
+    }
     if (!dietprofile) getCurrentDietProfile();
     if (!loading && dietprofile) {
       const profileData = { ...initialState };
@@ -37,29 +55,49 @@ const DietProfileForm = ({
       }
       setFormData(profileData);
     }
-  }, [loading, getCurrentDietProfile, dietprofile, getCurrentProfile]);
+    if(formData.expectations !== '') {
+      setLoaded(true)
+    }
+    else{
+      setLoaded(false)
+    }
+  }, [loaded1, loaded, loading, getCurrentDietProfile, dietprofile, getCurrentProfile]);
 
-  const { age, workoutIntensity, currentWeight, height, goalWeight, gender, dateOfBirth, workoutWeek, workoutDay } = formData;
+  const { age, workoutIntensity, currentWeight, height, goalWeight, gender, dateOfBirth, workoutWeek, workoutDay, expectations } = formData;
+  
+  
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
     createDietProfile(formData, history, dietprofile ? true : false);
+    if(loaded1){
+      formData1.user = profile.user._id
+    }
+    formData1.date = test
+  //  createDiary(formData1)
+  createDietProfile(formData, history, dietprofile ? true : false).then(() => {
+    createDiary(formData1)
+  });
+  //  setTimeout(createDiary(formData1), 2000);
+    console.log(formData)
   };
+  
+  // const onChangeLose = e => {
+  //   formData.expectations = e.target.value
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // }
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Add A Diet Profile</h1>
-      <p className="lead">
-        <i className="fas fa-code-branch" /> Add your diet profile
-          </p>
-      <small>* = required field</small>
+      <h1 className="large text-primary">Edit your Diet Profile</h1>
       <form
         className="form"
         onSubmit={onSubmit}
       >
         <div className="form-group">
+          <label>Current Weight:</label>
           <input
             type="text"
             placeholder="* Current Weight"
@@ -70,6 +108,7 @@ const DietProfileForm = ({
           />
         </div>
         <div className="form-group">
+          <label>Height:</label>
           <input
             type="text"
             placeholder="* Height"
@@ -80,6 +119,18 @@ const DietProfileForm = ({
           />
         </div>
         <div className="form-group">
+          <label>Age:</label>
+          <input
+            type="text"
+            placeholder="* Height"
+            name="age"
+            value={age}
+            onChange={onChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Weight Goal:</label>
           <input
             type="text"
             placeholder="Weight Goal"
@@ -89,6 +140,7 @@ const DietProfileForm = ({
           />
         </div>
         <div className="form-group">
+          <label>Gender:</label>
           <select
             name="gender"
             value={gender}
@@ -98,15 +150,6 @@ const DietProfileForm = ({
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
-        </div>
-        <div className="form-group">
-          <input
-            type="date"
-            placeholder="Date Of Birth"
-            name="dateOfBirth"
-            value={dateOfBirth}
-            onChange={onChange}
-          />
         </div>
         {/* <div className="form-group">
           <input
@@ -126,6 +169,7 @@ const DietProfileForm = ({
             onChange={onChange}
           />
         </div> */}
+        <label>Activity Level:</label>
           <div className="form-group">
           <select
             name="workoutIntensity"
@@ -138,6 +182,26 @@ const DietProfileForm = ({
             <option value="1.55">Moderately Active</option>
             <option value="1.725">Very Active</option>
             <option value="1.9">Extremely Active</option>
+          </select>
+        </div>
+
+        <label>Your Goal:</label>
+          <div className="form-group">
+          <select
+            name="expectations"
+            value={expectations}
+            onChange={onChange}
+          >
+            <option>* How much weight do you want to gain/lose per week?</option>
+            <option value="1">Lose 1kg per week</option>
+            <option value="0.75">Lose 0,75kg per week</option>
+            <option value="0.5">Lose 0,5kg per week</option>
+            <option value="0.25">Lose 0,25kg per week</option>
+            <option value="0">Maintain current weight</option>
+            <option value="-0.25">Gain 0,25kg per week</option>
+            <option value="-0.5">Gain 0,5kg per week</option>
+            <option value="-0.75">Gain 0,75kg per week</option>
+            <option value="-1">Gain 1kg per week</option>
           </select>
         </div>
 
@@ -171,14 +235,15 @@ DietProfileForm.propTypes = {
   getCurrentDietProfile: PropTypes.func.isRequired,
   dietprofile: PropTypes.object.isRequired,
   dietprofile: PropTypes.object.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  createDiary: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   dietprofile: state.dietprofile,
-  profile: state.profile
+  profile: state.profile,
 });
 
-export default connect(mapStateToProps, { createDietProfile, getCurrentDietProfile, getCurrentProfile })(
+export default connect(mapStateToProps, { createDiary, createDietProfile, getCurrentDietProfile, getCurrentProfile })(
   DietProfileForm
 );

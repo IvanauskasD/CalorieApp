@@ -19,11 +19,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import Serving from './Serving'
 
@@ -44,8 +41,6 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 650,
   },
 }));
-
-
 const initialState = {
     name: ''
   };
@@ -58,6 +53,7 @@ const FoodForm = ({
     food: {food }
 }) => {
     const [formData, setFormData] = useState(initialState);
+    
     useEffect(() => {
       getFoodById();
     }, [getFoodById]);
@@ -84,7 +80,7 @@ const FoodForm = ({
 
   return (
     <Fragment>
-      <h1 className="large text-primary">Add food</h1>
+      <h1 className="large text-primary">Add Food To Diary</h1>
 
       <form
         className="form"
@@ -93,7 +89,7 @@ const FoodForm = ({
         <div className="form-group">
           <input
             type="text"
-            placeholder="* name"
+            placeholder="Type food name here"
             name="name"
             value={name}
             onChange={onChange}
@@ -101,11 +97,9 @@ const FoodForm = ({
           />
         </div>
 
-        <input type="submit" className="btn btn-primary my-1" />
+        <input value="Search Food" type="submit" className="btn btn-primary my-1" />
       
-        <Link className="btn btn-light my-1" to="/dashboard">
-          Go Back
-            </Link>
+        <Link to={`/mealz?date=`} className='btn btn-light'>Go Back</Link>
       </form>
 
       {food !== null ? (
@@ -114,12 +108,12 @@ const FoodForm = ({
 <Table className={classes.table} aria-label="simple table">
   <TableHead>
     <TableRow>
-      <TableCell>Food Name (100g serving)</TableCell>
+      <TableCell>Food Name</TableCell>
       <TableCell align="right">Calories</TableCell>
-      <TableCell align="right">Fat&nbsp;(g)</TableCell>
       <TableCell align="right">Carbs&nbsp;(g)</TableCell>
       <TableCell align="right">Protein&nbsp;(g)</TableCell>
-      <TableCell align="right">Serving</TableCell>
+      <TableCell align="right">Fat&nbsp;(g)</TableCell>
+      <TableCell align="right">Add Food</TableCell>
       <TableCell align="right"> </TableCell>
     </TableRow>
   </TableHead>
@@ -130,9 +124,9 @@ const FoodForm = ({
           {row.name}
         </TableCell>
         <TableCell align="right">{row.calories}</TableCell>
-        <TableCell align="right">{row.fat}</TableCell>
         <TableCell align="right">{row.carbs}</TableCell>
         <TableCell align="right">{row.protein}</TableCell>
+        <TableCell align="right">{row.fat}</TableCell>
         <TableCell align="right"><Serving props={i} food={row}/></TableCell>
         <TableCell align="right"></TableCell>
       </TableRow>
@@ -140,19 +134,10 @@ const FoodForm = ({
   </TableBody>
 </Table>
 </TableContainer>
-<Serving/>
 </div>
-
-
-
-
-
-
       ) : (
 
-        <Link className="btn btn-light my-1" to="/dashboard">
-          Go Back
-            </Link>
+        <div></div>
       )}
     </Fragment>
   );

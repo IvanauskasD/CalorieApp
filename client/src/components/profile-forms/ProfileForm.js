@@ -65,11 +65,12 @@ const ProfileForm = ({
     <Fragment>
       <h1 className="large text-primary">Edit Your Profile</h1>
       <p className="lead">
-        <i className="fas fa-user" /> Add some changes to your profile
+        <i className="fas fa-user" /> Add information about yourself
       </p>
       <small>* = required field</small>
       <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
+          <label>Describe yourself in one word:</label>
           <input
             type="text"
             placeholder="titleAboutUser"
@@ -78,10 +79,11 @@ const ProfileForm = ({
             onChange={onChange}
           />
           <small className="form-text">
-            Describe your work ethic
+            Describe your exercise ethic
           </small>
         </div>
         <div className="form-group">
+          <label>City:</label>
           <input
             type="text"
             placeholder="Location"
@@ -89,11 +91,9 @@ const ProfileForm = ({
             value={location}
             onChange={onChange}
           />
-          <small className="form-text">
-            Country and City
-          </small>
         </div>
         <div className="form-group">
+          <label>Your Inspirations:</label>
           <input
             type="text"
             placeholder="* inspirations"
@@ -102,17 +102,17 @@ const ProfileForm = ({
             onChange={onChange}
           />
           <small className="form-text">
-            Please use comma separated values (eg. body,SO,money)
+            Please use comma separated values (eg. one,two,three)
           </small>
         </div>
         <div className="form-group">
+          <label>Tell us about yourself:</label>
           <textarea
             placeholder="A short aboutMe of yourself"
             name="aboutMe"
             value={aboutMe}
             onChange={onChange}
           />
-          <small className="form-text">Tell us a little about yourself</small>
         </div>
 
         <div className="my-2">

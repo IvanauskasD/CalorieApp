@@ -78,8 +78,11 @@ img {
 .p {
   padding: 0.5rem;
 }
+.p5 {
+  padding: 25rem;
+}
 .p-1 {
-  padding: 1rem;
+  padding: 3rem;
 }
 .p-2 {
   padding: 2rem;
@@ -392,7 +395,7 @@ button {
 }
 
 .profile-top img {
-  width: 250px;
+  width: 50px;
 }
 
 .profile-top .icons a {

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { createGoal, getCurrentGoals } from '../../actions/goal'
 import { getCurrentDietProfile } from '../../actions/dietprofile';
 import { DebounceInput } from 'react-debounce-input';
-
+import { createDiary } from '../../actions/fDiary'
 
 const initialState = {
   calories: '',
@@ -30,23 +30,42 @@ const test2 = {
   sum: ''
 }
 
-
+const initialState2 = {
+  date: '',
+  user: ''
+};
 
 const GoalForm = ({
   goal: { goal, loading },
   createGoal,
+  createDiary,
   history,
   getCurrentGoals,
   getCurrentDietProfile,
-  dietprofile: { dietprofile: _dietprofile }
+  dietprofile: {dietprofilez}
 }) => {
   const [formData, setFormData] = useState(initialState);
+  const [formData2, setFormData2] = useState(initialState2);
 
   const [state, setState] = useState(test)
   const [state1, setState1] = useState(test1)
   const [state2, setState2] = useState(test2)
 
+  const [state3, setState3] = useState(false)
+  const [state4, setState4] = useState(false)
+
+  const [state5, setState5] = useState(0)
+
+  const [loaded, setLoaded] = useState(false)
+  const [loaded1, setLoaded1] = useState(false)
+  const [loaded2, setLoaded2] = useState(false)
+
+  let zqa = new Date()
+  let times = new Date(zqa.getTime() + (3*60*60*1000)).toISOString()
+ // console.log(times)
+
   useEffect(() => {
+    getCurrentDietProfile()
     if (!goal) getCurrentGoals();
     if (!loading && goal) {
       const goalData = { ...initialState };
@@ -57,9 +76,23 @@ const GoalForm = ({
       
     }
 
-    console.log(formData)
+
+    // let temp = 0
+    // if(formData.fatPercent !== '' && formData.proteinPercent !== '' && formData.carbsPercent !== '') {
+    // temp = formData.carbsPercent + formData.proteinPercent + formData.fatPercent
+    // }
+    // //setState5(temp.toFixed(2))
+    // if(temp > 0 && loaded){
+    // setState5(temp)
+    
+    // }
   
-  }, [loading, getCurrentGoals, goal, getCurrentDietProfile]);
+    if(!dietprofile) {
+      getCurrentDietProfile()
+      setState4(false)
+    } else setState4(true)
+
+  }, [state1, state2, state5, state4, state3, loading, getCurrentGoals, goal, getCurrentDietProfile]);
 
   let { calories, protein, carbs, fat, proteinPercent, carbsPercent, fatPercent, dietprofile } = formData;
 
@@ -78,8 +111,9 @@ const GoalForm = ({
   const onChangeCarbs = e => {
     formData.carbsPercent = e.target.value
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    test1.sum = (goal.calories / 2) / 4
+    test1.sum = (goal.calories * e.target.value) / 4
     setState1(test1)
+    setLoaded(true)
   }
 
   const onChangeFat = e => {
@@ -91,23 +125,32 @@ const GoalForm = ({
 
   const onSubmit = e => {
     e.preventDefault();
-    formData.dietprofile = goal.dietprofile._id
-    createGoal(formData, history, goal ? true : false);
+  if(state4 && dietprofile){
+   formData.dietprofile = dietprofile._id
+   formData2.date = times
+   formData2.user = dietprofile.user
+   createGoal(formData, history, goal ? true : false).then(() => {
+    createDiary(formData2)
+  });
+  }
+
+  //  createGoal(formData, history, goal ? true : false);
+
+    
   };
   
 
+ // console.log(state5)
   return (
     <Fragment>
-      <h1 className="large text-primary">Add A Diet Profile</h1>
-      <p className="lead">
-        <i className="fas fa-code-branch" /> Add your diet profile
-          </p>
-      <small>* = required field</small>
+      <h1 className="large text-primary">Edit your goals</h1>
+
       <form
         className="form"
         onSubmit={onSubmit}
       >
         <div className="form-group">
+          <label>Calculated Daily Calorie Goal:</label>
           <input
             type="text"
             placeholder="* Current calories"
@@ -118,21 +161,15 @@ const GoalForm = ({
           />
         </div>
         <div className="form-group">
-          <span>{state.sum}</span>
-          <select
-            name="proteinPercent"
-            value={proteinPercent}
-            onChange={onChangeProtein}
-          >
-            <option value="0.15">15%</option>
-            <option value="0.2">20%</option>
-            <option value="0.25">25%</option>
-            <option value="0.3">30%</option>
-            <option value="0.35">35%</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label>{goal ? state1.sum : ''}</label>
+        <label>Calculated Daily Carbohydrates Goal: {goal ? goal.carbs : 0}</label>
+        <br/>
+        {state1.sum !== '' ? (
+          <label>Recalculated Goal: {(state1.sum).toFixed(1)}</label>
+
+        ) :(
+<label></label>
+        )}
+      
           <select
             name="carbsPercent"
             value={carbsPercent}
@@ -146,8 +183,34 @@ const GoalForm = ({
           </select>
         </div>
         <div className="form-group">
-          <label>{state2.sum}</label>
-          <select
+        <label>Calculated Daily Protein Goal: {goal ? goal.protein : 0}</label>
+        <br/>
+        {state.sum !== '' ? (
+          <label>Recalculated Goal: {(state.sum).toFixed(1)}</label>
+
+        ) :(
+<label></label>
+        )}          <select
+            name="proteinPercent"
+            value={proteinPercent}
+            onChange={onChangeProtein}
+          >
+            <option value="0.15">15%</option>
+            <option value="0.2">20%</option>
+            <option value="0.25">25%</option>
+            <option value="0.3">30%</option>
+            <option value="0.35">35%</option>
+          </select>
+        </div>
+        <div className="form-group">
+        <label>Calculated Daily Fat Goal: {goal ? goal.fat : 0}</label>
+        <br/>
+        {state2.sum !== '' ? (
+          <label>Recalculated Goal: {(state2.sum).toFixed(1)}</label>
+
+        ) :(
+<label></label>
+        )}          <select
             name="fatPercent"
             value={fatPercent}
             onChange={onChangeFat}
@@ -160,7 +223,13 @@ const GoalForm = ({
           </select>
         </div>
 
+{(parseFloat(carbsPercent) + parseFloat(proteinPercent) + parseFloat(fatPercent)) === 1 ? (
         <input type="submit" className="btn btn-primary my-1" />
+
+):(
+  <div><h1>Macronutrients must equal 100%!</h1></div>
+)}
+
 
         <Link className="btn btn-light my-1" to="/dashboard">
           Go Back
@@ -172,6 +241,7 @@ const GoalForm = ({
 
 GoalForm.propTypes = {
   createGoal: PropTypes.func.isRequired,
+  createDiary: PropTypes.func.isRequired,
   getCurrentGoals: PropTypes.func.isRequired,
   goal: PropTypes.object.isRequired,
   dietprofile: PropTypes.object.isRequired,
@@ -183,6 +253,6 @@ const mapStateToProps = state => ({
   dietprofile: state.dietprofile
 });
 
-export default connect(mapStateToProps, { createGoal, getCurrentGoals, getCurrentDietProfile })(
+export default connect(mapStateToProps, { createDiary, createGoal, getCurrentGoals, getCurrentDietProfile })(
   GoalForm
 );

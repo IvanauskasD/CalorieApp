@@ -56,7 +56,7 @@ router.post(
 
 
         let goalCalculated = {}
-        
+
 
         // build a profile
         const dietProfileFields = {
@@ -72,36 +72,184 @@ router.post(
         let proteinP = 0.2;
         let fatP = 0.3;
 
+        let temp = 0
+        let reachGoalTime = 0
+        let reachGoalToFix = 0
+
+        let nowDate = new Date()
+
         if (dietProfileFields.gender === 'Male') {
             dietProfileFields.bmr = (10 * dietProfileFields.currentWeight) + (6.25 *
                 dietProfileFields.height) - (5 * dietProfileFields.age) + 5
 
+
             dietProfileFields.calculatedGoal = dietProfileFields.bmr * dietProfileFields.workoutIntensity
-            calcCalories = dietProfileFields.calculatedGoal
-            calcCarbs = dietProfileFields.calculatedGoal / 2
+
+            switch (parseFloat(dietProfileFields.expectations)) {
+                case 0:
+                    temp = dietProfileFields.calculatedGoal
+                    reachGoalToFix = 1
+                    break
+                case 0.25:
+                    temp = dietProfileFields.calculatedGoal - 300
+                    reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                    reachGoalToFix = reachGoalTime / 0.25
+                    break
+                case 0.5:
+                    temp = dietProfileFields.calculatedGoal - 500
+                    reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                    reachGoalToFix = reachGoalTime / 0.5
+                    break
+                case 0.75:
+                    temp = dietProfileFields.calculatedGoal - 825
+                    reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                    reachGoalToFix = reachGoalTime / 0.75
+                    break
+                case 1:
+                    temp = dietProfileFields.calculatedGoal - 1100
+                    reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                    reachGoalToFix = reachGoalTime / 1
+                    break
+                case -0.25:
+                    temp = dietProfileFields.calculatedGoal + 300
+                    reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                    reachGoalToFix = reachGoalTime / 0.25
+                    break
+                case -0.5:
+                    temp = dietProfileFields.calculatedGoal + 500
+                    reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                    reachGoalToFix = reachGoalTime / 0.5
+                    break
+                case -0.75:
+                    temp = dietProfileFields.calculatedGoal + 825
+                    reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                    reachGoalToFix = reachGoalTime / 0.75
+                    break
+                case -1:
+                    temp = dietProfileFields.calculatedGoal + 1100
+                    reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                    reachGoalToFix = reachGoalTime / 1
+                    break
+
+                default:
+                    temp = dietProfileFields.calculatedGoal
+                    reachGoalToFix = 1
+                break
+            }
+          //  dietProfileFields.calculatedGoal = temp
+            console.log(dietProfileFields.calculatedGoal + ' ' + temp + ' ' + dietProfileFields.expectations)
+
+            // if(dietProfileFields.expectations === 0.25){
+            // temp = dietProfileFields.calculatedGoal - 300
+            // reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+            // reachGoalToFix = reachGoalTime / 0.25
+            // } else if(dietProfileFields.expectations === 0.5){
+            //     temp = dietProfileFields.calculatedGoal - 500
+            //     reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+            //     reachGoalToFix = reachGoalTime / 0.5
+            // } else if(dietProfileFields.expectations === 0.75){
+            //     temp = dietProfileFields.calculatedGoal - 825
+            //     reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+            //     reachGoalToFix = reachGoalTime / 0.75
+            // } else if(dietProfileFields.expectations === 1){
+            //     temp = dietProfileFields.calculatedGoal - 1100
+            //     reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+            //     reachGoalToFix = reachGoalTime / 1
+            // } else if(dietProfileFields.expectations === 0.25){
+            //     temp = dietProfileFields.calculatedGoal - 300
+            //     reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+            //     reachGoalToFix = reachGoalTime / 0.25
+            // }
+
+            calcCarbs = temp / 2
             calcCarbs = calcCarbs / 4
 
-            calcProtein = dietProfileFields.calculatedGoal * proteinP
+            calcProtein = temp * proteinP
             calcProtein = calcProtein / 4
 
-            calcFat = dietProfileFields.calculatedGoal * fatP
+            calcFat = temp * fatP
             calcFat = calcFat / 9
+
+            nowDate.setDate(nowDate.getDate() + reachGoalToFix.toFixed(0) * 7)
+            dietProfileFields.expectationTime = nowDate
+            calcCalories = temp
         }
         else {
             dietProfileFields.bmr = (10 * dietProfileFields.currentWeight) + (6.25 *
                 dietProfileFields.height) - (5 * dietProfileFields.age) - 161
 
             dietProfileFields.calculatedGoal = dietProfileFields.bmr * dietProfileFields.workoutIntensity
-            calcCalories = dietProfileFields.calculatedGoal
-            calcCarbs = dietProfileFields.calculatedGoal / 2
+           // temp = dietProfileFields.calculatedGoal - dietProfileFields.expectations
+           switch (dietProfileFields.expectations) {
+            case 0:
+                temp = dietProfileFields.calculatedGoal
+                reachGoalToFix = 1
+                break
+            case 0.25:
+                temp = dietProfileFields.calculatedGoal - 300
+                reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                reachGoalToFix = reachGoalTime / 0.25
+                break
+            case 0.5:
+                temp = dietProfileFields.calculatedGoal - 500
+                reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                reachGoalToFix = reachGoalTime / 0.5
+                break
+            case 0.75:
+                temp = dietProfileFields.calculatedGoal - 825
+                reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                reachGoalToFix = reachGoalTime / 0.75
+                break
+            case 0.1:
+                temp = dietProfileFields.calculatedGoal - 1100
+                reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                reachGoalToFix = reachGoalTime / 1
+                break
+            case -0.25:
+                temp = dietProfileFields.calculatedGoal + 300
+                reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                reachGoalToFix = reachGoalTime / 0.25
+                break
+            case -0.5:
+                temp = dietProfileFields.calculatedGoal + 500
+                reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                reachGoalToFix = reachGoalTime / 0.5
+                break
+            case -0.75:
+                temp = dietProfileFields.calculatedGoal + 825
+                reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                reachGoalToFix = reachGoalTime / 0.75
+                break
+            case -1:
+                temp = dietProfileFields.calculatedGoal + 1100
+                reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
+                reachGoalToFix = reachGoalTime / 1
+                break
+            default:
+                console.log('Something went wrong!')
+        }
+
+        dietProfileFields.calculatedGoal = temp
+
+
+
+            calcCarbs = temp / 2
             calcCarbs = calcCarbs / 4
 
-            calcProtein = dietProfileFields.calculatedGoal * proteinP
+            calcProtein = temp * proteinP
             calcProtein = calcProtein / 4
 
-            calcFat = dietProfileFields.calculatedGoal * fatP
+            calcFat = temp * fatP
             calcFat = calcFat / 9
+            
+            nowDate.setDate(nowDate.getDate() + reachGoalToFix.toFixed(0) * 7)
+
+            dietProfileFields.expectationTime = nowDate
+
+            calcCalories = temp
+
         }
+
 
 
 
@@ -115,16 +263,16 @@ router.post(
 
             const test = {
                 dietprofile: dietprofile.id,
-                calories: calcCalories,
-                carbs: calcCarbs,
-                protein: calcProtein,
-                fat: calcFat,
+                calories: calcCalories.toFixed(1),
+                carbs: calcCarbs.toFixed(1),
+                protein: calcProtein.toFixed(1),
+                fat: calcFat.toFixed(1),
                 carbsPercent: carbsP,
                 proteinPercent: proteinP,
                 fatPercent: fatP,
                 ...rest
             }
-    
+
             let goal = await Goal.findOneAndUpdate(
                 { dietprofile: dietprofile.id },
                 { $set: test },

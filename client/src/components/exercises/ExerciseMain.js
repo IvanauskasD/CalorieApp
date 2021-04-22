@@ -140,11 +140,13 @@ const ExerciseMain = ({
         selected={startDate} onChange={date => setStartDate(date)} />
       
       <div>
-        <br></br>
+        <br/>
+      <Link to='/add-sport' className='btn btn-danger'>Add Exercise</Link>
+    
       </div>
       
       <div>
-
+    <br/>
         <Fragment>
         <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
@@ -171,7 +173,7 @@ const ExerciseMain = ({
             <TableCell align="right">lol</TableCell>
             <TableCell align="right">lol1</TableCell>
             <TableCell align="right">
-           <Button onClick={() => handleDelete(row._id, row.sports.indexOf(innerElement), formData2)}>{formData2.date}</Button></TableCell>
+           <Button onClick={() => handleDelete(row._id, row.sports.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
           </TableRow>
             ): (
               <p></p>
@@ -193,7 +195,6 @@ const ExerciseMain = ({
       <br/>
       <br/>
       <br/>
-      <Link to='/add-sport' className='btn btn-light'>Add sport</Link>
       <div>
         {sDiary !== null ? (
         <Fragment>
@@ -201,19 +202,17 @@ const ExerciseMain = ({
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>qwqwqwq (100g serving)</TableCell>
-              <TableCell align="right">qwqw</TableCell>
-              <TableCell align="right">qwqw&nbsp;(g)</TableCell>
+              <TableCell>Exercise Total</TableCell>
+              <TableCell align="right">Calories Burned</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {sDiary.length > 0 && sDiary.map((row) => (
               <TableRow key={row._id}>
                 <TableCell component="th" scope="row">
-                 wooo
+                 Total
                 </TableCell>
                 <TableCell align="right">{row.name.calories}</TableCell>
-                <TableCell align="right">kkk</TableCell>
               </TableRow>
             ))}
           </TableBody>
