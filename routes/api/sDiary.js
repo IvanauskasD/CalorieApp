@@ -14,7 +14,9 @@ const ExerciseDiary = require('../../models/ExerciseDiary');
 const Sport = require('../../models/Sport');
 const FoodDiary = require('../../models/FoodDiary');
 
-
+// @route    POST api/sDiary
+// @desc     Create or update exercise diary
+// @access   Private
 router.post(
   '/',
   auth,
@@ -62,7 +64,6 @@ router.post(
                   }
               }
           }
-          console.log(calories)
          
           let calLeft
 
@@ -135,6 +136,9 @@ router.post(
   }
 );
 
+// @route    GET api/fDiary/sDiariez:date?
+// @desc     Gets exercise diary for specific date
+// @access   Private
 router.get(
     '/sDiariez',
     auth,

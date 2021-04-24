@@ -7,7 +7,7 @@ import {
     CLEAR_MEAL
 } from './types';
 
-// Create or update diet profile
+// Create or update meal
 export const createMeal = (formData) => async (
     dispatch
 ) => {
@@ -56,7 +56,7 @@ export const getMealByDate = date => async (dispatch) => {
     }
   };
 
-  // Delete experience
+  // Remove meal 
 export const deleteMeal = (id, i, formData)  => async (dispatch) => {
     try {
       

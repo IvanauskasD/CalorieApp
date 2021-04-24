@@ -8,7 +8,18 @@ const SportSchema = new mongoose.Schema({
     caloriesBurned: {
         type: Number,
         required: true
-    }
+    },
+    approved: {
+        type: Number,
+    },
+    votedOnBy: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }],
+    votedAgainstBy: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }]
 });
 
 module.exports = mongoose.model('Sport', SportSchema);

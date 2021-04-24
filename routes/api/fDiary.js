@@ -14,6 +14,9 @@ const FoodDiary = require('../../models/FoodDiary');
 const ExerciseDiary = require('../../models/ExerciseDiary');
 
 
+// @route    POST api/fDiary
+// @desc     Create or update food diary
+// @access   Private
 router.post(
   '/',
   auth,
@@ -123,32 +126,6 @@ router.post(
               },
               { new: true, upsert: true, setDefaultsOnInsert: true }
           )
-
-      /*
-      pagrindiniai skaiciavimai kaip ir veikia.
-      problema gali buti su datom, tad pushinant fDiary filtruoti
-      pagal siandienine data. galbut is viso tiksliau butu
-      meal pries skaiciavimus atsifiltruoti i siandienos diena, 
-      tad pushinant fDiary nekiltu problemu.
-      */
-
-
-
-
-      //     diary = await FoodDiary.findOneAndUpdate(
-      //         {date: {$gte: start, $lt: end}},
-      //         { $set: {
-      //             name: {
-      //          calories: goal.calories - calories,
-      //          protein: goal.protein - protein, 
-      //          carbs: goal.carbs - carbs, 
-      //          fat: goal.fat - fat
-      // }, date: req.body.date
-      //         },
-      //     },
-      //         { new: true, upsert: true, setDefaultsOnInsert: true }
-      //     )
-      // }
       res.json([diary]);
 
   } catch (err) {
@@ -158,28 +135,9 @@ router.post(
   }
 );
 
-// @route    GET api/goal/me
-// @desc     Get current goals
+// @route    GET api/fDiary/fDiariez:date?
+// @desc     Gets food diary for specific date
 // @access   Private
-// router.get('/me', auth, async (req, res) => {
-//   try {
-//     const dp = await DietProfile.findOne({user: req.user.id})
-//     const goal = {};
-//     if(!dp){
-//     goal = await FoodDiary.findOne({dietprofile: dp._id}).populate('dietprofile');
-//     }
-//     if (!goal) {
-//           return res.status(400).json({ msg: 'There is no fDiary for this user' });
-//       }
-
-//       res.json(goal);
-
-//   } catch (err) {
-//       console.error(err.message);
-//       res.status(500).send('Server Error');
-//   }
-// });
-
 router.get(
     '/fDiariez',
     auth,

@@ -6,7 +6,7 @@ import {
     ERROR_GOAL
 } from './types';
 
-// Create or update diet profile
+// Update goals
 export const createGoal = (formData, history, edit = false) => async (
     dispatch
 ) => {
@@ -39,7 +39,7 @@ export const createGoal = (formData, history, edit = false) => async (
     }
 };
 
-// Get diet profile by ID
+// Get goal by ID
 export const getGoalById = (dietprofile_id) => async (dispatch) => {
     try {
         const res = await api.get(`/goal/profile/${dietprofile_id}`);
@@ -56,7 +56,7 @@ export const getGoalById = (dietprofile_id) => async (dispatch) => {
     }
 };
 
-// Get current users diet profile
+// Get current users goals
 export const getCurrentGoals = () => async (dispatch) => {
     try {
         const res = await api.get('/goal/me');

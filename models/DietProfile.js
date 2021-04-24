@@ -17,12 +17,6 @@ const DietProfileSchema = new mongoose.Schema({
             ref: 'Exercise'
         }
     ],
-    mealSuggestions: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'MealSuggesion'
-        }
-    ],
     currentWeight: {
         type: Number,
         required: true

@@ -23,16 +23,8 @@ const ExerciseSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'user'
-    }
-    // noOfSets: {
-    //     type: Number,
-    // },
-    // repetitionsPerSet: {
-    //     type: Number,
-    // },
-    // weightPerSet: {
-    //     type: Number,
-    // },
+    },
+    
 });
 
 module.exports = mongoose.model('Exercise', ExerciseSchema);

@@ -5,7 +5,7 @@ import {
     ERROR_SDIARY,
 } from './types';
 
-// Create or update diet profile
+// Create or update exercise diary
 export const createSportDiary = (formData) => async (
   dispatch
 ) => {
@@ -36,7 +36,7 @@ export const createSportDiary = (formData) => async (
 };
 
 
-// Get current users diet profile
+// Get exercise diary by date
 export const getSportDiary = date => async (dispatch) => {
     try {
         const res = await api.get(`/sDiary/sDiariez?date=${date}`);

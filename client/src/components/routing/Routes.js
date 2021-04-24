@@ -7,7 +7,6 @@ import Alert from '../layout/Alert';
 import Dashboard from '../dashboard/Dashboard';
 import ProfileForm from '../profile-forms/ProfileForm';
 import DietProfileForm from '../profile-forms/DietProfileForm';
-import SettingsMain from '../settings/SettingsMain';
 import Profile from '../profile/Profile';
 import NotFound from '../layout/NotFound';
 import PrivateRoute from '../routing/PrivateRoute';
@@ -18,6 +17,7 @@ import FoodMain from '../food-forms/FoodMain'
 import FoodItem from '../food-forms/FoodItem'
 import ExerciseMain from '../exercises/ExerciseMain'
 import SportForm from '../exercises/SportForm'
+import SportItem from '../exercises/SportItem'
 
 const Routes = props => {
   return (
@@ -32,7 +32,6 @@ const Routes = props => {
         <PrivateRoute exact path="/edit-profile" component={ProfileForm} />
         <PrivateRoute exact path="/add-diet-profile" component={DietProfileForm} />
         <PrivateRoute exact path="/edit-diet-profile" component={DietProfileForm} />
-        <PrivateRoute exact path="/settings" component={SettingsMain} />
         <PrivateRoute exact path="/view-diet-profile" component={DietProfileForm} />
         <PrivateRoute exact path="/add-food" component={FoodForm} />
         <PrivateRoute exact path="/set-goal" component={Goal} />
@@ -41,6 +40,7 @@ const Routes = props => {
         <PrivateRoute exact path="/exercises:date?" component={ExerciseMain} />
         <PrivateRoute exact path="/add-sport" component={SportForm} />
         <PrivateRoute exact path="/suggest-food" component={FoodItem} />
+        <PrivateRoute exact path="/suggest-sport" component={SportItem} />
 
         <Route component={NotFound} />
   

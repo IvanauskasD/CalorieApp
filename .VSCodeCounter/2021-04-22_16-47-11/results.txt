@@ -1,13 +1,13 @@
-Date : 2021-04-22 15:22:49
+Date : 2021-04-22 16:47:11
 Directory : c:\Users\Domantas\Desktop\Bakalauras\calories-tracker
-Total : 103 files,  44394 codes, 952 comments, 1639 blanks, all 46985 lines
+Total : 99 files,  44060 codes, 711 comments, 1475 blanks, all 46246 lines
 
 Languages
 +------------+------------+------------+------------+------------+------------+
 | language   | files      | code       | comment    | blank      | total      |
 +------------+------------+------------+------------+------------+------------+
 | JSON       |          5 |     36,985 |          0 |          5 |     36,990 |
-| JavaScript |         94 |      6,846 |        912 |      1,510 |      9,268 |
+| JavaScript |         90 |      6,512 |        671 |      1,346 |      8,529 |
 | CSS        |          1 |        504 |         17 |         89 |        610 |
 | Markdown   |          2 |         38 |          0 |         34 |         72 |
 | HTML       |          1 |         21 |         23 |          1 |         45 |
@@ -17,16 +17,16 @@ Directories
 +-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 | path                                                                                                              | files      | code       | comment    | blank      | total      |
 +-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
-| .                                                                                                                 |        103 |     44,394 |        952 |      1,639 |     46,985 |
-| client                                                                                                            |         71 |     22,456 |        465 |      1,043 |     23,964 |
+| .                                                                                                                 |         99 |     44,060 |        711 |      1,475 |     46,246 |
+| client                                                                                                            |         71 |     22,456 |        465 |      1,045 |     23,966 |
 | client\public                                                                                                     |          2 |         46 |         23 |          2 |         71 |
-| client\src                                                                                                        |         66 |      5,169 |        442 |      1,006 |      6,617 |
+| client\src                                                                                                        |         66 |      5,169 |        442 |      1,008 |      6,619 |
 | client\src\actions                                                                                                |         12 |        764 |         33 |        178 |        975 |
-| client\src\components                                                                                             |         34 |      3,375 |        376 |        649 |      4,400 |
+| client\src\components                                                                                             |         34 |      3,375 |        376 |        651 |      4,402 |
 | client\src\components\auth                                                                                        |          2 |        154 |          0 |         21 |        175 |
 | client\src\components\dashboard                                                                                   |          4 |        220 |         56 |         78 |        354 |
-| client\src\components\exercises                                                                                   |          3 |        529 |         24 |        124 |        677 |
-| client\src\components\food-forms                                                                                  |          6 |      1,168 |        107 |        230 |      1,505 |
+| client\src\components\exercises                                                                                   |          3 |        530 |         24 |        126 |        680 |
+| client\src\components\food-forms                                                                                  |          6 |      1,167 |        107 |        230 |      1,504 |
 | client\src\components\goals                                                                                       |          1 |        205 |         11 |         42 |        258 |
 | client\src\components\layout                                                                                      |          6 |        234 |        109 |         45 |        388 |
 | client\src\components\profile                                                                                     |          6 |        308 |          5 |         49 |        362 |
@@ -37,9 +37,9 @@ Directories
 | client\src\utils                                                                                                  |          3 |         41 |          7 |          6 |         54 |
 | config                                                                                                            |          1 |         18 |          1 |          4 |         23 |
 | middleware                                                                                                        |          2 |         28 |          4 |          5 |         37 |
-| models                                                                                                            |         12 |        420 |         54 |         34 |        508 |
-| routes                                                                                                            |         13 |      1,688 |        423 |        535 |      2,646 |
-| routes\api                                                                                                        |         13 |      1,688 |        423 |        535 |      2,646 |
+| models                                                                                                            |         10 |        381 |         54 |         30 |        465 |
+| routes                                                                                                            |         11 |      1,395 |        182 |        374 |      1,951 |
+| routes\api                                                                                                        |         11 |      1,395 |        182 |        374 |      1,951 |
 +-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 
 Files
@@ -72,10 +72,10 @@ Files
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\dashboard\DashboardActions.js         | JavaScript |         15 |          0 |          2 |         17 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\dashboard\DashboardExistingProfile.js | JavaScript |          9 |          0 |          2 |         11 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\dashboard\ProgressTable.js            | JavaScript |        111 |         49 |         47 |        207 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\exercises\AddExercise.js              | JavaScript |        202 |         22 |         43 |        267 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\exercises\ExerciseMain.js             | JavaScript |        205 |          1 |         48 |        254 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\exercises\AddExercise.js              | JavaScript |        202 |         22 |         45 |        269 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\exercises\ExerciseMain.js             | JavaScript |        206 |          1 |         48 |        255 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\exercises\SportForm.js                | JavaScript |        122 |          1 |         33 |        156 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\food-forms\FoodForm.js                | JavaScript |        136 |          1 |         23 |        160 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\food-forms\FoodForm.js                | JavaScript |        135 |          1 |         23 |        159 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\food-forms\FoodInfo.js                | JavaScript |         91 |          4 |         17 |        112 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\food-forms\FoodItem.js                | JavaScript |         96 |          7 |         20 |        123 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\client\src\components\food-forms\FoodMain.js                | JavaScript |        428 |         65 |        103 |        596 |
@@ -121,7 +121,6 @@ Files
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\config\db.js                                                | JavaScript |         18 |          1 |          4 |         23 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\middleware\auth.js                                          | JavaScript |         21 |          3 |          3 |         27 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\middleware\checkObjectId.js                                 | JavaScript |          7 |          1 |          2 |         10 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\models\CompleteMeals.js                                     | JavaScript |         19 |          0 |          2 |         21 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\models\DietProfile.js                                       | JavaScript |         72 |          1 |          2 |         75 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\models\Exercise.js                                          | JavaScript |         27 |          9 |          2 |         38 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\models\ExerciseDiary.js                                     | JavaScript |         22 |          0 |          2 |         24 |
@@ -129,25 +128,22 @@ Files
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\models\FoodDiary.js                                         | JavaScript |         46 |          0 |          2 |         48 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\models\Goal.js                                              | JavaScript |         40 |          0 |          2 |         42 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\models\Meal.js                                              | JavaScript |         27 |          0 |          3 |         30 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\models\MealSuggestion.js                                    | JavaScript |         20 |          0 |          2 |         22 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\models\Profile.js                                           | JavaScript |         41 |         30 |          3 |         74 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\models\Sport.js                                             | JavaScript |         12 |          0 |          2 |         14 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\models\User.js                                              | JavaScript |         56 |         10 |          8 |         74 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\package-lock.json                                           | JSON       |     19,722 |          0 |          1 |     19,723 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\package.json                                                | JSON       |         35 |          0 |          1 |         36 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\auth.js                                          | JavaScript |         61 |          6 |         11 |         78 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\completedMeals.js                                | JavaScript |         44 |          1 |          8 |         53 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\dietprofile.js                                   | JavaScript |        226 |         42 |         50 |        318 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\exercise.js                                      | JavaScript |        189 |         25 |         71 |        285 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\fDiary.js                                        | JavaScript |        116 |         55 |         59 |        230 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\food.js                                          | JavaScript |        162 |         83 |         44 |        289 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\goal.js                                          | JavaScript |         78 |         61 |         24 |        163 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\meal.js                                          | JavaScript |        337 |        108 |        157 |        602 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\mealSuggestion.js                                | JavaScript |         50 |          4 |         17 |         71 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\dietprofile.js                                   | JavaScript |        226 |         21 |         49 |        296 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\exercise.js                                      | JavaScript |        189 |         18 |         66 |        273 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\fDiary.js                                        | JavaScript |        116 |         21 |         51 |        188 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\food.js                                          | JavaScript |        113 |         27 |         21 |        161 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\goal.js                                          | JavaScript |         61 |          7 |         17 |         85 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\meal.js                                          | JavaScript |        204 |         29 |         67 |        300 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\profile.js                                       | JavaScript |        106 |         24 |         18 |        148 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\sDiary.js                                        | JavaScript |        125 |          0 |         40 |        165 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\sport.js                                         | JavaScript |         55 |          8 |         11 |         74 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\sDiary.js                                        | JavaScript |        125 |          6 |         39 |        170 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\sport.js                                         | JavaScript |         55 |         17 |         10 |         82 |
 | c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\routes\api\users.js                                         | JavaScript |        139 |          6 |         25 |        170 |
-| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\server.js                                                   | JavaScript |         27 |          5 |         15 |         47 |
-| Total                                                                                                             |            |     44,394 |        952 |      1,639 |     46,985 |
+| c:\Users\Domantas\Desktop\Bakalauras\calories-tracker\server.js                                                   | JavaScript |         25 |          5 |         14 |         44 |
+| Total                                                                                                             |            |     44,060 |        711 |      1,475 |     46,246 |
 +-------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

@@ -13,7 +13,9 @@ const FoodDiary = require('../../models/FoodDiary');
 const ExerciseDiary = require('../../models/ExerciseDiary');
 const Goal = require('../../models/Goal');
 
-
+// @route    POST api/exercise
+// @desc     Add exercise
+// @access   Private
 router.post(
     '/',
     auth,
@@ -117,7 +119,9 @@ router.post(
     }
 );
 
-
+// @route    GET api/exercises:date?
+// @desc     Get exercises for specific date
+// @access   Private
 router.get(
     '/exercises',
     auth,
@@ -142,6 +146,9 @@ router.get(
     }
 )
 
+// @route    GET api/exercise/:id
+// @desc     Get exercise by ID
+// @access   Private
 router.get(
     '/exercise/:id',
     auth,
@@ -153,6 +160,9 @@ router.get(
     }
 )
 
+// @route    POST api/:exercise_id&:number
+// @desc     Add exercise to current date and diary, recalculates food diary
+// @access   Private
 router.post('/:exercise_id&:number', auth, async (req, res) => {
     try {
         const user = await User.findOne({ _id: req.body.user }).
@@ -199,33 +209,10 @@ router.post('/:exercise_id&:number', auth, async (req, res) => {
             { date: { $gte: start, $lt: end }, dietprofile: dietprofile._id })
         let additionalCalories = 0
         let minus = 0
-            console.log(fDiary)
         let goalMinus = 0
         let minusEx = 0
         minusEx = fDiary.consumedCalories - calories1
 
-
-        //     if(fDiary === null)
-        // await FoodDiary.findOneAndUpdate(
-        //       { date: { $gte: start, $lt: end }, dietprofile: dietprofile._id },
-        //       {
-        //           $set: {
-        //               name: {
-        //                   calories: 1,
-        //                   protein: 1,
-        //                   carbs: 1,
-        //                   fat: 1
-        //               },
-        //           }, date: req.body.date,
-        //           consumedCalories: -minus,
-        //           consumedProtein: 1,
-        //           consumedCarbs: 1,
-        //           consumedFat: 1
-        //       },
-        //       { new: true, upsert: true, setDefaultsOnInsert: true }
-        //   )
-
-    
 /*
 SUKURTI TAIP KAD FOOD DIARY PRISIDETU TAI KAS BUVO ISMINUSUOTA EXERICXE
 */

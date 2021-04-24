@@ -5,7 +5,7 @@ import {
     ERROR_FDIARY,
 } from './types';
 
-// Create or update diet profile
+// Create or update diary
 export const createDiary = (formData) => async (
   dispatch
 ) => {
@@ -36,7 +36,7 @@ export const createDiary = (formData) => async (
 };
 
 
-// Get current users diet profile
+// Get food diary by date
 export const getDiary = date => async (dispatch) => {
     try {
       

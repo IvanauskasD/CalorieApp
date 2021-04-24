@@ -97,37 +97,11 @@ const AddExercise = ({
 
  const [state2, setState2] = useState(test2)
 
-
-  // useEffect(() => {
-  //   if (!goal) getCurrentGoals();
-  //   if (!loading && goal) {
-  //     const goalData = { ...initialState };
-  //     for (const key in goal) {
-  //       if (key in goalData) goalData[key] = goal[key];
-  //     }
-  //     setFormData(goalData);
-  //   }
-
-
-  // }, []);
-
-
   useEffect(() => {
     getCurrentDietProfile()
     
     //createExercise(formData);
   }, [getCurrentDietProfile, formData]);
-
-  // useEffect(() => {
-  //   if (!goal) getCurrentGoals();
-  //   if (!loading && goal) {
-  //     const goalData = { ...initialState };
-  //     for (const key in goal) {
-  //       if (key in goalData) goalData[key] = goal[key];
-  //     }
-  //     setFormData(goalData);
-  //   }
-  // }, [loading, getCurrentGoals, goal, getCurrentDietProfile]);
 
   let { date, typeExercise, quantity, calories, user, sport: { name } } = formData;
 
@@ -169,7 +143,6 @@ const AddExercise = ({
         createSportDiary(formData2)
     });
 
-    // setTimeout(createSportDiary(formData2), 10000)
     handleClose()
   };
   return (
@@ -232,9 +205,6 @@ const AddExercise = ({
               </Typography>
             </DialogContent>
             <DialogActions>
-              <Button autoFocus onClick={handleClose} color="primary">
-                Save changes
-        </Button>
             </DialogActions>
           </Dialog>
         </div>

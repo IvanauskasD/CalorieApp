@@ -8,7 +8,7 @@ import {
     CLEAR_EXERCISE
 } from './types';
 
-// Create or update diet profile
+// Create or update exercise
 export const createExercise = (formData) => async (
     dispatch
 ) => {
@@ -40,7 +40,7 @@ export const createExercise = (formData) => async (
 
 
 
-// Get meal by date
+// Get exercise by date
 export const getExerciseByDate = date => async (dispatch) => {
     try {
       const res = await api.get(`/exercise/exercises?date=${date}`);

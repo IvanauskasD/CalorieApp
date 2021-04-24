@@ -76,18 +76,11 @@ const DietProfileForm = ({
       formData1.user = profile.user._id
     }
     formData1.date = test
-  //  createDiary(formData1)
   createDietProfile(formData, history, dietprofile ? true : false).then(() => {
     createDiary(formData1)
   });
-  //  setTimeout(createDiary(formData1), 2000);
     console.log(formData)
   };
-  
-  // const onChangeLose = e => {
-  //   formData.expectations = e.target.value
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // }
 
   return (
     <Fragment>
@@ -151,24 +144,6 @@ const DietProfileForm = ({
             <option value="Female">Female</option>
           </select>
         </div>
-        {/* <div className="form-group">
-          <input
-            type="text"
-            placeholder="Workouts/Week"
-            name="workoutWeek"
-            value={workoutWeek}
-            onChange={onChange}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            placeholder="Workouts/day"
-            name="workoutDay"
-            value={workoutDay}
-            onChange={onChange}
-          />
-        </div> */}
         <label>Activity Level:</label>
           <div className="form-group">
           <select
@@ -204,22 +179,6 @@ const DietProfileForm = ({
             <option value="-1">Gain 1kg per week</option>
           </select>
         </div>
-
-        {/* <div className="form-group">
-          <select
-            name="goal"
-            value={goal}
-            onChange={onChange}
-          >
-            <option>* What is your goal?</option>
-            <option value="1">Lose 1 kilogram per week</option>
-            <option value="2">Lose .75 kilograms per week</option>
-            <option value="3">Lose .5 kilograms per week</option>
-            <option value="4">Maintain my current weight</option>
-            <option value="5">Gain .25 kilograms per week</option>
-            <option value="6">Gain .5 kilograms per week</option>
-          </select>
-        </div> */}
 
         <input type="submit" className="btn btn-primary my-1" />
         <Link className="btn btn-light my-1" to="/dashboard">

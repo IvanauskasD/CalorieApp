@@ -14,8 +14,8 @@ const FoodDiary = require('../../models/FoodDiary');
 
 const moment = require('moment')
 
-// @route    POST api/goal
-// @desc     Calculate goal
+// @route    POST api/meal
+// @desc     Add meal
 // @access   Private
 router.post(
     '/',
@@ -112,52 +112,6 @@ router.post(
                     }
                 }
             }
-            
-        
-            //     for (let i = dietprofile.meals.length - 1; i >= 0; i--) {
-            //         if ((dietprofile.meals[i]._id).toString() === (mealz._id.toString())){
-            //             console.log(dietprofile.meals[i])
-            //         }}
-
-                    // dW = await DietProfile.findOne({ user: req.body.user, 'meals._id': mealz._id })
-                    // console.log(dW)
-
-            // if(dietprofile.meals.length === 0 && dietprofile.meals.)
-            // {
-
-            // }
-            // else {
-            //                 let dW = await DietProfile.findOneAndUpdate({ user: req.body.user, 'meals.foods': dP },
-            // {$push: {
-            //     'meals.$.foods': dP
-            // }})
-            // }
-
-
-
-
-
-            // for (let i = dietprofile.meals.length - 1; i >= 0; i--) {
-            //     let qw = (dietprofile.meals[i]._id).toString()
-            //     let wq = (mealz._id).toString()
-            //     if(qw  === wq)
-            //     {
-            //         dietprofile.meals[i].foods.unshift(dP)
-            //         dietprofile.markModified('meals.foods._id')
-            //         await dietprofile.save()
-            //         console.log(dietprofile.meals[i])
-
-            //     }
-            //     else {
-            //         dietprofile.meals.addToSet(mealz)
-
-            //         await dietprofile.save()
-            //     }
-            // }
-
-            //   dietprofile.meals.addToSet(mealz)
-
-            //   dietprofile.save()
 
             return res.json(mealz)
 
@@ -168,211 +122,9 @@ router.post(
     }
 );
 
-
-router.post(
-    '/test',
-    auth,
-    async (req, res) => {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() })
-        }
-
-
-        try {
-            const user = await User.findOne({ _id: req.body.user }).
-                populate({ path: 'meals.foods._id', model: Food })
-
-
-
-            const dietprofile = await DietProfile.findOne({ user: user._id })
-
-            const goal = await Goal.findOne({ dietprofile: dietprofile._id })
-
-            let summary = [];
-            let meals = [];
-            let startOfDay = new Date(req.body.date);
-            let goalz
-            let diary
-            let endOfDay = new Date(new Date(startOfDay).getTime() + 60 * 60 * 24 * 1000 - 1);
-            if (goal.date < endOfDay) {
-                goalz = user.goal;
-
-                diary = await FoodDiary.findOneAndUpdate(
-                    { dietprofile: dietprofile._id },
-                    {
-                        $set: {
-                            name: {
-                                calories: goal.calories,
-                                protein: goal.protein, carbs: goal.carbs, fat: goal.fat
-                            }
-                        }
-                    },
-                    { new: true, upsert: true, setDefaultsOnInsert: true }
-                )
-
-
-            }
-
-
-
-            res.json({
-                diary
-            });
-
-        } catch (err) {
-            console.error(err.message)
-            return res.status(500).send('Server Error')
-        }
-    }
-);
-
-router.post(
-    '/test1',
-    auth,
-    async (req, res) => {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() })
-        }
-
-        try {
-            const dietprofile = await DietProfile.findOne({ user: req.body.user }).
-                populate({ path: 'meals.foods._id', model: Food })
-
-            //const dietprofile = await DietProfile.findOne({ user: user._id })
-
-            const goal = await Goal.findOne({ dietprofile: dietprofile._id })
-
-            let goalz
-            let diary
-            let calories = 0, protein = 0, carbs = 0, fat = 0;
-
-       
-            var start = new Date(req.body.date);
-            start.setHours(3, 0, 0, 0);
-    
-            var end = new Date(req.body.date);
-            end.setHours(26, 59, 59, 999);
-
-            // const meall = await Meal.findOne()
-
-
-            goalz = goal;
-            for (let i = dietprofile.meals.length - 1; i >= 0; i--) {
-                let meal = dietprofile.meals[i]
-
-                let mealq = await Meal.findById(meal)
-                if (mealq.date >= start && mealq.date <= end) {
-                    for (let k = 0; k < mealq.foods.length; k++) {
-                        let food = mealq.foods[k]
-                        let tt = mealq.foods[k].quantity
-
-                        let foodz = await Food.findById(food)
-
-                        //console.log(foodz.calories + ' ' + tt)
-                        calories += (foodz.calories * tt)
-                        protein += (foodz.protein * tt)
-                        carbs += (foodz.carbs * tt)
-                        fat += (foodz.fat * tt)
-                    }
-                }
-            }
-
-
-            let calConsumed
-            let proteinConsumed
-            let carbsConsumed
-            let fatConsumed
-
-            calConsumed = goalz.calories - calories
-            proteinConsumed = goalz.protein - protein
-            carbsConsumed = goalz.carbs - carbs
-            fatConsumed = goalz.fat - fat
-
-
-
-
-            diary = await FoodDiary.findOneAndUpdate(
-                { date: { $gte: start, $lt: end }, dietprofile: dietprofile._id },
-                {
-                    $set: {
-                        name: {
-                            calories: calories,
-                            protein: protein,
-                            carbs: carbs,
-                            fat: fat
-                        },
-                    }, date: req.body.date,
-                    consumedCalories: calConsumed,
-                    consumedProtein: proteinConsumed,
-                    consumedCarbs: carbsConsumed,
-                    consumedFat: fatConsumed
-                },
-                { new: true, upsert: true, setDefaultsOnInsert: true }
-            )
-
-
-
-            res.json({
-                diary
-            });
-
-            /*
-            pagrindiniai skaiciavimai kaip ir veikia.
-            problema gali buti su datom, tad pushinant fDiary filtruoti
-            pagal siandienine data. galbut is viso tiksliau butu
-            meal pries skaiciavimus atsifiltruoti i siandienos diena, 
-            tad pushinant fDiary nekiltu problemu.
-            */
-
-        } catch (err) {
-            console.error(err.message)
-            return res.status(500).send('Server Error')
-        }
-    }
-);
-
-
-router.get(
-    '/meals',
-    auth,
-    async (req, res) => {
-        let query = {}
-        if (req.query.date)
-            query.date = req.query.date
-
-
-        let dd = new Date(query.date)
-
-        var start = new Date(2021, 2, 30);
-        var end = new Date(2021, 3, 0);
-
-        let lol = 86400000
-        let lol1 = 86400000
-        // if(query.date === null)
-        // {
-        //     lol = new Date(new Date().getTime())
-
-        //     lol1 = new Date(new Date().getTime() + lol1)
-
-        // }
-        // else{
-        lol = new Date(new Date(query.date).getTime())
-
-        lol1 = new Date(new Date(query.date).getTime() + lol1)
-
-        // }
-
-
-        console.log(lol)
-        console.log(lol1)
-        const meal = await Meal.find({ date: { $gte: lol, $lte: lol1 } })
-
-        return res.json(meal);
-    }
-)
-
+// @route    GET api/mealz:date?
+// @desc     Get meals for specific date
+// @access   Private
 router.get(
     '/mealz',
     auth,
@@ -420,6 +172,9 @@ router.get(
     }
 )
 
+// @route    GET api/meal/:id
+// @desc     Get meal by ID
+// @access   Private
 router.get(
     '/meal/:id',
     auth,
@@ -431,6 +186,9 @@ router.get(
     }
 )
 
+// @route    POST api/:meal_id&:number
+// @desc     Add meal to current date and diary, recalculates food diary
+// @access   Private
 router.post('/:meal_id&:number', auth, async (req, res) => {
     try {
         const user = await User.findOne({ _id: req.body.user }).
@@ -461,7 +219,7 @@ router.post('/:meal_id&:number', auth, async (req, res) => {
         
 
         let diaris = await FoodDiary.find({ date: { $gte: start, $lt: end }, dietprofile: dietprofile._id })
-        console.log(end)
+       
         let calories1 = 0, protein1 = 0, carbs1 = 0, fat1 = 0
 
         calories1 = diaris[0].name.calories
@@ -487,7 +245,6 @@ router.post('/:meal_id&:number', auth, async (req, res) => {
         let carbs00 = carbs2 + carbs
         let fat00 = fat2 + fat
 
-      console.log(diaris)
         
         let diarisFinal = await FoodDiary.findOneAndUpdate({ date: { $gte: start, $lt: end }, dietprofile: dietprofile._id },
             {
@@ -529,67 +286,7 @@ router.post('/:meal_id&:number', auth, async (req, res) => {
             
         found.foods.splice(req.params.number, 1)
         found.save()
-        // /\
-
-                //   if(dietprofile.meals[i].foods.length === 0){
-                //     dietprofile.meals.splice(i, 1)
-                //     dietprofile.save()
-                //   }
-
-                // dW = await DietProfile.findOneAndUpdate({ user: req.body.user },
-                // {
-                //     $pull: {
-                //         'meals.$[dd].foods.$[req]' : found.foods[req.params.number]
-                //     }
-                // }, {arrayFilters: [{dd: i}, {req: req.params.number}]})
-                // console.log(dW.meals[i])
-           
-
-        //         dW = await DietProfile.findOneAndUpdate({ user: req.body.user, 'meals._id': found._id },
-        //         {
-        //             $unset: {
-        //                 ww : dP
-        //             }
-        //         })
-        //         dW = await DietProfile.findOneAndUpdate({ user: req.body.user, 'meals._id': found._id },
-        //         {
-        //             $pull: {
-        //                 ww: null
-        //             }
-        //         })
-
-        //     else
-        //         console.log('no')
-
-        // }
-
-        // if(found.foods.length === 0) {
-        //     found.remove({ _id: req.params.meal_id })
-        // }
-
-
-        // let tQ = await DietProfile.findOne({ user: req.body.user })
-        // if (tQ.meals)
-        //     console.log(tQ)
-
-        //   db.test.find({}, {_id: 0, s: {$elemMatch: {sec: '52b9830cadaa9d2732000005'}}})
-
-
-
-        //  dietprofile.meals.splice(req.params.number, 1)
-        //  dietprofile.save()
-
-
-
-        //  if(found.foods.length === 0) {
-        //      found.remove({ _id: req.params.meal_id })
-        //  }
-
-
-
-
-
-
+     
         res.json({ msg: 'Meal removed' });
     } catch (err) {
         console.error(err.message);

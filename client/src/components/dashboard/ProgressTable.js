@@ -49,35 +49,12 @@ const ProgressTable = ({
 
   useEffect(() => {
    
-      // else {
-      //   if(sDiary.length > 0 && goal) {
-      //     setLeftExercise(sDiary[0].name.calories)
-      //     localStorage.setItem('leftExercise', JSON.stringify(leftExercise))
-      //     setLeftFood1(sDiary[0].wastedCalories)
-      //     setNetFood1(sDiary[0].wastedCalories - goal.calories)
-          
-      //     localStorage.setItem('leftFood1', JSON.stringify(leftFood1))
-      //     localStorage.setItem('netFood1', JSON.stringify(netFood1))
-          
-      //   } else {
-      //     getSportDiary(test)
-      //     getDiary(test)
-      //   }
-        
-
-      // }
 
 
       if(!fDiary){
       getDiary(test)
       setLoaded(false)
       } 
-
-      // if(fDiary && fDiary.length > 0){
-      //   setLeftFood(fDiary[0].consumedCalories)
-      // } else {
-      //   getDiary(test)
-      // }
 
       if(!sDiary){
         getSportDiary(test)
@@ -102,40 +79,6 @@ const ProgressTable = ({
       {
         setNetF(goal.calories - (fDiary[0].consumedCalories + sDiary[0].name.calories))
       }
-
-
-      // if(sDiary.length > 0){
-      //   setLeftExercise(sDiary[0].name.calories)
-      // } else {
-      //   getSportDiary(test)
-      // }
-
-       
-      // } else{
-      //   getDiary(test)
-      // }
-      // else {
-      //   if(fDiary.length > 0 && goal) {
-      //   setLeftFood(fDiary[0].consumedCalories)
-      //  setNetFood(fDiary[0].name.calories)
-      //   setDifference(goal.calories - fDiary[0].consumedCalories)
-      //   localStorage.setItem('leftFood', JSON.stringify(leftFood))
-      //  localStorage.setItem('netFood', JSON.stringify(difference))
-      // } else {getDiary(test)
-      //   getSportDiary(test)
-      //   }
-
-    //  localStorage.setItem('leftFood', JSON.stringify(leftFood))
-      //  }
-      //  setLeftF(localStorage.getItem('leftFood'))
-
-      // setLeftE(localStorage.getItem('leftExercise'))
-
-      // setNetF(localStorage.getItem('netFood'))
-  
-
- //     localStorage.setItem('leftExercise', JSON.stringify(leftExercise))
-
    
 
   }, [getDiary, sDiary, fDiary, leftFood, leftExercise, loaded, loaded1]);
@@ -176,15 +119,6 @@ const ProgressTable = ({
       </ListItem>
     </List>
 
-    // <div>    <h1>
-  
-    //   {sDiary.sDiary !== null ? <h1>{sDiary.sDiary[0].name.calories}</h1> : console.log('no')}
-    // </h1>
-    //   <h1>
-    //   {fDiary.fDiary !== null ? <h1>{fDiary.fDiary[0].consumedCalories}</h1> : console.log('no')}
-
-    //   </h1>
-    // </div>
   );
 };
 

@@ -75,18 +75,6 @@ const GoalForm = ({
       setFormData(goalData);
       
     }
-
-
-    // let temp = 0
-    // if(formData.fatPercent !== '' && formData.proteinPercent !== '' && formData.carbsPercent !== '') {
-    // temp = formData.carbsPercent + formData.proteinPercent + formData.fatPercent
-    // }
-    // //setState5(temp.toFixed(2))
-    // if(temp > 0 && loaded){
-    // setState5(temp)
-    
-    // }
-  
     if(!dietprofile) {
       getCurrentDietProfile()
       setState4(false)
@@ -134,13 +122,10 @@ const GoalForm = ({
   });
   }
 
-  //  createGoal(formData, history, goal ? true : false);
-
     
   };
   
 
- // console.log(state5)
   return (
     <Fragment>
       <h1 className="large text-primary">Edit your goals</h1>

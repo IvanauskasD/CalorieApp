@@ -7,27 +7,28 @@ import {
   ADD_FOOD
 } from './types';
 
-export const addFood = formData => async dispatch => {
-  try {
-    const res = await api.post('/add-food', formData);
 
-    dispatch({
-      type: ADD_FOOD,
-      payload: res.data
-    });
-    dispatch(setAlert('Food Added', 'success'));
-  } catch (err) {
-    const errors = err.response.data.errors;
+// export const addFood = formData => async dispatch => {
+//   try {
+//     const res = await api.post('/add-food', formData);
 
-    if (errors) {
-      errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
-    }
+//     dispatch({
+//       type: ADD_FOOD,
+//       payload: res.data
+//     });
+//     dispatch(setAlert('Food Added', 'success'));
+//   } catch (err) {
+//     const errors = err.response.data.errors;
 
-    dispatch({
-      type: FOOD_ERROR
-    });
-  }
-};
+//     if (errors) {
+//       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+//     }
+
+//     dispatch({
+//       type: FOOD_ERROR
+//     });
+//   }
+// };
 
 // Create or update food card
 export const createFood = (formData, history) => async (
@@ -61,7 +62,7 @@ export const createFood = (formData, history) => async (
 };
 
 
-// Get food by ID
+// Get foods that are not approved
 export const getNotApprovedFoods = () => async (dispatch) => {
   try {
     const res = await api.get('/food/not-approved-foods');
@@ -77,7 +78,7 @@ export const getNotApprovedFoods = () => async (dispatch) => {
   }
 };
 
-// Delete experience
+// Approve food
 export const approveFood = (id, form) => async (dispatch) => {
   try {
 
@@ -97,8 +98,28 @@ export const approveFood = (id, form) => async (dispatch) => {
   }
 };
 
+// Disapprove food
+export const disapproveFood = (id, form) => async (dispatch) => {
+  try {
+
+    const res = await api.post(`/food/disapprove/${id}`, form);
+   
+    dispatch({
+      type: GET_FOOD,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Meal Disapproved', 'success'));
+  } catch (err) {
+    dispatch({
+      type: FOOD_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
 
 
+// Search for foods to add to food diary
 export const searchFood = (formData) => async (
   dispatch
 ) => {
@@ -148,7 +169,7 @@ export const getFoodById = (foodId) => async (dispatch) => {
 };
 
 
-// Get all profiles
+// Get all foods
 export const getFoods = () => async (dispatch) => {
   dispatch({ type: CLEAR_FOOD });
 

@@ -37,7 +37,9 @@ const Navbar = ({
       <li>
         <Link to="/suggest-food">Suggest Food</Link>
       </li>
-
+      <li>
+        <Link to="/suggest-sport">Suggest Exercise</Link>
+      </li>
       <li>
         <a onClick={logout} href="#!">
           <i className="fas fa-sign-out-alt" />{' '}

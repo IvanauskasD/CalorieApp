@@ -6,7 +6,6 @@ import { searchFood, getFoods, getFoodById } from '../../actions/food'
 import { getCurrentDietProfile } from '../../actions/dietprofile';
 import { DebounceInput } from 'react-debounce-input';
 import { FoodItem} from '../food-forms/FoodItem'
-import FoodInfo from '../food-forms/FoodInfo'
 
 
 import { makeStyles } from '@material-ui/core/styles';

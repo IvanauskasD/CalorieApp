@@ -14,7 +14,7 @@ const Landing = ({ isAuthenticated }) => {
         <div className='landing-inner'>
           <h1 className='x-large'>Calorie Tracker</h1>
           <p className='lead'>
-            tewrwe wrfwefw  werfwefw fwefwef wefwe
+            Track Your Calorie Consumption With Us!
           </p>
           <div className='buttons'>
             <Link to='/register' className='btn btn-primary'>

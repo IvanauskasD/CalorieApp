@@ -137,29 +137,6 @@ router.post(
                 break
             }
           //  dietProfileFields.calculatedGoal = temp
-            console.log(dietProfileFields.calculatedGoal + ' ' + temp + ' ' + dietProfileFields.expectations)
-
-            // if(dietProfileFields.expectations === 0.25){
-            // temp = dietProfileFields.calculatedGoal - 300
-            // reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
-            // reachGoalToFix = reachGoalTime / 0.25
-            // } else if(dietProfileFields.expectations === 0.5){
-            //     temp = dietProfileFields.calculatedGoal - 500
-            //     reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
-            //     reachGoalToFix = reachGoalTime / 0.5
-            // } else if(dietProfileFields.expectations === 0.75){
-            //     temp = dietProfileFields.calculatedGoal - 825
-            //     reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
-            //     reachGoalToFix = reachGoalTime / 0.75
-            // } else if(dietProfileFields.expectations === 1){
-            //     temp = dietProfileFields.calculatedGoal - 1100
-            //     reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
-            //     reachGoalToFix = reachGoalTime / 1
-            // } else if(dietProfileFields.expectations === 0.25){
-            //     temp = dietProfileFields.calculatedGoal - 300
-            //     reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
-            //     reachGoalToFix = reachGoalTime / 0.25
-            // }
 
             calcCarbs = temp / 2
             calcCarbs = calcCarbs / 4
@@ -302,7 +279,6 @@ router.get(
             const dietprofile = await DietProfile.findOne({
                 user: user_id
             }).populate('profile');
-            console.log(dietprofile)
             if (!dietprofile) return res.status(400).json({ msg: 'Diet Profile not found' });
 
             return res.json(dietprofile);

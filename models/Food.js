@@ -27,6 +27,10 @@ const FoodSchema = new mongoose.Schema({
     votedOnBy: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
+    }],
+    votedAgainstBy: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
     }]
     // date: {
     //     type: Date,
@@ -35,12 +39,3 @@ const FoodSchema = new mongoose.Schema({
 });
 
 const Food = module.exports = mongoose.model('Food', FoodSchema);
-
-module.exports.getFoodByName = (foodName, callback) => {
-    const query = { name: foodName };
-    Food.findOne(query, callback);
-};
-
-module.exports.createFood = (food, callback) => {
-    food.save(callback);
-};

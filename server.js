@@ -27,9 +27,6 @@ app.use('/api/sport', require('./routes/api/sport'));
 app.use('/api/exercise', require('./routes/api/exercise'));
 app.use('/api/sDiary', require('./routes/api/sDiary'));
 
-app.use('/api/mealSuggestion', require('./routes/api/mealSuggestion'));
-app.use('/api/completedMeals', require('./routes/api/completedMeals'));
-
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {

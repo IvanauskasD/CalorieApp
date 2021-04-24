@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import { getNotApprovedFoods, approveFood, disapproveFood } from '../../actions/food'
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -21,6 +19,7 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 
 import { getCurrentDietProfile } from '../../actions/dietprofile';
+import { getNotApprovedSports, approveSport, disapproveSport } from '../../actions/sport'
 
 const useStyles1 = makeStyles((theme) => ({
     root: {
@@ -35,19 +34,18 @@ const useStyles2 = makeStyles({
     },
 });
 
-const FoodSuggestionTable = ({
-    getNotApprovedFoods,
+const SportSuggestionTable = ({
+    getNotApprovedSports,
     getCurrentDietProfile,
     dietprofile,
-    approveFood,
-    food,
-    disapproveFood
+    approveSport,
+    sport,
+    disapproveSport
 }) => {
 
   const test = {
     user: ''
   }
-
     const [loaded, setLoaded] = useState(false);
     const [loaded1, setLoaded1] = useState(false);
 
@@ -59,8 +57,8 @@ const FoodSuggestionTable = ({
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
   
     let emptyRows = 0
-    if(food.food !== null)
-    emptyRows = rowsPerPage - Math.min(rowsPerPage, food.food.length - page * rowsPerPage);
+    if(sport.sport !== null)
+    emptyRows = rowsPerPage - Math.min(rowsPerPage, sport.sport.length - page * rowsPerPage);
   
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
@@ -78,12 +76,14 @@ const FoodSuggestionTable = ({
       } else {
         setLoaded1(false)
       }
-        getNotApprovedFoods();
-        if (food !== null) {
+        getNotApprovedSports();
+        if (sport !== null) {
             setLoaded(true)
         } else {
             setLoaded(false)
         }
+        console.log(sport)
+
     }, [getCurrentDietProfile, loaded, loaded1]);
 
    
@@ -91,14 +91,14 @@ const FoodSuggestionTable = ({
 
     const onSubmit = (row) => {
       form.user = localStorage.getItem('dietprofile')
-      approveFood(row, form)
+      approveSport(row, form)
       setLoaded(false)
     };
 
 
     const onSubmitD = (row) => {
       form.user = localStorage.getItem('dietprofile')
-      disapproveFood(row, form)
+      disapproveSport(row, form)
       setLoaded(false)
     };
 
@@ -106,15 +106,15 @@ const FoodSuggestionTable = ({
 
         <Fragment>
             <div>
-                {loaded ? <h1>Approve/Do Not Approve These Foods:</h1> : ''}
+                {loaded ? <h1>Approve/Do Not Approve These sports:</h1> : ''}
             </div>
-            {Array.isArray(food.food) && food.food !== null ? (
+            {Array.isArray(sport.sport) && sport.sport !== null ? (
                 <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="custom pagination table">
         <TableBody>
           {(rowsPerPage > 0
-            ? food.food.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : food.food
+            ? sport.sport.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : sport.sport
           ).map((row) => (
             <TableRow key={row.name}>
               <TableCell component="th" scope="row">
@@ -155,7 +155,7 @@ const FoodSuggestionTable = ({
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
               colSpan={8}
-              count={food.food.length}
+              count={sport.sport.length}
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{
@@ -236,18 +236,18 @@ TablePaginationActions.propTypes = {
     rowsPerPage: PropTypes.number.isRequired,
 };
 
-FoodSuggestionTable.propTypes = {
-    food: PropTypes.object.isRequired,
+SportSuggestionTable.propTypes = {
+    sport: PropTypes.object.isRequired,
     dietprofile: PropTypes.object.isRequired,
-    getNotApprovedFoods: PropTypes.func.isRequired,
+    getNotApprovedSports: PropTypes.func.isRequired,
     getCurrentDietProfile: PropTypes.func.isRequired,
-    approveFood: PropTypes.func.isRequired,
-    disapproveFood: PropTypes.func.isRequired,
+    approveSport: PropTypes.func.isRequired,
+    disapproveSport: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
-    food: state.food,
+    sport: state.sport,
     dietprofile: state.dietprofile
 });
 
-export default connect(mapStateToProps, {disapproveFood, getCurrentDietProfile, approveFood, getNotApprovedFoods })(FoodSuggestionTable);
+export default connect(mapStateToProps, {disapproveSport, getCurrentDietProfile, approveSport, getNotApprovedSports })(SportSuggestionTable);

@@ -91,18 +91,6 @@ const Serving = ({
 
   const [formData, setFormData] = useState(initialState);
   const [formData2, setFormData2] = useState(initialState2);
-  // useEffect(() => {
-  //   if (!goal) getCurrentGoals();
-  //   if (!loading && goal) {
-  //     const goalData = { ...initialState };
-  //     for (const key in goal) {
-  //       if (key in goalData) goalData[key] = goal[key];
-  //     }
-  //     setFormData(goalData);
-  //   }
-
-
-  // }, []);
 
 
   useEffect(() => {
@@ -110,17 +98,6 @@ const Serving = ({
     console.log(formData)
     //createMeal(formData);
   }, [getCurrentDietProfile, formData]);
-
-  // useEffect(() => {
-  //   if (!goal) getCurrentGoals();
-  //   if (!loading && goal) {
-  //     const goalData = { ...initialState };
-  //     for (const key in goal) {
-  //       if (key in goalData) goalData[key] = goal[key];
-  //     }
-  //     setFormData(goalData);
-  //   }
-  // }, [loading, getCurrentGoals, goal, getCurrentDietProfile]);
 
   let { date, type, quantity, servings, user, food: { name } } = formData;
 

@@ -11,6 +11,7 @@ import { getCurrentGoals } from '../../actions/goal';
 
 import ProgressTable from './ProgressTable';
 import FoodSuggestionTable from '../food-forms/FoodSuggestionTable';
+import SportSuggestionTable from '../exercises/SportSuggestionTable'
 
 import Profile from '../profile/Profile'
 
@@ -42,13 +43,6 @@ const Dashboard = ({
       <h1 className="large text-primary">Dashboard</h1>
     <h1>{}</h1>
 
-      {/* <Link to={`/profile/${user._id}`} className='btn btn-primary'>
-          View Profile
-        </Link> */}
-
-      {/* <p className="lead">
-        <i className="fas fa-user" /> Welcome {user && user.name}
-      </p> */}
       {profile !== null ? (
         
      
@@ -61,17 +55,6 @@ const Dashboard = ({
               </Fragment>  
           )}
 
-
- 
-
-
-{/* {dietprofile !== null ? (
-  <div>
-  <ProgressTable goal={goal}/>
-</div>
-) : (
- <div></div>
-)} */}
 
           <div className="my-2">
             <button className="btn btn-danger" onClick={() => deleteAccount()}>
@@ -92,6 +75,8 @@ const Dashboard = ({
 
 
         <FoodSuggestionTable/>
+        <br></br>
+        <SportSuggestionTable/>
     </Fragment>
   );
 };

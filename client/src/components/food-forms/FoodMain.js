@@ -91,24 +91,6 @@ const FoodMain = ({
   let paramz = new URLSearchParams(url.search);
 
 
-  // let query = new URLSearchParams(useLocation().search)
-
-  // function lol(qw) {
-  //   setStartDate(qw)
-  // }
-
-  // if(params.toString() === '')
-  // {
-  //   params.set('date', test);
-  //   window.history.replaceState({}, '', `${url.pathname}?${params}`);
-
-  // }
-  // else {
-  //       params.set('date', startDate.toISOString().replace(/T.+/, ''));
-  // window.history.replaceState({}, '', `${url.pathname}?${params}`);
-  // }
-
-
   let query = useQuery();
 
 
@@ -120,17 +102,7 @@ const FoodMain = ({
   }
 
   const dd = new URLSearchParams()
-  
 
-
-
-  // query = query.get('date').toString()
-  // let params = new URLSearchParams(url.search);
-  // params.set('date', startDate.toISOString().replace(/T.+/, ''));
-  // window.history.replaceState({}, '', `${url.pathname}?${params}`);
-
-  //   console.log(startDate.toISOString().replace(/T.+/, ''))
-  // console.log()
 
   useEffect(() => {
     getCurrentDietProfile()
@@ -165,63 +137,8 @@ const FoodMain = ({
     console.log(goal)
     setIsUpdated(false)
     history.push({ search: params.toString() })
-    //  console.log(params.toString())
-    // if(test === query)
-    // {
-    //   getMealByDate(query.get('date').toString())
-    // } else {
-    // getMealByDate(params.toString())
-    // }
-    
 
-    // history.push({search: params.toString()})
-    // console.log(dietprofile)
-    // history.push('/dashboard')
   }, [queryz, history, isUpdated, testx, formData3]);
-
-  // useEffect(() => {
-
-  // },[isUpdated])
-
-  // useEffect(() => {
-  //   if (queryz.sum) {
-  //     params.set("date", queryz.sum)
-  //   } else {
-  //     params.delete("date")
-  //   }
-  //   if (params.toString() === '') {
-  //     params.set("date", new Date().toISOString().replace(/T.+/, ''))
-  //     history.push({ search: new Date().toISOString().replace(/T.+/, '') })
-  //     initialState2.date = new Date().toISOString().replace(/T.+/, '')
-  //     initialState2.user = localStorage.getItem('dietprofile')
-  //     setFormData2(initialState2)
-  //     setIsUpdated(true)
-  // }
-  //   else {
-  //     initialState2.date = params.get('date').toString()
-  //     initialState2.user = localStorage.getItem('dietprofile')
-  //     setFormData2(initialState2)
-  //     setIsUpdated(true)
-  //   }
-  //   history.push({ search: params.toString() })
-
-  // }, [formData2])
-
-
-
-  // const remove = async (id) => {
-  //   const response = await fetch(url + `api/employee/${id}`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //       mode: "no-cors",
-  //     },
-  //   });
-  // };
-
-  // let qqq = new URL(window.location.href)
-  // console.log(qqq.href)
 
   const handleDelete = (id, n, data) => {
     setIsUpdated(true)

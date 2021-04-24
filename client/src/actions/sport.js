@@ -7,29 +7,38 @@ import {
     ADD_SPORT
 } from './types';
 
-export const addSport = formData => async dispatch => {
-    try {
-      const res = await api.post('/add-sport', formData);
-  
-      dispatch({
-        type: ADD_SPORT,
-        payload: res.data
-      });
-      dispatch(setAlert('Sport Added', 'success'));
-    } catch (err) {
+// Create or update sport card
+export const createSport = (formData, history) => async (
+  dispatch
+) => {
+  try {
+    const res = await api.post('/sport', formData);
+
+    dispatch({
+      type: GET_SPORT,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Sport Card Created', 'success'));
+
+    history.push('/dashboard');
+
+  } catch (err) {
+    if (err.response) {
       const errors = err.response.data.errors;
-  
+
       if (errors) {
-        errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
       }
-  
       dispatch({
-        type: ERROR_SPORT
+        type: ERROR_SPORT,
+        payload: { msg: err.response.statusText, status: err.response.status }
       });
     }
-  };
+  }
+};
 
-
+// Search for sport card
 export const searchSport = (formData) => async (
     dispatch
 ) => {
@@ -61,7 +70,7 @@ export const searchSport = (formData) => async (
 }
 
 
-// Get food by ID
+// Get sport by ID
 export const getSportById = (sportId) => async (dispatch) => {
   try {
     const res = await api.get(`/sport/sport/${sportId}`);
@@ -79,7 +88,7 @@ export const getSportById = (sportId) => async (dispatch) => {
 };
 
 
-// Get all profiles
+// Get all sport cards
 export const getSports = () => async (dispatch) => {
     dispatch({ type: CLEAR_SPORT });
   
@@ -97,4 +106,61 @@ export const getSports = () => async (dispatch) => {
       });
     }
   };
+
+  // Approve sport
+export const approveSport = (id, form) => async (dispatch) => {
+  try {
+
+    const res = await api.post(`/sport/approve/${id}`, form);
+   
+    dispatch({
+      type: GET_SPORT,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Sport Approved', 'success'));
+  } catch (err) {
+    dispatch({
+      type: ERROR_SPORT,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+
+// Get sports that are not approved
+export const getNotApprovedSports = () => async (dispatch) => {
+  try {
+    const res = await api.get('/sport/not-approved-sports');
+    dispatch({
+      type: GET_SPORT,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: ERROR_SPORT,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+// Disapprove sport
+export const disapproveSport = (id, form) => async (dispatch) => {
+  try {
+
+    const res = await api.post(`/sport/disapprove/${id}`, form);
+   
+    dispatch({
+      type: GET_SPORT,
+      payload: res.data
+    });
+
+    dispatch(setAlert('Sport Disapproved', 'success'));
+  } catch (err) {
+    dispatch({
+      type: ERROR_SPORT,
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
 

@@ -20,15 +20,6 @@ const FoodItem = ({food, match, createFood }) => {
   };
   const [formData, setFormData] = useState(initialState);
 
-  // useEffect(() => {
-  //     const goalData = { ...initialState };
-  //     for (const key in food) {
-  //       if (key in goalData) goalData[key] = food[key];
-  //     }
-  //     setFormData(goalData);
-    
-  // }, [food]);
-
 
   const onSubmit = e => {
     e.preventDefault();
@@ -49,7 +40,7 @@ const FoodItem = ({food, match, createFood }) => {
         className="form"
         onSubmit={onSubmit}
       >
-
+        
 <div className="form-group">
   <label>Food Name:</label>
           <input
