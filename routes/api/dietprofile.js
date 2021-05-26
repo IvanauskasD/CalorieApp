@@ -99,6 +99,7 @@ router.post(
                     temp = dietProfileFields.calculatedGoal - 500
                     reachGoalTime = dietProfileFields.currentWeight - dietProfileFields.goalWeight
                     reachGoalToFix = reachGoalTime / 0.5
+
                     break
                 case 0.75:
                     temp = dietProfileFields.calculatedGoal - 825
@@ -136,7 +137,7 @@ router.post(
                     reachGoalToFix = 1
                 break
             }
-          //  dietProfileFields.calculatedGoal = temp
+            
 
             calcCarbs = temp / 2
             calcCarbs = calcCarbs / 4
@@ -156,7 +157,6 @@ router.post(
                 dietProfileFields.height) - (5 * dietProfileFields.age) - 161
 
             dietProfileFields.calculatedGoal = dietProfileFields.bmr * dietProfileFields.workoutIntensity
-           // temp = dietProfileFields.calculatedGoal - dietProfileFields.expectations
            switch (dietProfileFields.expectations) {
             case 0:
                 temp = dietProfileFields.calculatedGoal

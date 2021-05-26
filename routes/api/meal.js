@@ -33,7 +33,10 @@ router.post(
             const food = await Food.findOne({ name: req.body.food.name })
             const dietprofile = await DietProfile.findOne({ user: req.body.user })
 
+            if(food === null) {
+                return res.status(500).send('No such food exists!')
 
+            }
 
             let meal = new Meal({
                 type: req.body.type,
@@ -50,16 +53,12 @@ router.post(
                 ...rest
             } = req.body
 
-            const test = {
-                ...rest
-            }
 
             var start = new Date(req.body.date);
             start.setHours(0, 0, 0, 0);
 
             var end = new Date(req.body.date);
             end.setHours(23, 59, 59, 999);
-            // let mealz = await Meal.create(meal)
             let mealz = await Meal.findOneAndUpdate(
                 { date: { $gte: start, $lt: end }, type: req.body.type, user: req.body.user },
                 {
@@ -70,8 +69,6 @@ router.post(
                             servings: req.body.servings,
                             $position: 0
                         }],
-                        // date: req.body.date,
-                        // type: req.body.type
                     }, date: req.body.date, type: req.body.type, user: req.body.user
                 },
                 { new: true, upsert: true, setDefaultsOnInsert: true }
@@ -87,7 +84,7 @@ router.post(
             dP.quantity = meal.foods[0].quantity
             dP.servings = meal.foods[0].servings
             let dW = {}
-
+            
             if (dietprofile.meals.length === 0) {
                 dietprofile.meals.addToSet(mealz)
 
@@ -136,37 +133,15 @@ router.get(
 
         let dd = new Date(query.date)
 
-        var start = new Date(2021, 2, 30);
-        var end = new Date(2021, 3, 0);
+        let moreDate = 86400000
+        let lessDate = 86400000
 
-        let lol = 86400000
-        let lol1 = 86400000
-        // if(query.date === null)
-        // {
-        //     lol = new Date(new Date().getTime())
+        moreDate = new Date(new Date(query.date).getTime())
 
-        //     lol1 = new Date(new Date().getTime() + lol1)
+        lessDate = new Date(new Date(query.date).getTime() + lessDate)
 
-        // }
-        // else{
-        lol = new Date(new Date(query.date).getTime())
 
-        lol1 = new Date(new Date(query.date).getTime() + lol1)
-
-        // }
-
-        let fodz
-        //  console.log(lol)
-        //  console.log(lol1)
-        const meal = await Meal.find({ date: { $gte: lol, $lte: lol1 }, user: req.user.id }).populate('foods._id')
-
-        //  console.log(meal.foods)
-        // for (let i = meal.foods.length - 1; i >= 0; i--) {
-        //     let mealq = meal.foods[i]
-
-        //     fodz = await Food.findById(mealq)
-
-        // }
+        const meal = await Meal.find({ date: { $gte: moreDate, $lte: lessDate }, user: req.user.id }).populate('foods._id')
 
         return res.json(meal);
     }
@@ -208,14 +183,13 @@ router.post('/:meal_id&:number', auth, async (req, res) => {
         let subt = found.foods[req.params.number]
         
         let deletedFood = await Food.findById({ _id: subt._id })
-        let goalz = goal
         let calories = 0, protein = 0, carbs = 0, fat = 0
-        let daugyba = subt.quantity * subt.servings
+        let quantityAndServings = subt.quantity * subt.servings
 
-        calories = deletedFood.calories * daugyba
-        protein = deletedFood.protein * daugyba
-        carbs = deletedFood.carbs * daugyba
-        fat = deletedFood.fat * daugyba
+        calories = deletedFood.calories * quantityAndServings
+        protein = deletedFood.protein * quantityAndServings
+        carbs = deletedFood.carbs * quantityAndServings
+        fat = deletedFood.fat * quantityAndServings
         
 
         let diaris = await FoodDiary.find({ date: { $gte: start, $lt: end }, dietprofile: dietprofile._id })

@@ -82,8 +82,8 @@ router.post(
   '/search-food',
   async (req, res) => {
 
-    const test = await Food.find({ approved: { $gt: 1 }, name: { $regex: new RegExp('.*' + req.body.name.toLowerCase() + '.*', 'i') }, name: { $regex: new RegExp('.*' + req.body.name.toUpperCase() + '.*', 'i') } })
-    return res.json(test)
+    const food = await Food.find({ approved: { $gt: 1 }, name: { $regex: new RegExp('.*' + req.body.name.toLowerCase() + '.*', 'i') }, name: { $regex: new RegExp('.*' + req.body.name.toUpperCase() + '.*', 'i') } })
+    return res.json(food)
   }
 )
 
@@ -94,9 +94,9 @@ router.get(
   '/not-approved-foods',
   async (req, res) => {
 
-    const test = await Food.find({ approved: { $lt: 2 } })
+    const food = await Food.find({ approved: { $lt: 2 } })
 
-    return res.json(test)
+    return res.json(food)
   }
 )
 
@@ -107,26 +107,24 @@ router.post(
   '/approve/:food_id',
   async (req, res) => {
     let incr = 0
-    const test = await Food.find({ _id: req.params.food_id })
+    const food = await Food.find({ _id: req.params.food_id })
     let less = 0
     let checked = false
-    //less = test[0].approved - 1
-    if(test[0].votedOnBy.length !== 0 && test[0].votedAgainstBy.length !== 0) {
-    for (let i = 0; i < test[0].votedOnBy.length; i++) {
-      for (let j = 0;j < test[0].votedAgainstBy.length; j++) {
-      if (((test[0].votedOnBy[i]).toString() === (req.body.user.toString())) && ((test[0].votedAgainstBy[j]).toString() !== (req.body.user.toString()))) {
-        test[0].approved = test[0].approved -1
-        test[0].votedOnBy.splice(i, 1)
-        test[0].save()
-        console.log('old')
+    //less = food[0].approved - 1
+    if(food[0].votedOnBy.length !== 0 && food[0].votedAgainstBy.length !== 0) {
+    for (let i = 0; i < food[0].votedOnBy.length; i++) {
+      for (let j = 0;j < food[0].votedAgainstBy.length; j++) {
+      if (((food[0].votedOnBy[i]).toString() === (req.body.user.toString())) && ((food[0].votedAgainstBy[j]).toString() !== (req.body.user.toString()))) {
+        food[0].approved = food[0].approved -1
+        food[0].votedOnBy.splice(i, 1)
+        food[0].save()
         checked = true
         break
-      } else if (((test[0].votedOnBy[i]).toString() !== (req.body.user.toString())) && ((test[0].votedAgainstBy[j]).toString() === (req.body.user.toString()))) {
-        test[0].approved = test[0].approved +2
-        test[0].votedAgainstBy.splice(j, 1)
-        test[0].votedOnBy.push(req.body.user)
-        test[0].save()
-        console.log('both')
+      } else if (((food[0].votedOnBy[i]).toString() !== (req.body.user.toString())) && ((food[0].votedAgainstBy[j]).toString() === (req.body.user.toString()))) {
+        food[0].approved = food[0].approved +2
+        food[0].votedAgainstBy.splice(j, 1)
+        food[0].votedOnBy.push(req.body.user)
+        food[0].save()
         checked = true
         break
       }
@@ -136,69 +134,63 @@ router.post(
     }
   }
   if(!checked) {
-    incr = test[0].approved +1
+    incr = food[0].approved +1
     await Food.findOneAndUpdate(
       { _id: req.params.food_id },
       { $push: { votedOnBy: req.body.user }, approved: incr }
     )
   }
-} else if(test[0].votedOnBy.length !== 0 && test[0].votedAgainstBy.length === 0){
-  for (let i = 0; i < test[0].votedOnBy.length; i++) {
-    if (((test[0].votedOnBy[i]).toString() === (req.body.user.toString())) ){
-      test[0].approved = test[0].approved -1
-      test[0].votedOnBy.splice(i, 1)
-      test[0].save()
-      console.log('old, no approve')
+} else if(food[0].votedOnBy.length !== 0 && food[0].votedAgainstBy.length === 0){
+  for (let i = 0; i < food[0].votedOnBy.length; i++) {
+    if (((food[0].votedOnBy[i]).toString() === (req.body.user.toString())) ){
+      food[0].approved = food[0].approved -1
+      food[0].votedOnBy.splice(i, 1)
+      food[0].save()
   }  else {
-    incr = test[0].approved +1
+    incr = food[0].approved +1
     await Food.findOneAndUpdate(
       { _id: req.params.food_id },
       { $push: { votedOnBy: req.body.user }, approved: incr }
     )
   }}
-  } else if(test[0].votedAgainstBy.length === 0 && test[0].votedOnBy.length === 0){
-    incr = test[0].approved + 1
+  } else if(food[0].votedAgainstBy.length === 0 && food[0].votedOnBy.length === 0){
+    incr = food[0].approved + 1
 
     await Food.findOneAndUpdate(
       { _id: req.params.food_id },
       { $push: { votedOnBy: req.body.user }, approved: incr }
     )
-    console.log('no users')
   }
-  else if(test[0].votedOnBy.length === 0 && test[0].votedAgainstBy.length !== 0) {
-    for (let j = 0;j < test[0].votedAgainstBy.length; j++) {
-      if((req.body.user).toString() === (test[0].votedAgainstBy[j]).toString()){
-        test[0].votedAgainstBy.splice(j, 1)
-        test[0].approved = test[0].approved +2
-        test[0].votedOnBy.push(req.body.user)
-        test[0].save()
+  else if(food[0].votedOnBy.length === 0 && food[0].votedAgainstBy.length !== 0) {
+    for (let j = 0;j < food[0].votedAgainstBy.length; j++) {
+      if((req.body.user).toString() === (food[0].votedAgainstBy[j]).toString()){
+        food[0].votedAgainstBy.splice(j, 1)
+        food[0].approved = food[0].approved +2
+        food[0].votedOnBy.push(req.body.user)
+        food[0].save()
 
-        console.log('ttttt')
       } else {
-        incr = test[0].approved +1
+        incr = food[0].approved +1
         await Food.findOneAndUpdate(
           { _id: req.params.food_id },
           { $push: { votedOnBy: req.body.user }, approved: incr }
         )
-      console.log('onlq')
 
       }
     }
   }
   else{
-    for (let i = 0; i < test[0].votedOnBy.length; i++) {
-      if (((test[0].votedOnBy[i]).toString() === (req.body.user.toString()))) {
-        test[0].approved = test[0].approved +1
-        test[0].votedOnBy.splice(i, 1)
-        test[0].save()
-        console.log('old')
+    for (let i = 0; i < food[0].votedOnBy.length; i++) {
+      if (((food[0].votedOnBy[i]).toString() === (req.body.user.toString()))) {
+        food[0].approved = food[0].approved +1
+        food[0].votedOnBy.splice(i, 1)
+        food[0].save()
       } else {
-        incr = test[0].approved + 1
+        incr = food[0].approved + 1
         await Food.findOneAndUpdate(
           { _id: req.params.food_id },
           { $push: { votedOnBy: req.body.user }, approved: incr }
         )
-        console.log('new')
       }
     }
   }
@@ -216,27 +208,24 @@ router.post(
   '/disapprove/:food_id',
   async (req, res) => {
     let incr = 0
-    const test = await Food.find({ _id: req.params.food_id })
+    const food = await Food.find({ _id: req.params.food_id })
     let less = 0
     let checked = false
-    //less = test[0].approved - 1
-    if(test[0].votedAgainstBy.length !== 0 && test[0].votedOnBy.length !== 0) {
-    for (let i = 0; i < test[0].votedAgainstBy.length; i++) {
-      for (let j = 0;j < test[0].votedOnBy.length; j++) {
-        console.log(test[0].votedOnBy[j] + '<votedBy ' + test[0].votedAgainstBy[i] + '<votedAgainst ' + req.body.user)
-        if (((test[0].votedAgainstBy[i]).toString() === (req.body.user.toString())) && ((test[0].votedOnBy[j]).toString() !== (req.body.user.toString()))) {
-        test[0].approved = test[0].approved +1
-        test[0].votedAgainstBy.splice(i, 1)
-        test[0].save()
-        console.log('main2')
+    //less = food[0].approved - 1
+    if(food[0].votedAgainstBy.length !== 0 && food[0].votedOnBy.length !== 0) {
+    for (let i = 0; i < food[0].votedAgainstBy.length; i++) {
+      for (let j = 0;j < food[0].votedOnBy.length; j++) {
+        if (((food[0].votedAgainstBy[i]).toString() === (req.body.user.toString())) && ((food[0].votedOnBy[j]).toString() !== (req.body.user.toString()))) {
+        food[0].approved = food[0].approved +1
+        food[0].votedAgainstBy.splice(i, 1)
+        food[0].save()
         checked = true
         break
-      } else if (((test[0].votedAgainstBy[i]).toString() !== (req.body.user.toString())) && ((test[0].votedOnBy[j]).toString() === (req.body.user.toString()))) {
-        test[0].approved = test[0].approved - 2
-        test[0].votedOnBy.splice(j, 1)
-        test[0].votedAgainstBy.push(req.body.user)
-        test[0].save()
-        console.log('main')
+      } else if (((food[0].votedAgainstBy[i]).toString() !== (req.body.user.toString())) && ((food[0].votedOnBy[j]).toString() === (req.body.user.toString()))) {
+        food[0].approved = food[0].approved - 2
+        food[0].votedOnBy.splice(j, 1)
+        food[0].votedAgainstBy.push(req.body.user)
+        food[0].save()
         checked = true
         break
       }
@@ -246,69 +235,62 @@ router.post(
     }
   }
   if(!checked) {
-    incr = test[0].approved -1
+    incr = food[0].approved -1
     await Food.findOneAndUpdate(
       { _id: req.params.food_id },
       { $push: { votedAgainstBy: req.body.user }, approved: incr }
     )
   }
-} else if(test[0].votedAgainstBy.length !== 0 && test[0].votedOnBy.length === 0){
-  for (let i = 0; i < test[0].votedAgainstBy.length; i++) {
-    if (((test[0].votedAgainstBy[i]).toString() === (req.body.user.toString())) ){
-      test[0].approved = test[0].approved +1
-      test[0].votedAgainstBy.splice(i, 1)
-      test[0].save()
-      console.log('old, no approve')
+} else if(food[0].votedAgainstBy.length !== 0 && food[0].votedOnBy.length === 0){
+  for (let i = 0; i < food[0].votedAgainstBy.length; i++) {
+    if (((food[0].votedAgainstBy[i]).toString() === (req.body.user.toString())) ){
+      food[0].approved = food[0].approved +1
+      food[0].votedAgainstBy.splice(i, 1)
+      food[0].save()
   } else {
-    incr = test[0].approved -1
+    incr = food[0].approved -1
     await Food.findOneAndUpdate(
       { _id: req.params.food_id },
       { $push: { votedAgainstBy: req.body.user }, approved: incr }
     )
   }}
-  } else if(test[0].votedOnBy.length === 0 && test[0].votedAgainstBy.length === 0){
-    incr = test[0].approved - 1
-    console.log(incr)
+  } else if(food[0].votedOnBy.length === 0 && food[0].votedAgainstBy.length === 0){
+    incr = food[0].approved - 1
     await Food.findOneAndUpdate(
       { _id: req.params.food_id },
       { $push: { votedAgainstBy: req.body.user }, approved: incr }
     )
-    console.log('no users')
   }
-  else if(test[0].votedAgainstBy.length === 0 && test[0].votedOnBy.length !== 0) {
-    for (let j = 0;j < test[0].votedOnBy.length; j++) {
-      if((req.body.user).toString() === (test[0].votedOnBy[j]).toString()){
-        test[0].votedOnBy.splice(j, 1)
-        test[0].approved = test[0].approved -2
-        test[0].votedAgainstBy.push(req.body.user)
-        test[0].save()
+  else if(food[0].votedAgainstBy.length === 0 && food[0].votedOnBy.length !== 0) {
+    for (let j = 0;j < food[0].votedOnBy.length; j++) {
+      if((req.body.user).toString() === (food[0].votedOnBy[j]).toString()){
+        food[0].votedOnBy.splice(j, 1)
+        food[0].approved = food[0].approved -2
+        food[0].votedAgainstBy.push(req.body.user)
+        food[0].save()
 
-        console.log('one is for and none against')
 
       } else {
-        incr = test[0].approved -1
+        incr = food[0].approved -1
         await Food.findOneAndUpdate(
           { _id: req.params.food_id },
           { $push: { votedAgainstBy: req.body.user }, approved: incr }
         )
-      console.log('onlq')
 
       }
     }
   }
   else{
-    for (let i = 0; i < test[0].votedAgainstBy.length; i++) {
-      if (((test[0].votedAgainstBy[i]).toString() === (req.body.user.toString()))) {
-        test[0].approved = test[0].approved +1
-        test[0].votedAgainstBy.splice(i, 1)
-        test[0].save()
-        console.log('old')
+    for (let i = 0; i < food[0].votedAgainstBy.length; i++) {
+      if (((food[0].votedAgainstBy[i]).toString() === (req.body.user.toString()))) {
+        food[0].approved = food[0].approved +1
+        food[0].votedAgainstBy.splice(i, 1)
+        food[0].save()
       } else {
         await Food.findOneAndUpdate(
           { _id: req.params.food_id },
           { $push: { votedAgainstBy: req.body.user }, approved: incr }
         )
-        console.log('new')
       }
     }
   }

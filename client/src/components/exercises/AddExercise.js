@@ -176,10 +176,10 @@ const AddExercise = ({
                     </div>
                    
                     <div className="form-group">
-                      <label>Number Of Sets:</label>
+                      <label>Minutes Done:</label>
                       <input
                         type="text"
-                        placeholder="sets"
+                        placeholder="*minutes"
                         name="quantity"
                         value={quantity}
                         onChange={onChange}
@@ -194,6 +194,7 @@ const AddExercise = ({
                         name="calories"
                         value={state2.sum}
                         onChange={onChangeCal}
+                        disabled
                         required
                       />
                     </div>

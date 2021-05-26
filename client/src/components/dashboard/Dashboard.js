@@ -61,7 +61,9 @@ const Dashboard = ({
               <i className="fas fa-user-minus" /> Delete My Account
             </button>
 
-
+            <FoodSuggestionTable/>
+        <br></br>
+        <SportSuggestionTable/>
           </div>
         </Fragment>
       ) : (
@@ -74,9 +76,7 @@ const Dashboard = ({
       )}
 
 
-        <FoodSuggestionTable/>
-        <br></br>
-        <SportSuggestionTable/>
+
     </Fragment>
   );
 };

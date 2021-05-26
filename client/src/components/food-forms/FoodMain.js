@@ -154,6 +154,7 @@ const FoodMain = ({
   return (
     <Fragment>
       <DatePicker dateFormat={"yyyy-MM-dd"}
+      
         onSelect={onChange}
         selected={startDate} onChange={date => setStartDate(date)} />
       
@@ -191,10 +192,10 @@ const FoodMain = ({
               {innerElement._id.name}
             </TableCell>
           
-            <TableCell align="right">{(innerElement._id.calories)* innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs * innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.protein * innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.fat * innerElement.quantity}</TableCell>
+            <TableCell align="right">{(innerElement._id.calories)* (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.carbs * (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.protein * (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.fat * (innerElement.quantity * innerElement.servings)}</TableCell>
             <TableCell align="right">
            <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
           </TableRow>
@@ -249,10 +250,10 @@ const FoodMain = ({
               {innerElement._id.name}
             </TableCell>
            
-            <TableCell align="right">{innerElement._id.calories * innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs * innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.protein * innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.fat * innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.calories * (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.carbs * (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.protein * (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.fat * (innerElement.quantity * innerElement.servings)}</TableCell>
             <TableCell align="right">
            <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
 
@@ -308,10 +309,10 @@ const FoodMain = ({
               {innerElement._id.name}
             </TableCell>
            
-            <TableCell align="right">{innerElement._id.calories * innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs * innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.protein * innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.fat * innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.calories * (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.carbs * (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.protein * (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.fat * (innerElement.quantity * innerElement.servings)}</TableCell>
             <TableCell align="right">
            <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
 
@@ -367,10 +368,10 @@ const FoodMain = ({
               {innerElement._id.name}
             </TableCell>
            
-            <TableCell align="right">{innerElement._id.calories * innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs* innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.protein* innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement._id.fat* innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement._id.calories * (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.carbs* (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.protein* (innerElement.quantity * innerElement.servings)}</TableCell>
+            <TableCell align="right">{innerElement._id.fat* (innerElement.quantity * innerElement.servings)}</TableCell>
             <TableCell align="right">
            <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
 

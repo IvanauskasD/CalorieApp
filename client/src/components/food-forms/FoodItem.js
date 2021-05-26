@@ -7,8 +7,8 @@ import Spinner from '../layout/Spinner';
 
 
 
-const FoodItem = ({food, match, createFood }) => {
- 
+const FoodItem = ({ food, match, createFood }) => {
+
   const initialState = {
     name: '',
     calories: '',
@@ -35,14 +35,14 @@ const FoodItem = ({food, match, createFood }) => {
 
   return (
     <Fragment>
-      
-                <form
+
+      <form
         className="form"
         onSubmit={onSubmit}
       >
-        
-<div className="form-group">
-  <label>Food Name:</label>
+
+        <div className="form-group">
+          <label>Food Name:</label>
           <input
             type="text"
             name="name"
@@ -50,36 +50,36 @@ const FoodItem = ({food, match, createFood }) => {
             onChange={onChange}
             required
           />
-<br/>
-<label>Food Calories:</label>         
-<input
+          <br />
+          <label>Food Calories:</label>
+          <input
             type="text"
             name="calories"
             value={calories}
             onChange={onChange}
             required
           />
-          <br/>
-<label>Food Carbs:</label>         
-<input
+          <br />
+          <label>Food Carbs:</label>
+          <input
             type="text"
             name="carbs"
             value={carbs}
             onChange={onChange}
             required
           />
-          <br/>
-<label>Food Protein:</label>         
-<input
+          <br />
+          <label>Food Protein:</label>
+          <input
             type="text"
             name="protein"
             value={protein}
             onChange={onChange}
             required
           />
-          <br/>
-<label>Food Fat:</label>         
-<input
+          <br />
+          <label>Food Fat:</label>
+          <input
             type="text"
             name="fat"
             value={fat}
@@ -95,7 +95,7 @@ const FoodItem = ({food, match, createFood }) => {
           Go Back
             </Link>
       </form>
-  
+
     </Fragment>
   );
 };

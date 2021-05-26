@@ -37,10 +37,6 @@ const DietProfileSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    dateOfBirth: {
-        type: Date,
-        required: true
-    },
     workoutWeek: {
         type: Number
     },

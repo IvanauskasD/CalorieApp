@@ -3,32 +3,8 @@ import { setAlert } from './alert';
 import {
   GET_FOOD,
   FOOD_ERROR,
-  CLEAR_FOOD,
-  ADD_FOOD
+  CLEAR_FOOD
 } from './types';
-
-
-// export const addFood = formData => async dispatch => {
-//   try {
-//     const res = await api.post('/add-food', formData);
-
-//     dispatch({
-//       type: ADD_FOOD,
-//       payload: res.data
-//     });
-//     dispatch(setAlert('Food Added', 'success'));
-//   } catch (err) {
-//     const errors = err.response.data.errors;
-
-//     if (errors) {
-//       errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
-//     }
-
-//     dispatch({
-//       type: FOOD_ERROR
-//     });
-//   }
-// };
 
 // Create or update food card
 export const createFood = (formData, history) => async (

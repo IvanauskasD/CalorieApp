@@ -55,7 +55,6 @@ router.post(
     
             var end = new Date(req.body.date);
             end.setHours(26, 59, 59, 999);
-            // let mealz = await Meal.create(meal)
             let exercisez = await Exercise.findOneAndUpdate(
                 { date: { $gte: start, $lt: end }, typeExercise: req.body.typeExercise },
                 {
@@ -66,8 +65,7 @@ router.post(
                             calories: req.body.calories,
                             $position: 0
                         }],
-                        // date: req.body.date,
-                        // type: req.body.type
+
                     }, date: req.body.date, typeExercise: req.body.typeExercise, user: req.body.user
                 },
                 { new: true, upsert: true, setDefaultsOnInsert: true }
@@ -131,15 +129,15 @@ router.get(
             query.date = req.query.date
 
 
-        let lol = 86400000
-        let lol1 = 86400000
+        let moreDate = 86400000
+        let lessDate = 86400000
 
-        lol = new Date(new Date(query.date).getTime())
+        moreDate = new Date(new Date(query.date).getTime())
 
-        lol1 = new Date(new Date(query.date).getTime() + lol1)
+        lessDate = new Date(new Date(query.date).getTime() + lessDate)
 
 
-        const exercise = await Exercise.find({ date: { $gte: lol, $lte: lol1 }, user: req.user.id }).populate('sports._id')
+        const exercise = await Exercise.find({ date: { $gte: moreDate, $lte: lessDate }, user: req.user.id }).populate('sports._id')
 
 
         return res.json(exercise);
@@ -171,7 +169,6 @@ router.post('/:exercise_id&:number', auth, async (req, res) => {
         const found = await Exercise.findById({ _id: req.params.exercise_id })
         const dietprofile = await DietProfile.findOne({ user: user._id })
 
-        const goal = await Goal.findOne({ dietprofile: dietprofile._id })
 
         var start = new Date(req.body.date);
         start.setHours(3, 0, 0, 0);
@@ -181,7 +178,6 @@ router.post('/:exercise_id&:number', auth, async (req, res) => {
         
         let subt = found.sports[req.params.number]
         
-        let deletedExercise = await Sport.findById({ _id: subt._id })
         
         let calories = 0
 
@@ -207,15 +203,9 @@ router.post('/:exercise_id&:number', auth, async (req, res) => {
 
         let fDiary = await FoodDiary.findOne(
             { date: { $gte: start, $lt: end }, dietprofile: dietprofile._id })
-        let additionalCalories = 0
-        let minus = 0
-        let goalMinus = 0
         let minusEx = 0
         minusEx = fDiary.consumedCalories - calories1
 
-/*
-SUKURTI TAIP KAD FOOD DIARY PRISIDETU TAI KAS BUVO ISMINUSUOTA EXERICXE
-*/
 
       await FoodDiary.findOneAndUpdate(
         { date: { $gte: start, $lt: end }, dietprofile: dietprofile._id },

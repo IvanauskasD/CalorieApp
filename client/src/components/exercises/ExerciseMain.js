@@ -170,8 +170,8 @@ const ExerciseMain = ({
               {innerElement._id.name}
             </TableCell>
           
-            <TableCell align="right">lol</TableCell>
-            <TableCell align="right">lol1</TableCell>
+            <TableCell align="right">{innerElement.quantity}</TableCell>
+            <TableCell align="right">{innerElement.calories}</TableCell>
             <TableCell align="right">
            <Button onClick={() => handleDelete(row._id, row.sports.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
           </TableRow>
