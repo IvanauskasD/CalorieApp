@@ -33,12 +33,12 @@ const Routes = props => {
         <PrivateRoute exact path="/add-diet-profile" component={DietProfileForm} />
         <PrivateRoute exact path="/edit-diet-profile" component={DietProfileForm} />
         <PrivateRoute exact path="/view-diet-profile" component={DietProfileForm} />
-        <PrivateRoute exact path="/add-food" component={FoodForm} />
         <PrivateRoute exact path="/set-goal" component={Goal} />
         <PrivateRoute exact path="/food/food/:id" component={FoodInfo} />
         <PrivateRoute exact path="/mealz:date?" component={FoodMain} />
+        <PrivateRoute exact path="/add-food:date?" component={FoodForm} />
         <PrivateRoute exact path="/exercises:date?" component={ExerciseMain} />
-        <PrivateRoute exact path="/add-sport" component={SportForm} />
+        <PrivateRoute exact path="/add-sport:date?" component={SportForm} />
         <PrivateRoute exact path="/suggest-food" component={FoodItem} />
         <PrivateRoute exact path="/suggest-sport" component={SportItem} />
 

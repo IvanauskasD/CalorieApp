@@ -35,6 +35,13 @@ router.get('/me', auth, async (req, res) => {
 router.post(
     '/',
     auth,
+    check('currentWeight', 'Current Weight field is required').notEmpty(),
+    check('height', 'Height field is required').notEmpty(),
+    check('age', 'Age field is required').notEmpty(),
+    check('goalWeight', 'Goal Weight field is required').notEmpty(),
+    check('workoutIntensity', 'Activity Level field is required').notEmpty(),
+    check('expectations', 'Your Goal field is required').notEmpty(),
+    check('gender', 'Gender field is required').notEmpty(),
     async (req, res) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {

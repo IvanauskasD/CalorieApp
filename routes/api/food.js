@@ -39,6 +39,11 @@ router.get(
 // @access   Private
 router.post(
   '/',
+  check('name', 'Name is required').notEmpty(),
+  check('calories', 'Calories are required').notEmpty(),
+  check('carbs', 'Carbs are required').notEmpty(),
+  check('protein', 'Protein is required').notEmpty(),
+  check('fat', 'Fat is required').notEmpty(),
   async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -82,7 +87,7 @@ router.post(
   '/search-food',
   async (req, res) => {
 
-    const food = await Food.find({ approved: { $gt: 1 }, name: { $regex: new RegExp('.*' + req.body.name.toLowerCase() + '.*', 'i') }, name: { $regex: new RegExp('.*' + req.body.name.toUpperCase() + '.*', 'i') } })
+    const food = await Food.find({ approved: { $gte: 4 }, name: { $regex: new RegExp('.*' + req.body.name.toLowerCase() + '.*', 'i') }, name: { $regex: new RegExp('.*' + req.body.name.toUpperCase() + '.*', 'i') } })
     return res.json(food)
   }
 )
@@ -94,7 +99,7 @@ router.get(
   '/not-approved-foods',
   async (req, res) => {
 
-    const food = await Food.find({ approved: { $lt: 2 } })
+    const food = await Food.find({ approved: { $lt: 4 } })
 
     return res.json(food)
   }

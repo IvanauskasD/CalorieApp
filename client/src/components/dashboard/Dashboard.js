@@ -37,7 +37,7 @@ const Dashboard = ({
   if(dietprofile !== null)
   localStorage.setItem('dietprofile', dietprofile.user._id);
 
-
+  
   return (
     <Fragment>
       <h1 className="large text-primary">Dashboard</h1>
@@ -57,9 +57,7 @@ const Dashboard = ({
 
 
           <div className="my-2">
-            <button className="btn btn-danger" onClick={() => deleteAccount()}>
-              <i className="fas fa-user-minus" /> Delete My Account
-            </button>
+
 
             <FoodSuggestionTable/>
         <br></br>
@@ -74,6 +72,11 @@ const Dashboard = ({
           </Link>
         </Fragment>
       )}
+
+      <br/>
+      <button className="btn btn-danger" onClick={() => deleteAccount()}>
+              <i className="fas fa-user-minus" /> Delete My Account
+            </button>
 
 
 

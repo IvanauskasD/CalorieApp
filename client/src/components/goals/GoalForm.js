@@ -85,7 +85,11 @@ const GoalForm = ({
   let { calories, protein, carbs, fat, proteinPercent, carbsPercent, fatPercent, dietprofile } = formData;
 
   const onChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (isNaN(Number(e.target.value))) {
+      return;
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }  
   }
   
   const onChangeProtein = e => {

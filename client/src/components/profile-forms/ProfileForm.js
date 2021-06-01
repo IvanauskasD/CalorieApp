@@ -67,13 +67,12 @@ const ProfileForm = ({
       <p className="lead">
         <i className="fas fa-user" /> Add information about yourself
       </p>
-      <small>* = required field</small>
       <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
           <label>Describe yourself in one word:</label>
           <input
             type="text"
-            placeholder="titleAboutUser"
+            placeholder="More about you"
             name="titleAboutUser"
             value={titleAboutUser}
             onChange={onChange}
@@ -92,7 +91,7 @@ const ProfileForm = ({
             onChange={onChange}
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label>Your Inspirations:</label>
           <input
             type="text"
@@ -104,11 +103,11 @@ const ProfileForm = ({
           <small className="form-text">
             Please use comma separated values (eg. one,two,three)
           </small>
-        </div>
+        </div> */}
         <div className="form-group">
           <label>Tell us about yourself:</label>
           <textarea
-            placeholder="A short aboutMe of yourself"
+            placeholder="A short summary of your life"
             name="aboutMe"
             value={aboutMe}
             onChange={onChange}

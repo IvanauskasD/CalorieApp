@@ -47,7 +47,7 @@ const DialogTitle = withStyles(styles)((props) => {
 
 const DialogContent = withStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(7),
   },
 }))(MuiDialogContent);
 
@@ -66,7 +66,8 @@ const Serving = ({
   food,
   props,
   dietprofile,
-  getCurrentDietProfile
+  getCurrentDietProfile,
+  diena
 }) => {
 
   const initialState = {
@@ -87,7 +88,7 @@ const Serving = ({
   const [open, setOpen] = React.useState(false);
   const [foodz, setFoodz] = useState([])
   let zqa = new Date()
-  let test = new Date(zqa.getTime() + (3*60*60*1000)).toISOString().replace(/T.+/, '')
+  let test = diena
 
   const [formData, setFormData] = useState(initialState);
   const [formData2, setFormData2] = useState(initialState2);
@@ -95,22 +96,17 @@ const Serving = ({
 
   useEffect(() => {
     getCurrentDietProfile()
-    console.log(formData)
     //createMeal(formData);
   }, [getCurrentDietProfile, formData]);
 
   let { date, type, quantity, servings, user, food: { name } } = formData;
 
 
-
-
   const handleClickOpen = () => {
     setOpen(true);
-    setFoodz(food.food[props])
-    console.log(dietprofile.dietprofile.user._id)
+    setFoodz(props)
     formData.type = '0'
      formData.quantity = '1'
-    console.log(formData)
 
   };
   const handleClose = () => {
@@ -118,7 +114,11 @@ const Serving = ({
   };
 
   const onChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (isNaN(Number(e.target.value))) {
+      return;
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   }
 
   const onSubmit = e => {

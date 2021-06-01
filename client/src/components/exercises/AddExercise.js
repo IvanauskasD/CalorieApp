@@ -66,7 +66,8 @@ const AddExercise = ({
   sport,
   props,
   dietprofile,
-  getCurrentDietProfile
+  getCurrentDietProfile,
+  diena
 }) => {
 
   const initialState = {
@@ -90,7 +91,7 @@ const AddExercise = ({
   const [open, setOpen] = React.useState(false);
   const [sportz, setsportz] = useState([])
   let zqa = new Date()
-  let test = new Date(zqa.getTime() + (3*60*60*1000)).toISOString().replace(/T.+/, '')
+  let test = diena
 
   const [formData, setFormData] = useState(initialState);
   const [formData2, setFormData2] = useState(initialState2);
@@ -110,7 +111,7 @@ const AddExercise = ({
 
   const handleClickOpen = () => {
     setOpen(true);
-    setsportz(sport.sport[props])
+    setsportz(props)
     formData.typeExercise = 'Strength'
 
 
@@ -121,7 +122,12 @@ const AddExercise = ({
   };
 
   const onChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (isNaN(Number(e.target.value))) {
+      return;
+    } else {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+
     test2.sum = (e.target.value *  sportz.caloriesBurned)
     setState2(test2)
 }

@@ -130,7 +130,7 @@ router.get(
 
 
         let moreDate = 86400000
-        let lessDate = 86400000
+        let lessDate = 86399999
 
         moreDate = new Date(new Date(query.date).getTime())
 

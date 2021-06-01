@@ -39,13 +39,13 @@ const FoodMain = ({
   getCurrentDietProfile,
   getMealByDate,
   getCurrentGoals,
-  goal: {goal},
+  goal: { goal },
   deleteMeal,
   createDiary,
   meal: { meal },
   match,
   dietprofile,
-  fDiary: {fDiary},
+  fDiary: { fDiary },
   getDiary,
 }) => {
 
@@ -80,7 +80,7 @@ const FoodMain = ({
   const [testx, setTest] = useState(true)
 
   let test = new Date()
-  let zqa = new Date(test.getTime() + (3*60*60*1000)).toISOString()
+  let zqa = new Date(test.getTime() + (3 * 60 * 60 * 1000)).toISOString()
 
 
   function useQuery() {
@@ -95,10 +95,10 @@ const FoodMain = ({
 
 
   function onChange(e) {
-    let zqa = new Date(e.getTime() + (3*60*60*1000)).toISOString().replace(/T.+/, '')
+    let zqa = new Date(e.getTime() + (3 * 60 * 60 * 1000)).toISOString().replace(/T.+/, '')
     test2.sum = zqa
     setQuery(test2)
-   
+
   }
 
   const dd = new URLSearchParams()
@@ -106,7 +106,7 @@ const FoodMain = ({
 
   useEffect(() => {
     getCurrentDietProfile()
-    if(!goal) getCurrentGoals()
+    if (!goal) getCurrentGoals()
     const params = new URLSearchParams()
     if (queryz.sum) {
       params.set("date", queryz.sum)
@@ -114,18 +114,17 @@ const FoodMain = ({
       params.delete("date")
     }
     if (params.toString() === '') {
-      params.set("date", new Date(test.getTime() + (3*60*60*1000)).toISOString().replace(/T.+/, ''))
-      getMealByDate(new Date(test.getTime() + (3*60*60*1000)).toISOString().replace(/T.+/, ''))
+      params.set("date", new Date(test.getTime() + (3 * 60 * 60 * 1000)).toISOString().replace(/T.+/, ''))
+      getMealByDate(new Date(test.getTime() + (3 * 60 * 60 * 1000)).toISOString().replace(/T.+/, ''))
       setTest(false)
-      getDiary(new Date(test.getTime() + (3*60*60*1000)).toISOString().replace(/T.+/, ''))
-      history.push({ search: new Date(test.getTime() + (3*60*60*1000)).toISOString().replace(/T.+/, '') })
-      initialState2.date = new Date(test.getTime() + (3*60*60*1000)).toISOString().replace(/T.+/, '')
+      getDiary(new Date(test.getTime() + (3 * 60 * 60 * 1000)).toISOString().replace(/T.+/, ''))
+      history.push({ search: new Date(test.getTime() + (3 * 60 * 60 * 1000)).toISOString().replace(/T.+/, '') })
+      initialState2.date = new Date(test.getTime() + (3 * 60 * 60 * 1000)).toISOString().replace(/T.+/, '')
       initialState2.user = localStorage.getItem('dietprofile')
       setFormData2(initialState2)
-      
-     console.log(dietprofile)
 
-  }
+
+    }
     else {
       getMealByDate(queryz.sum)
       getDiary(queryz.sum)
@@ -134,7 +133,6 @@ const FoodMain = ({
       setFormData2(initialState2)
       setTest(false)
     }
-    console.log(goal)
     setIsUpdated(false)
     history.push({ search: params.toString() })
 
@@ -148,342 +146,404 @@ const FoodMain = ({
 
   const classes = useStyles();
 
-  if(testx) {
+  if (testx) {
     return <div>Loading..</div>
   } else {
-  return (
-    <Fragment>
-      <DatePicker dateFormat={"yyyy-MM-dd"}
-      
-        onSelect={onChange}
-        selected={startDate} onChange={date => setStartDate(date)} />
-      
-      <div>
-        <br/>
-      <Link to='/add-food' className='btn btn-danger'>Add Food To Diary</Link>
-      <br/>
-      </div>
- 
-      <div>
-      <br/>
-        <Fragment>
-        <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Breakfast</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            <TableCell align="right">fatPercent&nbsp;(g)</TableCell>
-            <TableCell align="right">Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {meal !== null ? (
-          <Fragment>
-          {meal.length > 0 && meal.map(row => {
-          
-          return row.foods.map((innerElement) => (
-            <Fragment>
-            {row.type === 0 ? (
-            <TableRow key={innerElement._id.name}>
-            <TableCell component="th" scope="row">
-              {innerElement._id.name}
-            </TableCell>
-          
-            <TableCell align="right">{(innerElement._id.calories)* (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.protein * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.fat * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">
-           <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
-          </TableRow>
-            ): (
-              <p></p>
-            )}
-            </Fragment>
-          
-
-            
-          ))})}
-          </Fragment>
-          ) : (
-            <p></p>
-          )}
-
-        </TableBody>
-      </Table>
-    </TableContainer>
-        </Fragment>
-      </div>
-
-      <div>
-        <br></br>
-      </div>
-
-      <div>
+    return (
       <Fragment>
-        <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Lunch</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            <TableCell align="right">fatPercent&nbsp;(g)</TableCell>
-            <TableCell align="right">Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        
-          {meal !== null ? (
+        <DatePicker dateFormat={"yyyy-MM-dd"}
+
+          onSelect={onChange}
+          selected={startDate} onChange={date => setStartDate(date)} />
+
+        <div>
+          <br />
+          <Link to={`/add-food?date=${formData2.date}`} className='btn btn-danger'>Add Food To Diary</Link>
+          <br />
+        </div>
+        <div>
+          <br />
           <Fragment>
-          {meal.length > 0 && meal.map((row) => {
-         
-          return row.foods.map(innerElement => (
-            <Fragment>
-            {row.type === 1 ? (
-            <TableRow key={innerElement._id.name}>
-            <TableCell component="th" scope="row">
-              {innerElement._id.name}
-            </TableCell>
-           
-            <TableCell align="right">{innerElement._id.calories * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.protein * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.fat * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">
-           <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} size="small" aria-label="a dense table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Breakfast</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Calories</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Carbs&nbsp;(g)</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Protein&nbsp;(g)</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">fatPercent&nbsp;(g)</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Action</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {meal !== null ? (
+                    <Fragment>
+                      {meal.length > 0 && meal.map(row => {
 
-          </TableRow>
-            ): (
-              <p></p>
-            )}
-            </Fragment>
-          
+                        return row.foods.map((innerElement) => (
+                          <Fragment>
+                            {row.type === 0 ? (
+                              <TableRow key={innerElement._id.name}>
+                                <TableCell component="th" scope="row">
+                                  {innerElement._id.name}
+                                </TableCell>
 
-            
-          ))})}
+                                <TableCell align="right">{((innerElement._id.calories) * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.carbs * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.protein * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.fat * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">
+                                  <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
+                              </TableRow>
+                            ) : (
+                              <p></p>
+                            )}
+                          </Fragment>
+
+
+
+                        ))
+                      })}
+                    </Fragment>
+                  ) : (
+                    <p></p>
+                  )}
+
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Fragment>
-          ) : (
-            <p></p>
-          )}
+        </div>
 
-        </TableBody>
-      </Table>
-    </TableContainer>
-        </Fragment>
-      </div>
+        <div>
+          <br></br>
+        </div>
 
-      <div>
-        <br></br>
-      </div>
-
-      <div>
-      <Fragment>
-        <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Dinner</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            <TableCell align="right">fatPercent&nbsp;(g)</TableCell>
-            <TableCell align="right">Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        
-          {meal !== null ? (
+        <div>
           <Fragment>
-          {meal.length > 0 && meal.map((row) => {
-          
-          return row.foods.map(innerElement => (
-            <Fragment>
-            {row.type === 2 ? (
-            <TableRow key={innerElement._id.name}>
-            <TableCell component="th" scope="row">
-              {innerElement._id.name}
-            </TableCell>
-           
-            <TableCell align="right">{innerElement._id.calories * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.protein * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.fat * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">
-           <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} size="small" aria-label="a dense table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Lunch</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Calories</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Carbs&nbsp;(g)</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Protein&nbsp;(g)</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">fatPercent&nbsp;(g)</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Action</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
 
-          </TableRow>
-            ): (
-              <p></p>
-            )}
-            </Fragment>
-          
+                  {meal !== null ? (
+                    <Fragment>
+                      {meal.length > 0 && meal.map((row) => {
 
-            
-          ))})}
+                        return row.foods.map(innerElement => (
+                          <Fragment>
+                            {row.type === 1 ? (
+                              <TableRow key={innerElement._id.name}>
+                                <TableCell component="th" scope="row">
+                                  {innerElement._id.name}
+                                </TableCell>
+
+                                <TableCell align="right">{(innerElement._id.calories * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.carbs * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.protein * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.fat * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">
+                                  <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
+
+                              </TableRow>
+                            ) : (
+                              <p></p>
+                            )}
+                          </Fragment>
+
+
+
+                        ))
+                      })}
+                    </Fragment>
+                  ) : (
+                    <p></p>
+                  )}
+
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Fragment>
-          ) : (
-            <p></p>
-          )}
+        </div>
 
-        </TableBody>
-      </Table>
-    </TableContainer>
-        </Fragment>
-      </div>
+        <div>
+          <br></br>
+        </div>
 
-     <div>
-        <br></br>
-      </div>
-      
-      <div>
-      <Fragment>
-        <TableContainer component={Paper}>
-      <Table className={classes.table} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Snacks</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            <TableCell align="right">fatPercent&nbsp;(g)</TableCell>
-            <TableCell align="right">Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-        
-          {meal !== null ? (
+        <div>
           <Fragment>
-          {meal.length > 0 && meal.map((row) => {
-          
-          return row.foods.map(innerElement => (
-            <Fragment>
-            {row.type === 3 ? (
-            <TableRow key={innerElement._id.name}>
-            <TableCell component="th" scope="row">
-              {innerElement._id.name}
-            </TableCell>
-           
-            <TableCell align="right">{innerElement._id.calories * (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.carbs* (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.protein* (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">{innerElement._id.fat* (innerElement.quantity * innerElement.servings)}</TableCell>
-            <TableCell align="right">
-           <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} size="small" aria-label="a dense table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Dinner</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Calories</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Carbs&nbsp;(g)</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Protein&nbsp;(g)</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">fatPercent&nbsp;(g)</TableCell>
+                    <TableCell style={{ width: 160 }} align="right">Action</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
 
-          </TableRow>
-            ): (
-              <p></p>
-            )}
-            </Fragment>
-          
+                  {meal !== null ? (
+                    <Fragment>
+                      {meal.length > 0 && meal.map((row) => {
 
-            
-          ))})}
+                        return row.foods.map(innerElement => (
+                          <Fragment>
+                            {row.type === 2 ? (
+                              <TableRow key={innerElement._id.name}>
+                                <TableCell component="th" scope="row">
+                                  {innerElement._id.name}
+                                </TableCell>
+
+                                <TableCell align="right">{(innerElement._id.calories * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.carbs * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.protein * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.fat * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">
+                                  <Button className='btn btn-danger' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
+
+                              </TableRow>
+                            ) : (
+                              <p></p>
+                            )}
+                          </Fragment>
+
+
+
+                        ))
+                      })}
+                    </Fragment>
+                  ) : (
+                    <p></p>
+                  )}
+
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Fragment>
+        </div>
+
+        <div>
+          <br></br>
+        </div>
+
+        <div>
+          <Fragment>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} size="small" aria-label="a dense table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Snacks</TableCell>
+                    <TableCell  style={{ width: 160 }} align="right">Calories</TableCell>
+                    <TableCell  style={{ width: 160 }}align="right">Carbs&nbsp;(g)</TableCell>
+                    <TableCell  style={{ width: 160 }}align="right">Protein&nbsp;(g)</TableCell>
+                    <TableCell  style={{ width: 160 }}align="right">fatPercent&nbsp;(g)</TableCell>
+                    <TableCell  style={{ width: 160 }}align="right">Action</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+
+                  {meal !== null ? (
+                    <Fragment>
+                      {meal.length > 0 && meal.map((row) => {
+
+                        return row.foods.map(innerElement => (
+                          <Fragment>
+                            {row.type === 3 ? (
+                              <TableRow key={innerElement._id.name}>
+                                <TableCell component="th" scope="row">
+                                  {innerElement._id.name}
+                                </TableCell>
+
+                                <TableCell align="right">{(innerElement._id.calories * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.carbs * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.protein * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">{(innerElement._id.fat * (innerElement.quantity * innerElement.servings)).toFixed(1)}</TableCell>
+                                <TableCell align="right">
+                                  <Button className='btn btn-primary' onClick={() => handleDelete(row._id, row.foods.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
+
+                              </TableRow>
+                            ) : (
+                              <p></p>
+                            )}
+                          </Fragment>
+
+
+
+                        ))
+                      })}
+                    </Fragment>
+                  ) : (
+                    <p></p>
+                  )}
+
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Fragment>
+        </div>
+        <br />
+        <br />
+
+        <br />
+        <br />
+        <br />
+        <div>
+          {fDiary !== null ? (
+            <Fragment>
+              <TableContainer component={Paper}>
+                <Table className={classes.table} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell align="right">Calories</TableCell>
+                      <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+                      <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                      <TableCell align="right">Fat&nbsp;(g)</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+
+                    {fDiary.length > 0 && fDiary.map((row) => (
+                      <TableRow key={row._id}>
+                        <TableCell component="th" scope="row">
+                          Remaining
+                </TableCell>
+                        <TableCell align="right">{(row.consumedCalories).toFixed(1)}</TableCell>
+                        <TableCell align="right">{(row.consumedCarbs).toFixed(1)}</TableCell>
+                        <TableCell align="right">{(row.consumedProtein).toFixed(1)}</TableCell>
+                        <TableCell align="right">{(row.consumedFat).toFixed(1)}</TableCell>
+                      </TableRow>
+
+                    ))}
+
+                    {fDiary.length == 0 ? (
+
+                      <TableRow>
+                        <TableCell component="th" scope="row">
+                          Remaining
+                        </TableCell>
+                        <TableCell align="right">{goal?.calories}</TableCell>
+                        <TableCell align="right">{goal?.carbs}</TableCell>
+                        <TableCell align="right">{goal?.protein}</TableCell>
+                        <TableCell align="right">{goal?.fat}</TableCell>
+                      </TableRow>
+
+                    ) : (
+                      <div>
+                      </div>
+                    )}
+
+
+                    {fDiary.length > 0 && fDiary.map((row) => (
+
+                      <TableRow key={row._id}>
+                        <TableCell component="th" scope="row">
+                          Total Consumed
+            </TableCell>
+                        <TableCell align="right">{(row.name.calories).toFixed(1)}</TableCell>
+                        <TableCell align="right">{(row.name.carbs).toFixed(1)}</TableCell>
+                        <TableCell align="right">{(row.name.protein).toFixed(1)}</TableCell>
+                        <TableCell align="right">{(row.name.fat).toFixed(1)}</TableCell>
+                      </TableRow>
+
+                    ))}
+
+
+                    {fDiary.length == 0 ? (
+                      <TableRow>
+                        <TableCell component="th" scope="row">
+                          Total Consumed
+              </TableCell>
+                        <TableCell align="right">0</TableCell>
+                        <TableCell align="right">0</TableCell>
+                        <TableCell align="right">0</TableCell>
+                        <TableCell align="right">0</TableCell>
+                      </TableRow>
+
+                    ) : (
+                      <div>
+                      </div>
+                    )}
+
+
+
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <div>
+                {fDiary.length > 0 && fDiary.map((row) => (
+                  <Chart
+                    width={'500px'}
+                    height={'300px'}
+                    chartType="PieChart"
+                    loader={<div>Loading Chart</div>}
+                    data={[
+                      ['Type', 'g Consumed'],
+                      ['Carbs', row.name.carbs],
+                      ['Protein', row.name.protein],
+                      ['Fat', row.name.fat],
+                    ]}
+                    options={{
+                      title: '',
+                    }}
+                    rootProps={{ 'data-testid': '1' }}
+                  />
+                ))}
+              </div>
+            </Fragment>
           ) : (
-            <p></p>
+            <div>
+            </div>
           )}
-
-        </TableBody>
-      </Table>
-    </TableContainer>
-        </Fragment>
-      </div>
-      <br/>
-      <br/>
-
-      <br/>
-      <br/>
-      <br/>
-      <div>
-        {fDiary !== null ? (
-        <Fragment>
-        <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell align="right">Calories</TableCell>
-              <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
-              <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {fDiary.length > 0 && fDiary.map((row) => (
-          
-              <TableRow key={row._id}>
-                <TableCell component="th" scope="row">
-                 Total Consumed
-                </TableCell>
-                <TableCell align="right">{row.name.calories}</TableCell>
-                <TableCell align="right">{row.name.carbs}</TableCell>
-                <TableCell align="right">{row.name.protein}</TableCell>
-                <TableCell align="right">{row.name.fat}</TableCell>
-              </TableRow>
-              
-            ))}
-            {fDiary.length > 0 && fDiary.map((row) => (
-              <TableRow key={row._id}>
-                <TableCell component="th" scope="row">
-                 Remaining
-                </TableCell>
-                <TableCell align="right">{row.consumedCalories}</TableCell>
-                <TableCell align="right">{row.consumedCarbs}</TableCell>
-                <TableCell align="right">{row.consumedProtein}</TableCell>
-                <TableCell align="right">{row.consumedFat}</TableCell>
-              </TableRow>
-              
-            ))}
-             
-              <TableRow>
-                <TableCell component="th" scope="row">
-                 Daily Goal
-                </TableCell>
-                <TableCell align="right">{goal?.calories}</TableCell>
-                <TableCell align="right">{goal?.carbs}</TableCell>
-                <TableCell align="right">{goal?.protein}</TableCell>
-                <TableCell align="right">{goal?.fat}</TableCell>
-              </TableRow>
-
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <div>
-      {fDiary.length > 0 && fDiary.map((row) => (
-        <Chart
-  width={'500px'}
-  height={'300px'}
-  chartType="PieChart"
-  loader={<div>Loading Chart</div>}
-  data={[
-    ['Type', 'g Consumed'],
-    ['Carbs', row.name.carbs],
-    ['Protein', row.name.protein],
-    ['Fat', row.name.fat],
-  ]}
-  options={{
-    title: '',
-  }}
-  rootProps={{ 'data-testid': '1' }}
-/>
-  ))}
-      </div>
-      </Fragment>
-        ) : (
           <div>
 
-            </div>
-        )}
+          </div>
+          {/* <Fragment>
+            <TableContainer component={Paper}>
+              <Table className={classes.table} aria-label="simple table">
+                <TableBody>
 
-      </div>
-    </Fragment>
-  )};
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Remaining
+                </TableCell>
+                    <TableCell align="left">{goal?.calories}</TableCell>
+                    <TableCell align="left">{goal?.carbs}</TableCell>
+                    <TableCell align="left">{goal?.protein}</TableCell>
+                    <TableCell align="left">{goal?.fat}</TableCell>
+                  </TableRow>
+
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      Total Consumed
+                </TableCell>
+                    <TableCell align="left">0</TableCell>
+                    <TableCell align="left">0</TableCell>
+                    <TableCell align="left">0</TableCell>
+                    <TableCell align="left">0</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Fragment> */}
+        </div>
+      </Fragment>
+    )
+  };
 };
 
 FoodMain.propTypes = {
@@ -511,4 +571,4 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, {getCurrentGoals, getCurrentDietProfile, createDiary, deleteMeal, getDiary, getMealByDate })(FoodMain);
+export default connect(mapStateToProps, { getCurrentGoals, getCurrentDietProfile, createDiary, deleteMeal, getDiary, getMealByDate })(FoodMain);

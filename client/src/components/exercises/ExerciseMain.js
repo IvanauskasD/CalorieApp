@@ -141,8 +141,8 @@ const ExerciseMain = ({
       
       <div>
         <br/>
-      <Link to='/add-sport' className='btn btn-danger'>Add Exercise</Link>
-    
+      <Link to={`/add-sport?date=${formData2.date}`} className='btn btn-danger'>Add Exercise</Link>
+
       </div>
       
       <div>
@@ -170,8 +170,8 @@ const ExerciseMain = ({
               {innerElement._id.name}
             </TableCell>
           
-            <TableCell align="right">{innerElement.quantity}</TableCell>
-            <TableCell align="right">{innerElement.calories}</TableCell>
+            <TableCell align="right">{(innerElement.quantity).toFixed(1)}</TableCell>
+            <TableCell align="right">{(innerElement.calories).toFixed(1)}</TableCell>
             <TableCell align="right">
            <Button onClick={() => handleDelete(row._id, row.sports.indexOf(innerElement), formData2)}>Remove</Button></TableCell>
           </TableRow>
@@ -212,9 +212,20 @@ const ExerciseMain = ({
                 <TableCell component="th" scope="row">
                  Total
                 </TableCell>
-                <TableCell align="right">{row.name.calories}</TableCell>
+                <TableCell align="right">{(row.name.calories).toFixed(1)}</TableCell>
               </TableRow>
             ))}
+
+            {sDiary.length <= 0 ? (
+              <TableRow>
+                <TableCell component="th" scope="row">
+                 Total
+                </TableCell>
+                <TableCell align="right">0</TableCell>
+              </TableRow>
+            ) : (
+              <div></div>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

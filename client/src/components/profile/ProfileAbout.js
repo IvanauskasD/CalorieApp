@@ -12,6 +12,7 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 import { getCurrentGoals } from '../../actions/goal';
+import { set } from 'mongoose';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,9 +48,12 @@ const ProfileAbout = ({
   const [loaded1, setLoaded1] = useState(false)
 
   const [med, setMed] = useState(0)
-  
+  let number = 0;
+  const [rel, setRel] = useState(false)
+
   useEffect(() => {
-  
+
+
     if(!fDiary){
     getDiary(test)
     setLoaded(false)
@@ -71,7 +75,8 @@ const ProfileAbout = ({
     if(sDiary){
       setLoaded1(true)
     } 
-    
+
+
     if(fDiary && sDiary && goal && fDiary.length > 0 && sDiary.length > 0)
     setMed(fDiary[0].consumedCalories + sDiary[0].name.calories)
 
@@ -90,6 +95,11 @@ const ProfileAbout = ({
     }
 
   }, [goal, netF, getDiary, sDiary, fDiary, leftFood, leftExercise, loaded, loaded1]);
+
+  // useEffect(() => {
+  //   refreshPage()
+  // },[rel])
+
 
   return(
   <div className='profile-about bg-light p-2'>

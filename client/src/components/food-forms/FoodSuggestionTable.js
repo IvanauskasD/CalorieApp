@@ -112,6 +112,29 @@ const FoodSuggestionTable = ({
                 <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="custom pagination table">
         <TableBody>
+        <TableRow key='0'>
+              <TableCell component="th" scope="row">
+                Food Name
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                Calories
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                Carbs
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                Protein
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                Fat
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+              </TableCell>
+            </TableRow>
           {(rowsPerPage > 0
             ? food.food.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : food.food

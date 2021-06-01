@@ -35,7 +35,6 @@ router.get('/me', auth, async (req, res) => {
 router.post(
   '/',
   auth,
-  check('inspirations', 'test is required').notEmpty(),
   async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {

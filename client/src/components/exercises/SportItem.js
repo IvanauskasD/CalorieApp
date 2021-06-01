@@ -23,8 +23,16 @@ const SportItem = ({ sport, createSport }) => {
     };
 
     const onChange = e => {
+        if (isNaN(Number(e.target.value))) {
+            return;
+          } else {
+            setFormData({ ...formData, [e.target.name]: e.target.value });
+          }    
+    }
+    const onChange1 = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
+
     let { name, caloriesBurned } = formData;
 
 
@@ -42,7 +50,7 @@ const SportItem = ({ sport, createSport }) => {
                         type="text"
                         name="name"
                         value={name}
-                        onChange={onChange}
+                        onChange={onChange1}
                         required
                     />
                     <br />

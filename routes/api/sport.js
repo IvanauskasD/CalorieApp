@@ -58,7 +58,7 @@ router.get(
   '/not-approved-sports',
   async (req, res) => {
 
-    const sport = await Sport.find({ approved: { $lt: 2 } })
+    const sport = await Sport.find({ approved: { $lt: 4 } })
 
     return res.json(sport)
   }
@@ -271,7 +271,7 @@ router.post(
   '/search-sport',
   async (req, res) => {
 
-    const sport = await Sport.find({ approved: { $gt: 1 }, name: { $regex: new RegExp('.*' + req.body.name.toLowerCase() + '.*', 'i') }, name: { $regex: new RegExp('.*' + req.body.name.toUpperCase() + '.*', 'i') } })
+    const sport = await Sport.find({ approved: { $gte: 4 }, name: { $regex: new RegExp('.*' + req.body.name.toLowerCase() + '.*', 'i') }, name: { $regex: new RegExp('.*' + req.body.name.toUpperCase() + '.*', 'i') } })
     // const searchedField = req.body.name
     // Food.find({name: {$regex: searchedField, $options: '$i'}})
     // .then(data=>{

@@ -60,13 +60,13 @@ router.post(
                       let sport = exercise.sports[k]
                    
                       calories += sport.calories
-                     
+                     console.log(sport)
                   }
               }
           }
          
           let calLeft
-
+          
           calLeft = goalz.calories + calories
         
           let fDiary = await FoodDiary.findOne(
@@ -150,7 +150,7 @@ router.get(
         const dp = await DietProfile.findOne({user: req.user.id})
 
         let lol = 86400000
-        let lol1 = 86400000
+        let lol1 = 86399999
 
         lol = new Date(new Date(query.date).getTime())
 

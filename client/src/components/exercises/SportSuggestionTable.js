@@ -112,6 +112,20 @@ const SportSuggestionTable = ({
                 <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="custom pagination table">
         <TableBody>
+        <TableRow key='0'>
+              <TableCell component="th" scope="row">
+                Exercise Name
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+                Calories Burned
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+              </TableCell>
+              <TableCell style={{ width: 160 }} align="right">
+              </TableCell>
+            </TableRow>
           {(rowsPerPage > 0
             ? sport.sport.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : sport.sport
@@ -121,16 +135,7 @@ const SportSuggestionTable = ({
                 {row.name}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
-                {row.calories}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.carbs}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.protein}
-              </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
-                {row.fat}
+                {row.caloriesBurned}
               </TableCell>
               <TableCell style={{ width: 160 }} align="right">
                 <button ref={btnRef} onClick={() => {onSubmit(row._id)}} className='btn btn-success'>Approve</button>

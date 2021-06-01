@@ -39,15 +39,18 @@ router.post(
           let diary
           let calories = 0, protein = 0, carbs = 0, fat = 0;
 
+      
+
 
          
           var start = new Date(req.body.date);
           start.setHours(3, 0, 0, 0);
-  
           var end = new Date(req.body.date);
           end.setHours(26, 59, 59, 999);
   
-         
+          console.log(start)
+          console.log(end)
+
            goalz = goal;
 
            let addAll = 0
@@ -143,11 +146,14 @@ router.get(
 
         const dp = await DietProfile.findOne({user: req.user.id})
         let lessDate = 86400000
-        let moreDate = 86400000
+        let moreDate = 86399999
 
         lessDate = new Date(new Date(query.date).getTime())
 
         moreDate = new Date(new Date(query.date).getTime() + moreDate)
+
+        console.log(lessDate)
+        console.log(moreDate)
 
        let meal = {}
        if(dp){
